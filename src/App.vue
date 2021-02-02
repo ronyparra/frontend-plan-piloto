@@ -1,28 +1,21 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <component :is="layout"></component>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { mapGetters } from "vuex";
+import Main from "./views/layout/main/Main";
+import Login from "./views/layout/login/Login";
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Main,
+    Login,
+  },
+  computed: {
+    ...mapGetters("auth", ["isLogin"]),
+    layout() {
+      return this.isLogin ? "Main" : "Login";
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
