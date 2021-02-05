@@ -4,12 +4,19 @@
     :outlined="outlined"
     :rounded="rounded"
     :type="type"
+    :solo="solo"
     :value="value"
+    :dense="dense"
     autocomplete="off"
     :rules="rules"
     :prepend-inner-icon="prependInnerIcon"
     :append-icon="appendIcon"
     :label="label"
+    :flat="flat"
+    :filled="filled"
+    :placeholder="placeholder"
+    :background-color="backgroundColor"
+    :hide-details="hideDetails"
     @click:append="$emit('click:append')"
     @input="$emit('input', $event)"
   ></v-text-field>
@@ -21,6 +28,10 @@ export default {
     color: {
       type: String,
       default: "primary",
+    },
+    flat: {
+      type: Boolean,
+      default: false,
     },
     type: {
       type: String,
@@ -34,13 +45,31 @@ export default {
       type: Boolean,
       default: false,
     },
+    solo: {
+      type: Boolean,
+      default: false,
+    },
+    dense: {
+      type: Boolean,
+      default: false,
+    },
+    filled: {
+      type: Boolean,
+      default: false,
+    },
     rules: {
       type: [Array],
       default: () => [(v) => !!v || "Obligatorio"],
     },
     label: String,
+    placeholder: String,
     "prepend-inner-icon": String,
     "append-icon": String,
+    "background-color": String,
+    "hide-details": {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>

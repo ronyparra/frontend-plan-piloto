@@ -1,17 +1,16 @@
 <template>
-  <v-app-bar :color="color" :flat="flat" :dense="dense" :app="app">
-    <slot />
-  </v-app-bar>
+  <v-footer :color="color" height="60%" :absolute="absolute" :app="app" :padless="padless"
+    ><slot
+  /></v-footer>
 </template>
 <script>
 export default {
   props: {
-    color: String,
-    dense: {
+    padless: {
       type: Boolean,
       default: false,
     },
-    flat: {
+    absolute: {
       type: Boolean,
       default: false,
     },
@@ -19,6 +18,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    color: String,
   },
 };
 </script>

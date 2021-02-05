@@ -17,16 +17,64 @@ const routes = [
   {
     path: "/",
     name: "",
-    component: ()=> import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     meta: {
       requiresAuth: true,
     },
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/cliente",
+
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "Cliente" */ "../views/cliente/Cliente.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "/",
+        name: "Clientes",
+        component: () =>
+          import(/* webpackChunkName: "Cliente" */ "../views/cliente/List.vue"),
+      },
+      {
+        path: "add",
+        name: "Registrar Cliente",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente ADD" */ "../views/cliente/Form.vue"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/articulo",
+    name: "Articulos",
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/servicio",
+    name: "Servicios",
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/pendiente",
+    name: "Pendientes",
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/mas",
+    name: "Mas",
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     meta: {
       requiresAuth: true,
     },

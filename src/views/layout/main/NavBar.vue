@@ -17,10 +17,10 @@
       <c-list-item-group active-class="deep-purple--text text--accent-4">
         <c-list-item>
           <c-list-item-icon>
-            <c-icon>done</c-icon>
+            <c-icon>account_box</c-icon>
           </c-list-item-icon>
           <c-list-item-content>
-            <c-list-item-title>Foo</c-list-item-title>
+            <c-list-item-title>Cliente</c-list-item-title>
           </c-list-item-content>
         </c-list-item>
         <c-list-item>

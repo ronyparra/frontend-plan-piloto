@@ -20,7 +20,7 @@
       <c-container>
         <v-form ref="form">
           <c-text-field
-            :color="color"
+            color="primary"
             outlined
             autocomplete="off"
             prepend-inner-icon="person_outline"
@@ -29,7 +29,7 @@
             v-model="data.username"
           ></c-text-field>
           <c-text-field
-            :color="color"
+            color="pr"
             outlined
             rounded
             :type="visibility ? 'text' : 'password'"
@@ -52,7 +52,7 @@
       </c-container>
 
       <c-container>
-        <c-btn block dark x-large rounded @click="login()"
+        <c-btn block dark x-large rounded color="primary" @click="login()"
           >Iniciar Sesion</c-btn
         >
       </c-container>
