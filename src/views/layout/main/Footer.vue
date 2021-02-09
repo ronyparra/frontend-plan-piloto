@@ -31,29 +31,30 @@ export default {
   data: () => ({
     buttons: [
       {
+        icon: "home",
+        to: "/",
+        title: "Inicio",
+      },
+      {
+        icon: "assignment",
+        to: "/actividad",
+        title: "Actividad",
+      },
+      {
         icon: "account_box",
         to: "/cliente",
         title: "Clientes",
       },
       {
         icon: "add_shopping_cart",
-        to: "/articulo",
-        title: "Articulos",
+        to: "/concepto",
+        title: "Conceptos",
       },
-      {
-        icon: "assignment",
-        to: "/servicio",
-        title: "Servicios",
-      },
+      
       {
         icon: "query_builder",
         to: "/pendiente",
         title: "Pendientes",
-      },
-      {
-        icon: "pending",
-        to: "/mas",
-        title: "Mas",
       },
     ],
   }),

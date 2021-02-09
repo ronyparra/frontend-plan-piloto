@@ -13,9 +13,9 @@ instance.interceptors.request.use(
   (config) => {
     const token = getToken();
     if (token) {
-      if (config.defaults) config.defaults.headers.Authorization = `Token ${token}`;
+       config.headers.Authorization = `Bearer ${token}`;
     } else {
-      if (config.defaults) delete config.defaults.headers.common.Authorization;
+       delete config.headers.common.Authorization;
     }
     return config;
   },

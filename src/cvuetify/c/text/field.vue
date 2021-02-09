@@ -13,6 +13,7 @@
     :append-icon="appendIcon"
     :label="label"
     :flat="flat"
+  
     :filled="filled"
     :placeholder="placeholder"
     :background-color="backgroundColor"

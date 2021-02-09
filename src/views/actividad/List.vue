@@ -6,7 +6,7 @@
       </c-toolbar-title>
       <div style="position: absolute; right: 3%;">
         <BtnSearch class="mr-1" @click="show = !show" />
-        <BtnAdd to="/cliente/add" />
+        <BtnAdd to="/actividad/add" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
@@ -42,11 +42,11 @@ export default {
     BtnSearch,
     SearchField,
   },
-  mounted(){
+  mounted() {
     this.fetchCliente();
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente","isLoading"]),
+    ...mapGetters("cliente", ["getCliente", "isLoading"]),
   },
   methods: {
     ...mapActions("cliente", ["fetchCliente"]),

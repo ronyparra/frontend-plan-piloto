@@ -48,21 +48,60 @@ const routes = [
     ],
   },
   {
-    path: "/articulo",
-    name: "Articulos",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    path: "/actividad",
+    name: "",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/actividad/Actividad.vue"),
     meta: {
       requiresAuth: true,
     },
+    children: [
+      {
+        path: "/",
+        name: "Actividades",
+        component: () =>
+          import(
+            /* webpackChunkName: "Actividades" */ "../views/actividad/List.vue"
+          ),
+      },
+      {
+        path: "add",
+        name: "Registrar Actividad",
+        component: () =>
+          import(
+            /* webpackChunkName: "Actividad ADD" */ "../views/actividad/Form.vue"
+          ),
+      },
+    ],
   },
   {
-    path: "/servicio",
-    name: "Servicios",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    path: "/concepto",
+    name: "",
+    component: () =>
+      import(/* webpackChunkName: "Concepto" */ "../views/concepto/Concepto.vue"),
     meta: {
       requiresAuth: true,
     },
+    children: [
+      {
+        path: "/",
+        name: "Conceptos",
+        component: () =>
+          import(
+            /* webpackChunkName: "Conceptos" */ "../views/concepto/List.vue"
+          ),
+      },
+      {
+        path: "add",
+        name: "Registrar Concepto",
+        component: () =>
+          import(
+            /* webpackChunkName: "Concepto ADD" */ "../views/concepto/Form.vue"
+          ),
+      },
+    ],
   },
+
   {
     path: "/pendiente",
     name: "Pendientes",

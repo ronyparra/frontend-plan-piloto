@@ -6,7 +6,7 @@
       </c-toolbar-title>
       <div style="position: absolute; right: 3%;">
         <BtnSearch class="mr-1" @click="show = !show" />
-        <BtnAdd to="/cliente/add" />
+        <BtnAdd to="/concepto/add" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers"
       :search="search"
-      :items="getCliente"
+      :items="getConcepto"
       :loading="isLoading"
       :mobile-breakpoint="0"
       :items-per-page="99999"
@@ -43,13 +43,13 @@ export default {
     SearchField,
   },
   mounted(){
-    this.fetchCliente();
+    this.fetchConcepto();
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente","isLoading"]),
+    ...mapGetters("concepto", ["getConcepto","isLoading"]),
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions("concepto", ["fetchConcepto"]),
   },
   data: () => ({
     show: false,
@@ -58,10 +58,10 @@ export default {
       {
         text: "#",
         align: "start",
-        value: "idcliente",
+        value: "idconcepto",
       },
-      { text: "Cliente", value: "razonsocial" },
-      { text: "Ruc", value: "ruc" },
+      { text: "Concepto", value: "descripcion" },
+      { text: "Precio", value: "precio" },
       { text: "", value: "actions", align: "end" },
     ],
   }),

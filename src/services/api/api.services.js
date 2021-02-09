@@ -6,22 +6,28 @@ export const get = async (url) => {
   };
   try {
     const response = await request(requestData);
-    return response;
+    return response.data;
   } catch (error) {
     console.log(error);
   }
 };
-export const post = async (url,data) => {
+export const post = async (url, data) => {
   const requestData = {
     method: "POST",
     url: url,
-    data: data
+    data: data,
   };
   try {
     const response = await request(requestData);
-    return response.data;
+    return {
+      data: response.data,
+      success: true,
+    };
   } catch (error) {
-    console.log(error.message);
+    return {
+      message: error.message,
+      success: false,
+    };
   }
 };
 export const put = () => {};

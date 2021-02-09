@@ -8,9 +8,10 @@ export default {
     commit(LOGIN_REQUEST);
     const response = await post(url, { username, password, remember });
     if (response) {
-      saveToken(response.data.token, remember);
-      saveUser(response.data.user, remember);
-      commit(LOGIN_SUCCESS, response.data);
+      console.log(response);
+      saveToken(response.data.data.token, remember);
+      saveUser(response.data.data.user, remember);
+      commit(LOGIN_SUCCESS, response.data.data);
       router.push(router.history.current.query.redirect || "/");
     } else {
       commit(LOGIN_RESET);

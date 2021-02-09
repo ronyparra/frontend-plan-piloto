@@ -1,7 +1,7 @@
 <template>
   <div class="fill-height">
     <c-app-bar app flat color="secondary">
-      <BtnClose to="/cliente" />
+      <BtnClose to="/actividad" />
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
@@ -12,22 +12,32 @@
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12">
-              <TextField
-                ref="cliente1"
-                label="Razon Social"
-                v-model="form.razonsocial"
-              />
+              <TextDate label="Fecha" />
             </c-col>
             <c-col cols="12">
-              <TextField ref="cliente2" label="Ruc / CI" v-model="form.ruc" />
+              <AutocompleteCliente />
             </c-col>
           </c-row>
         </c-form>
         <c-form ref="formDetail">
           <c-row dense>
-            <c-col cols="10">
-              <TextField ref="cliente3" label="Sucursal" v-model="sucursal" />
+            <c-col cols="12">
+              <AutocompleteTecnico multiple label="Tecnico" />
             </c-col>
+      
+          </c-row>
+          <c-divider class="mb-3"></c-divider>
+          <c-row dense>
+            <c-col cols="12">
+              <AutocompleteConcepto />
+            </c-col>
+            <c-col cols="5">
+              <TextField ref="cliente3" label="Cantidad" v-model="sucursal" />
+            </c-col>
+            <c-col cols="5">
+              <TextField ref="cliente3" label="Precio" v-model="sucursal" />
+            </c-col>
+
             <c-spacer></c-spacer>
             <BtnAdd :x-small="false" class="mt-2 mr-1" @click="addSucursal()" />
           </c-row>
@@ -46,6 +56,16 @@
         </v-data-table>
       </c-container>
       <c-container>
+        <c-row dense>
+        <c-col cols="12">
+              <TextField ref="cliente3" label="Solicitante del servicio" v-model="sucursal" />
+            </c-col>
+              <c-col cols="12">
+              <TextField ref="cliente3" label="Comentario" v-model="sucursal" />
+            </c-col>
+            </c-row>
+      </c-container>
+      <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           Registrar</c-btn
         >
@@ -60,6 +80,10 @@ import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
 import LoadingCircular from "@/components/LoadingCircular";
 import TextField from "@/components/TextField";
+import TextDate from "@/components/TextDate";
+import AutocompleteCliente from "../cliente/Autocomplete";
+import AutocompleteTecnico from "../usuario/Autocomplete";
+import AutocompleteConcepto from "../concepto/Autocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
@@ -67,7 +91,11 @@ export default {
     BtnClose,
     BtnDelete,
     TextField,
+    TextDate,
     LoadingCircular,
+    AutocompleteCliente,
+    AutocompleteTecnico,
+    AutocompleteConcepto,
   },
   data: () => ({
     sucursal: "",

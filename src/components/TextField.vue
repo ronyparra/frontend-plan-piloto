@@ -2,7 +2,8 @@
   <c-text-field
     :value="value"
     :label="label"
-    solo
+    filled
+    dense
     flat
     rounded
     background-color="grey lighten-4"
