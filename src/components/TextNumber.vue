@@ -3,6 +3,7 @@
     :value="value"
     :label="label"
     :rules="rules"
+    type="number"
     filled
     dense
     flat
@@ -14,9 +15,9 @@
 <script>
 export default {
   props: {
-    value: String,
+    value: [Number,String],
     label: String,
-    rules: Array
+    rules: Array,
   },
 };
 </script>

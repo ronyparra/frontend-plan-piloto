@@ -1,52 +1,33 @@
 <template>
   <div>
-    <c-autocomplete
-      :value="value"
+    <InputAutocomplete
+      label="Cliente"
+      item-value="idcliente"
+      item-text="razonsocial"
       ref="input"
+      :value="value"
       :items="getCliente"
       :loading="isLoading"
-      item-value="idcliente"
       :rules="rules"
-      item-text="razonsocial"
-      label="Cliente"
-      dense
-      filled
-      flat
-      rounded
-      background-color="grey lighten-4"
+      :return-object="returnObject"
       @input="$emit('input', $event)"
       @change="$emit('change')"
-    >
-      <template v-slot:no-data>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title
-              >No existe concidencia. Click para agregar</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </c-autocomplete>
+    />
   </div>
 </template>
 
 <script>
+import InputAutocomplete from "@/components/InputAutocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  props: {
-    value: {
-      type: Number,
-    },
-    rules: {
-      type: Array,
-      default: () => {
-        return [(v) => !!v || "Obligatorio"];
-      },
-    },
+  components: {
+    InputAutocomplete,
   },
-  data: () => ({
-    syncInput: null,
-  }),
+  props: {
+    value: [Number, Object],
+    rules: Array,
+    returnObject: Boolean,
+  },
   mounted() {
     this.fetchCliente();
   },
@@ -55,14 +36,8 @@ export default {
   },
   methods: {
     ...mapActions("cliente", ["fetchCliente"]),
-    focus() {
-      this.$refs.input.focus();
-    },
-    isMenuActive() {
-      this.$refs.input.isMenuActive = false;
-    },
+    focus: (vm) => vm.$refs.input.focus(),
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
   },
 };
 </script>
-
-<style></style>

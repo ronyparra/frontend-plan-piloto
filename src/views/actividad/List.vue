@@ -15,7 +15,7 @@
     <v-data-table
       :headers="headers"
       :search="search"
-      :items="getCliente"
+      :items="getActividad"
       :loading="isLoading"
       :mobile-breakpoint="0"
       :items-per-page="99999"
@@ -43,13 +43,13 @@ export default {
     SearchField,
   },
   mounted() {
-    this.fetchCliente();
+    this.fetchActividad();
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    ...mapGetters("actividad", ["getActividad", "isLoading"]),
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions("actividad", ["fetchActividad"]),
   },
   data: () => ({
     show: false,
@@ -58,10 +58,10 @@ export default {
       {
         text: "#",
         align: "start",
-        value: "idcliente",
+        value: "idactividad",
       },
-      { text: "Cliente", value: "razonsocial" },
-      { text: "Ruc", value: "ruc" },
+      { text: "Fecha", value: "fecha" },
+      { text: "Cliente", value: "idcliente.razonsocial" },
       { text: "", value: "actions", align: "end" },
     ],
   }),

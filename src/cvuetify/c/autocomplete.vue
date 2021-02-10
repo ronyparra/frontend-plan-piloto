@@ -2,6 +2,7 @@
   <v-autocomplete
     :value="value"
     :id="id"
+    ref="input"
     :hide-details="hideDetails"
     :clearable="clearable"
     :outlined="outlined"
@@ -14,6 +15,7 @@
     :items="items"
     :chips="chips"
     :small-chips="smallChips"
+    :return-object="returnObject"
     :label="label"
     :disabled="disabled"
     :readonly="readonly"
@@ -31,8 +33,8 @@
 export default {
   props: {
     value: [Object, Number, Array, String],
-    items:{
-        type: Array
+    items: {
+      type: Array,
     },
     id: String,
     "hide-details": {
@@ -40,11 +42,11 @@ export default {
       default: false,
     },
     "item-text": String,
-    "item-value":String,
+    "item-value": String,
     "background-color": String,
     rules: {
       type: Array,
-      default:()=> [],
+      default: () => [],
     },
     filled: {
       type: Boolean,
@@ -86,9 +88,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    label: {
-      type: String,
+    "return-object": {
+      type: Boolean,
+      default: false,
     },
+    label: String,
     disabled: {
       type: Boolean,
       default: false,
@@ -97,6 +101,10 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  methods: {
+    focus: (vm) => vm.$refs.input.focus(),
+    isMenuActive: (vm) => (vm.$refs.input.isMenuActive = false),
   },
 };
 </script>

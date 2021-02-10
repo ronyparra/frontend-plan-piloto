@@ -1,61 +1,35 @@
 <template>
   <div>
-    <c-autocomplete
-      :value="value"
+    <InputAutocomplete
+      label="Tecnico"
+      item-value="idusuario"
+      item-text="nombre"
       ref="input"
+      :value="value"
       :items="getUsuario"
       :loading="isLoading"
-      item-value="idusuario"
       :rules="rules"
+      :return-object="returnObject"
       :multiple="multiple"
-      item-text="nombre"
-      :label="label"
-      dense
-      filled
-      flat
-      rounded
-      background-color="grey lighten-4"
       @input="$emit('input', $event)"
       @change="$emit('change')"
-    >
-      <template v-slot:no-data>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title
-              >No existe concidencia. Click para agregar</v-list-item-title
-            >
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </c-autocomplete>
+    />
   </div>
 </template>
 
 <script>
+import InputAutocomplete from "@/components/InputAutocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  props: {
-    value: {
-      type: Number,
-    },
-    rules: {
-      type: Array,
-      default: () => {
-        return [(v) => !!v || "Obligatorio"];
-      },
-    },
-    label:{
-      type: String,
-      default: 'Usuario'
-    },
-    multiple:{
-      type: Boolean,
-      default: false
-    }
+  components: {
+    InputAutocomplete,
   },
-  data: () => ({
-    syncInput: null,
-  }),
+  props: {
+    value: [Number, Object, Array],
+    rules: Array,
+    returnObject: Boolean,
+    multiple: Boolean,
+  },
   mounted() {
     this.fetchUsuario();
   },
@@ -64,12 +38,8 @@ export default {
   },
   methods: {
     ...mapActions("usuario", ["fetchUsuario"]),
-    focus() {
-      this.$refs.input.focus();
-    },
-    isMenuActive() {
-      this.$refs.input.isMenuActive = false;
-    },
+    focus: (vm) => vm.$refs.input.focus(),
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
   },
 };
 </script>

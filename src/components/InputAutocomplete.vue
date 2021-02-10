@@ -1,0 +1,69 @@
+<template>
+  <c-autocomplete
+    :value="value"
+    ref="input"
+    :items="items"
+    :loading="loading"
+    :item-value="itemValue"
+    :rules="rules"
+    :return-object="returnObject"
+    :item-text="itemText"
+    :label="label"
+    :multiple="multiple"
+    :chips="chips"
+    :small-chips="chips"
+    filled
+    dense
+    flat
+    rounded
+    background-color="grey lighten-4"
+    @input="$emit('input', $event)"
+    @change="$emit('change')"
+  >
+    <template v-slot:no-data>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title
+            >No existe concidencia. Click para agregar</v-list-item-title
+          >
+        </v-list-item-content>
+      </v-list-item>
+    </template>
+  </c-autocomplete>
+</template>
+<script>
+export default {
+  props: {
+    value: [String, Number, Object, Array],
+    items: Array,
+    loading: Boolean,
+    itemValue: String,
+    label: String,
+    itemText: String,
+    multiple: Boolean,
+    chips: Boolean,
+    rules: {
+      type: Array,
+      default: function() {
+        return this.validator;
+      },
+    },
+    returnObject: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    validator: (vm) => {
+      if (vm.multiple) return [(v) => v.length > 0 || "Obligatorio"];
+      return vm.returnObject
+        ? [(v) => !!v[vm.itemValue] || "Obligatorio"]
+        : [(v) => !!v || "Obligatorio"];
+    },
+  },
+  methods: {
+    focus: (vm) => vm.$refs.input.focus(),
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
+  },
+};
+</script>
