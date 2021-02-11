@@ -87,7 +87,6 @@
         >
       </c-container>
     </c-card>
-    <LoadingCircular :value="isLoading" />
   </div>
 </template>
 <script>
@@ -97,7 +96,6 @@ import { current_date } from "@/util/date.util";
 import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
-import LoadingCircular from "@/components/LoadingCircular";
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import TextDate from "@/components/TextDate";
@@ -114,7 +112,6 @@ export default {
     TextField,
     TextNumber,
     TextDate,
-    LoadingCircular,
     AutocompleteCliente,
     AutocompleteTecnico,
     AutocompleteConcepto,

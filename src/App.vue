@@ -9,7 +9,7 @@ import Login from "./views/layout/login/Login";
 export default {
   components: {
     Main,
-    Login,
+    Login
   },
   computed: {
     ...mapGetters("auth", ["isLogin"]),
