@@ -83,7 +83,7 @@
       </c-container>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
-          Registrar</c-btn
+          {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
         >
       </c-container>
     </c-card>
@@ -103,7 +103,6 @@ import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
 
-
 export default {
   components: {
     BtnAdd,
@@ -117,6 +116,7 @@ export default {
     AutocompleteConcepto,
   },
   data: () => ({
+    isEdit: false,
     form: {
       fecha: current_date(),
       idcliente: {
@@ -147,15 +147,15 @@ export default {
       idconcepto: {
         idconcepto: "",
       },
-      precio: '',
-      cantidad: '',
+      precio: "",
+      cantidad: "",
     },
     detalle_default: {
       idconcepto: {
         idconcepto: "",
       },
-      precio: '',
-      cantidad: '',
+      precio: "",
+      cantidad: "",
     },
     headers: [
       {
@@ -180,13 +180,27 @@ export default {
       },
     ],
   }),
+  mounted() {
+    if (this.$route.params.id) this.editHandler();
+  },
   computed: {
-    ...mapGetters("actividad", ["isLoading"]),
-    ...mapGetters("auth",["getUserInfo"])
+    ...mapGetters("actividad", ["isLoading", "getActividadId"]),
+    ...mapGetters("auth", ["getUserInfo"]),
   },
   methods: {
-    ...mapActions("actividad", ["createActividad", "fetchActividad"]),
-
+    ...mapActions("actividad", [
+      "createActividad",
+      "updateActividad",
+      "fetchActividad",
+      "fetchActividadId",
+    ]),
+    async editHandler() {
+      this.isEdit = true;
+      if (this.getActividadId)
+        return (this.form = JSON.parse(JSON.stringify(this.getActividadId)));
+      await this.fetchActividadId({ id: this.$route.params.id });
+      this.form = JSON.parse(JSON.stringify(this.getActividadId));
+    },
     addDetalle() {
       if (!this.$refs.formDetail.validate()) return null;
       this.form.detalle.push(this.detalle);
@@ -196,14 +210,15 @@ export default {
     async guardar() {
       if (!this.$refs.form.validate()) return null;
       this.form.idusuario.idusuario = this.getUserInfo.idusuario;
-      const response = await this.createActividad(this.form);
-      if (response.success) {
+      const response = this.isEdit
+        ? await this.updateActividad({ id: this.$route.params.id, form: this.form })
+        : await this.createActividad(this.form);
+      if (response.success && !this.isEdit) {
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchActividad();
       }
     },
-
     deletDetalle(detalle) {
       const index = this.form.detalle.indexOf(detalle);
       this.form.detalle.splice(index, 1);

@@ -6,7 +6,7 @@ import router from "@/router";
 export default {
   async loginAction({ commit }, { username, password, remember }) {
     commit(LOGIN_REQUEST);
-    const response = await post(url, { username, password, remember });
+    const response = await post(url, { username, password, remember }, 'disabledEvents');
     if (response) {
       saveToken(response.data.data.token, remember);
       saveUser(response.data.data.user, remember);

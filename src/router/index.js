@@ -72,6 +72,14 @@ const routes = [
             /* webpackChunkName: "Actividad ADD" */ "../views/actividad/Form.vue"
           ),
       },
+      {
+        path: "edit/:id",
+        name: "Modificar Actividad",
+        component: () =>
+          import(
+            /* webpackChunkName: "Actividad EDIT" */ "../views/actividad/Form.vue"
+          ),
+      },
     ],
   },
   {

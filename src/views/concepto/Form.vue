@@ -30,19 +30,16 @@
         >
       </c-container>
     </c-card>
-    <LoadingCircular :value="isLoading" />
   </div>
 </template>
 <script>
 import BtnClose from "@/components/BtnClose";
-import LoadingCircular from "@/components/LoadingCircular";
 import TextField from "@/components/TextField";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {
     BtnClose,
-    TextField,
-    LoadingCircular,
+    TextField
   },
   data: () => ({
     sucursal: "",
@@ -70,9 +67,7 @@ export default {
       },
     ],
   }),
-  computed: {
-    ...mapGetters("concepto", ["isLoading"]),
-  },
+
   methods: {
     ...mapActions("concepto", ["createConcepto", "fetchConcepto"]),
     addSucursal() {

@@ -20,7 +20,7 @@
 import AppBar from "./AppBar";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import RequestEvents from "@/views/request/Request";
+import RequestEvents from "@/views/request/RequestEvents";
 export default {
   components: {
     RequestEvents,

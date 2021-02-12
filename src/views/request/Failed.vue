@@ -27,7 +27,10 @@
       @click="showError = !showError"
       >{{ showError ? "Ver menos" : "Ver Mas" }}</c-btn
     >
-    <div class="caption" v-if="showError">{{ message }}</div>
+    <div class="caption font-weight-black" v-if="showError">{{ message.title }}</div>
+    <div v-if="showError">
+    <div class="caption "  v-for="(item,i) of message.list" :key="i">{{item}}</div>
+    </div>
 
     <c-container style="z-index: 999; position: fixed; bottom: 3%;">
       <c-btn
@@ -46,7 +49,7 @@
 import { mapActions } from "vuex";
 export default {
   props: {
-    message: String,
+    message: [String,Object],
   },
   data: () => ({
     showError: false,

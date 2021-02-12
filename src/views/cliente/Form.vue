@@ -51,23 +51,20 @@
         >
       </c-container>
     </c-card>
-    <LoadingCircular :value="isLoading" />
   </div>
 </template>
 <script>
 import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
-import LoadingCircular from "@/components/LoadingCircular";
 import TextField from "@/components/TextField";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {
     BtnAdd,
     BtnClose,
     BtnDelete,
-    TextField,
-    LoadingCircular,
+    TextField
   },
   data: () => ({
     sucursal: "",
@@ -95,9 +92,6 @@ export default {
       },
     ],
   }),
-  computed: {
-    ...mapGetters("cliente", ["isLoading"]),
-  },
   methods: {
     ...mapActions("cliente", ["createCliente", "fetchCliente"]),
     addSucursal() {

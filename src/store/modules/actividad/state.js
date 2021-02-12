@@ -1,5 +1,5 @@
-
 export default {
   data: [],
-  loading: false
-}
+  dataId: null,
+  loading: false,
+};
