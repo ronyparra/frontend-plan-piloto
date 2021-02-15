@@ -1,8 +1,8 @@
-import { FETCH, LOADING, url } from "./contants";
-import { get, post } from "@/services/api/api.services.js";
+import { FETCH, LOADING, SET_ID, url } from "./contants";
+import { get, post, del, put } from "@/services/api/api.services.js";
 
 export default {
-  async fetchCliente({ commit }) {
+  fetchCliente: async ({ commit }) => {
     commit(LOADING, true);
     try {
       const response = await get(url);
@@ -13,9 +13,32 @@ export default {
     }
     commit(LOADING, false);
   },
-  async createCliente({ commit }, form) {
+  fetchClienteId: async ({ commit }, { id, data }) => {
+    if (data) return commit(SET_ID, data);
+    commit(LOADING, true);
+    try {
+      const response = await get(`${url}/${id}`);
+      commit(SET_ID, response.data);
+    } catch (e) {
+      console.log(e);
+    }
+    commit(LOADING, false);
+  },
+  createCliente: async ({ commit }, form) => {
     commit(LOADING, true);
     const response = await post(url, form);
+    commit(LOADING, false);
+    return response;
+  },
+  updateCliente: async ({ commit }, { id, form }) => {
+    commit(LOADING, true);
+    const response = await put(`${url}/${id}`, form);
+    commit(LOADING, false);
+    return response;
+  },
+  deleteCliente: async ({ commit }, id) => {
+    commit(LOADING, true);
+    const response = await del(`${url}/${id}`);
     commit(LOADING, false);
     return response;
   },

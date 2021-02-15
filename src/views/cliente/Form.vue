@@ -5,8 +5,14 @@
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
+      <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" />
     </c-app-bar>
-
+    <Delete
+      v-model="deleteView"
+      vuex-action="cliente/deleteCliente"
+      :id-to-delete="$route.params.id"
+      @success="$router.push({ path: '/cliente' })"
+    />
     <c-card class="fill-height d-flex flex-column justify-space-between">
       <c-container>
         <c-form ref="form">
@@ -58,16 +64,20 @@ import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
 import TextField from "@/components/TextField";
-import { mapActions } from "vuex";
+import Delete from "../delete/Delete";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     BtnAdd,
     BtnClose,
     BtnDelete,
-    TextField
+    TextField,
+    Delete,
   },
   data: () => ({
     sucursal: "",
+    isEdit: false,
+    deleteView: false,
     form: {
       razonsocial: "",
       ruc: "",
@@ -92,8 +102,26 @@ export default {
       },
     ],
   }),
+  mounted() {
+    if (this.$route.params.id) this.editHandler();
+  },
+  computed: {
+    ...mapGetters("cliente", ["getClienteId"]),
+  },
   methods: {
-    ...mapActions("cliente", ["createCliente", "fetchCliente"]),
+    ...mapActions("cliente", [
+      "createCliente",
+      "fetchCliente",
+      "fetchClienteId",
+      "updateCliente",
+    ]),
+    async editHandler() {
+      this.isEdit = true;
+      if (this.getClienteId)
+        return (this.form = JSON.parse(JSON.stringify(this.getClienteId)));
+      await this.fetchClienteId({ id: this.$route.params.id });
+      this.form = JSON.parse(JSON.stringify(this.getClienteId));
+    },
     addSucursal() {
       if (!this.$refs.formDetail.validate()) return null;
       this.form.sucursal.push({
@@ -106,8 +134,13 @@ export default {
     },
     async guardar() {
       if (!this.$refs.form.validate()) return null;
-      const response = await this.createCliente(this.form);
-      if (response.success) {
+      const response = this.isEdit
+        ? await this.updateCliente({
+            id: this.$route.params.id,
+            form: this.form,
+          })
+        : this.createCliente(this.form);
+      if (response.success && !this.isEdit) {
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchCliente();

@@ -21,8 +21,8 @@
       :items-per-page="99999"
       hide-default-footer
     >
-      <template v-slot:[`item.actions`]>
-        <c-btn fab x-small text elevation="2" color="primary">
+      <template v-slot:[`item.actions`]="{item}">
+        <c-btn fab x-small text elevation="2" color="primary" @click="setData(item)">
           <c-icon>
             arrow_forward_ios
           </c-icon>
@@ -42,14 +42,18 @@ export default {
     BtnSearch,
     SearchField,
   },
-  mounted(){
+  mounted() {
     this.fetchCliente();
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente","isLoading"]),
+    ...mapGetters("cliente", ["getCliente", "isLoading"]),
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions("cliente", ["fetchCliente", "fetchClienteId"]),
+    async setData(data) {
+      await this.fetchClienteId({ data });
+      this.$router.push({ path: `/cliente/edit/` + data.idcliente });
+    },
   },
   data: () => ({
     show: false,

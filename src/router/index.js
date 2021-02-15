@@ -45,6 +45,14 @@ const routes = [
             /* webpackChunkName: "Cliente ADD" */ "../views/cliente/Form.vue"
           ),
       },
+      {
+        path: "edit/:id",
+        name: "Modificar Cliente",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente EDIT" */ "../views/cliente/Form.vue"
+          ),
+      },
     ],
   },
   {

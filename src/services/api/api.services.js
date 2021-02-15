@@ -1,7 +1,6 @@
 import { request } from "./axios.service";
 import store from "@/store";
 const errorHandler = (error) => {
-  console.log(error.response)
   const errorMessage = {
     title: error.message,
     message: "",

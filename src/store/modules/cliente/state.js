@@ -1,5 +1,6 @@
 
 export default {
-  cliente: [],
+  data: [],
+  dataId: null,
   loading: false
 }

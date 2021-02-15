@@ -1,4 +1,5 @@
 export default {
-  getCliente: (state) => state.cliente,
+  getCliente: (state) => state.data,
+  getClienteId: (state) => state.dataId,
   isLoading: (state) => state.loading,
 };

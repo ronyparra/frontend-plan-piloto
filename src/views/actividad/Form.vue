@@ -209,8 +209,6 @@ export default {
         return (this.form = JSON.parse(JSON.stringify(this.getActividadId)));
       await this.fetchActividadId({ id: this.$route.params.id });
       this.form = JSON.parse(JSON.stringify(this.getActividadId));
-
-      console.log(this.form)
     },
     addDetalle() {
       if (!this.$refs.formDetail.validate()) return null;
