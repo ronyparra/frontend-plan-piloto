@@ -36,6 +36,9 @@ export default {
     value: String,
     label: String,
   },
+  mounted(){
+    this.date = this.parseDate(this.value)
+  },
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
     menu1: false,

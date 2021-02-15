@@ -1,5 +1,5 @@
 import { FETCH, LOADING, SET_ID, url } from "./contants";
-import { get, post,put } from "@/services/api/api.services.js";
+import { get, post,put, del } from "@/services/api/api.services.js";
 
 export default {
   async fetchActividad({ commit }) {
@@ -33,6 +33,12 @@ export default {
   async updateActividad({ commit }, { id, form }) {
     commit(LOADING, true);
     const response = await put(`${url}/${id}`, form);
+    commit(LOADING, false);
+    return response;
+  },
+  async deleteActividad({ commit },id) {
+    commit(LOADING, true);
+    const response = await del(`${url}/${id}`);
     commit(LOADING, false);
     return response;
   },

@@ -1,6 +1,7 @@
 import { request } from "./axios.service";
 import store from "@/store";
 const errorHandler = (error) => {
+  console.log(error.response)
   const errorMessage = {
     title: error.message,
     message: "",
@@ -78,4 +79,26 @@ export const put = async (url, data, disabledEvents) => {
     };
   }
 };
-export const del = () => {};
+export const del = async (url, disabledEvents) => {
+  const disabled = disabledEvents === "disabledEvents" ? true : false;
+  if (!disabled) store.dispatch("request/startRequest");
+  const requestData = {
+    method: "DELETE",
+    url: url
+  };
+  try {
+    const response = await request(requestData);
+    if (!disabled) store.dispatch("request/successRequest");
+    return {
+      data: response.data,
+      success: true,
+    };
+  } catch (error) {
+    if (!disabled) store.dispatch("request/failedRequest", errorHandler(error));
+    return {
+      data: error.response,
+      message: error.message,
+      success: false,
+    };
+  }
+};

@@ -5,8 +5,14 @@
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
+      <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" />
     </c-app-bar>
-
+    <Delete
+      v-model="deleteView"
+      vuex-action="actividad/deleteActividad"
+      :id-to-delete="$route.params.id"
+      @success="$router.push({ path: '/actividad' })"
+    />
     <c-card class="fill-height d-flex flex-column justify-space-between">
       <c-container>
         <c-form ref="form">
@@ -99,6 +105,7 @@ import BtnDelete from "@/components/BtnDelete";
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import TextDate from "@/components/TextDate";
+import Delete from "../delete/Delete";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
@@ -111,12 +118,14 @@ export default {
     TextField,
     TextNumber,
     TextDate,
+    Delete,
     AutocompleteCliente,
     AutocompleteTecnico,
     AutocompleteConcepto,
   },
   data: () => ({
     isEdit: false,
+    deleteView: false,
     form: {
       fecha: current_date(),
       idcliente: {
@@ -200,6 +209,8 @@ export default {
         return (this.form = JSON.parse(JSON.stringify(this.getActividadId)));
       await this.fetchActividadId({ id: this.$route.params.id });
       this.form = JSON.parse(JSON.stringify(this.getActividadId));
+
+      console.log(this.form)
     },
     addDetalle() {
       if (!this.$refs.formDetail.validate()) return null;
@@ -211,7 +222,10 @@ export default {
       if (!this.$refs.form.validate()) return null;
       this.form.idusuario.idusuario = this.getUserInfo.idusuario;
       const response = this.isEdit
-        ? await this.updateActividad({ id: this.$route.params.id, form: this.form })
+        ? await this.updateActividad({
+            id: this.$route.params.id,
+            form: this.form,
+          })
         : await this.createActividad(this.form);
       if (response.success && !this.isEdit) {
         this.form = JSON.parse(JSON.stringify(this.default));

@@ -28,7 +28,6 @@
           text
           elevation="2"
           color="primary"
-          :to="`/actividad/edit/` + item.idactividad"
           @click="setData(item)"
         >
           <c-icon>
@@ -57,10 +56,11 @@ export default {
     ...mapGetters("actividad", ["getActividad", "isLoading"]),
   },
   methods: {
-    ...mapActions("actividad", ["fetchActividad","fetchActividadId"]),
-    setData(data){
-      this.fetchActividadId({data})
-    }
+    ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    async setData(data) {
+      await this.fetchActividadId({ data });
+      this.$router.push({ path: `/actividad/edit/` + data.idactividad });
+    },
   },
   data: () => ({
     show: false,
