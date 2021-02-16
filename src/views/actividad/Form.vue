@@ -21,7 +21,10 @@
               <TextDate label="Fecha" v-model="form.fecha" />
             </c-col>
             <c-col cols="12">
-              <AutocompleteCliente v-model="form.idcliente.idcliente" />
+              <AutocompleteCliente v-model="form.idcliente" return-object />
+            </c-col>
+            <c-col cols="12" v-if="sucursal.length > 1">
+              <AutocompleteClienteSucursal :items="sucursal" />
             </c-col>
             <c-col cols="12">
               <AutocompleteTecnico
@@ -109,6 +112,7 @@ import Delete from "../delete/Delete";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
+import AutocompleteClienteSucursal from "../cliente/AutocompleteSucursal";
 
 export default {
   components: {
@@ -122,6 +126,7 @@ export default {
     AutocompleteCliente,
     AutocompleteTecnico,
     AutocompleteConcepto,
+    AutocompleteClienteSucursal,
   },
   data: () => ({
     isEdit: false,
@@ -130,6 +135,10 @@ export default {
       fecha: current_date(),
       idcliente: {
         idcliente: null,
+        sucursal: [],
+      },
+      idcliente_sucursal: {
+        idcliente_sucursal: null,
       },
       idusuario: {
         idusuario: null,
@@ -143,6 +152,10 @@ export default {
       fecha: current_date(),
       idcliente: {
         idcliente: null,
+        sucursal: [],
+      },
+      idcliente_sucursal: {
+        idcliente_sucursal: null,
       },
       idusuario: {
         idusuario: null,
@@ -195,6 +208,7 @@ export default {
   computed: {
     ...mapGetters("actividad", ["isLoading", "getActividadId"]),
     ...mapGetters("auth", ["getUserInfo"]),
+    sucursal: (vm) => vm.form.idcliente.sucursal || [],
   },
   methods: {
     ...mapActions("actividad", [
@@ -203,6 +217,7 @@ export default {
       "fetchActividad",
       "fetchActividadId",
     ]),
+
     async editHandler() {
       this.isEdit = true;
       if (this.getActividadId)
@@ -219,6 +234,8 @@ export default {
     async guardar() {
       if (!this.$refs.form.validate()) return null;
       this.form.idusuario.idusuario = this.getUserInfo.idusuario;
+      if (this.sucursal.length === 1)
+        this.form.idcliente_sucursal.idcliente_sucursal = 1;
       const response = this.isEdit
         ? await this.updateActividad({
             id: this.$route.params.id,

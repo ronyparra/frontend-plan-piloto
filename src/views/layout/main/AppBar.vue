@@ -5,11 +5,8 @@
     >
     <c-spacer></c-spacer>
     <c-toolbar-title class="title">{{ $route.name }}</c-toolbar-title>
-    <c-spacer></c-spacer>
-    <c-app-bar-nav-icon to="/"><c-icon>home</c-icon></c-app-bar-nav-icon>
   </c-app-bar>
 </template>
 <script>
-export default {
-};
+export default {};
 </script>

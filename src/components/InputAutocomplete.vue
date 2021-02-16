@@ -20,14 +20,14 @@
     @input="$emit('input', $event)"
     @change="$emit('change')"
   >
-    <template v-slot:no-data>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title
-            >No existe concidencia. Click para agregar</v-list-item-title
+    <template v-slot:no-data v-if="to">
+      <c-list-item :to="to">
+        <c-list-item-content>
+          <c-list-item-title
+            >No existe concidencia. Click para agregar</c-list-item-title
           >
-        </v-list-item-content>
-      </v-list-item>
+        </c-list-item-content>
+      </c-list-item>
     </template>
   </c-autocomplete>
 </template>
@@ -52,6 +52,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    to:String
   },
   computed: {
     validator: (vm) => {

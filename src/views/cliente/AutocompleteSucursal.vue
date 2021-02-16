@@ -1,18 +1,16 @@
 <template>
   <div>
     <InputAutocomplete
-      label="Cliente"
-      item-value="idcliente"
-      item-text="razonsocial"
+      label="Sucursal"
+      item-value="idcliente_sucursal"
+      item-text="descripcion"
       ref="input"
       :value="value"
-      :items="getCliente"
-      :loading="isLoading"
+      :items="items"
       :rules="rules"
       :return-object="returnObject"
       @input="$emit('input', $event)"
       @change="$emit('change')"
-      to="/cliente/add"
     />
   </div>
 </template>
@@ -26,6 +24,7 @@ export default {
   },
   props: {
     value: [Number, Object],
+    items: Array,
     rules: Array,
     returnObject: Boolean,
   },
