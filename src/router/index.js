@@ -115,6 +115,14 @@ const routes = [
             /* webpackChunkName: "Concepto ADD" */ "../views/concepto/Form.vue"
           ),
       },
+      {
+        path: "edit/:id",
+        name: "Modificar Concepto",
+        component: () =>
+          import(
+            /* webpackChunkName: "Concepto EDIT" */ "../views/concepto/Form.vue"
+          ),
+      },
     ],
   },
 

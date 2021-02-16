@@ -21,8 +21,15 @@
       :items-per-page="99999"
       hide-default-footer
     >
-      <template v-slot:[`item.actions`]>
-        <c-btn fab x-small text elevation="2" color="primary">
+      <template v-slot:[`item.actions`]="{ item }">
+        <c-btn
+          fab
+          x-small
+          text
+          elevation="2"
+          color="primary"
+          @click="setData(item)"
+        >
           <c-icon>
             arrow_forward_ios
           </c-icon>
@@ -42,14 +49,18 @@ export default {
     BtnSearch,
     SearchField,
   },
-  mounted(){
+  mounted() {
     this.fetchConcepto();
   },
   computed: {
-    ...mapGetters("concepto", ["getConcepto","isLoading"]),
+    ...mapGetters("concepto", ["getConcepto", "isLoading"]),
   },
   methods: {
-    ...mapActions("concepto", ["fetchConcepto"]),
+    ...mapActions("concepto", ["fetchConcepto", "fetchConceptoId"]),
+    async setData(data) {
+      await this.fetchConceptoId({ data });
+      this.$router.push({ path: `/concepto/edit/` + data.idconcepto });
+    },
   },
   data: () => ({
     show: false,

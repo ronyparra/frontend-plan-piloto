@@ -5,8 +5,14 @@
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
+      <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" />
     </c-app-bar>
-
+    <Delete
+      v-model="deleteView"
+      vuex-action="concepto/deleteConcepto"
+      :id-to-delete="$route.params.id"
+      @success="$router.push({ path: '/concepto' })"
+    />
     <c-card class="fill-height d-flex flex-column justify-space-between">
       <c-container>
         <c-form ref="form">
@@ -19,14 +25,14 @@
               />
             </c-col>
             <c-col cols="12">
-              <TextField ref="concepto2" label="Precio" v-model="form.precio" />
+              <TextNumber ref="concepto2" label="Precio" v-model="form.precio" />
             </c-col>
           </c-row>
         </c-form>
       </c-container>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
-          Registrar</c-btn
+          {{isEdit ? 'Modificar' : 'Registrar'}}</c-btn
         >
       </c-container>
     </c-card>
@@ -35,14 +41,22 @@
 <script>
 import BtnClose from "@/components/BtnClose";
 import TextField from "@/components/TextField";
-import { mapActions } from "vuex";
+import TextNumber from "@/components/TextNumber";
+import BtnDelete from "@/components/BtnDelete";
+import Delete from "../delete/Delete";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
+    BtnDelete,
     BtnClose,
-    TextField
+    Delete,
+    TextField,
+    TextNumber
   },
   data: () => ({
     sucursal: "",
+    isEdit: false,
+    deleteView: false,
     form: {
       razonsocial: "",
       ruc: "",
@@ -68,8 +82,26 @@ export default {
     ],
   }),
 
+  mounted() {
+    if (this.$route.params.id) this.editHandler();
+  },
+  computed: {
+    ...mapGetters("concepto", ["getConceptoId"]),
+  },
   methods: {
-    ...mapActions("concepto", ["createConcepto", "fetchConcepto"]),
+    ...mapActions("concepto", [
+      "createConcepto",
+      "fetchConcepto",
+      "fetchConceptoId",
+      "updateConcepto",
+    ]),
+    async editHandler() {
+      this.isEdit = true;
+      if (this.getConceptoId)
+        return (this.form = JSON.parse(JSON.stringify(this.getConceptoId)));
+      await this.fetchConceptoId({ id: this.$route.params.id });
+      this.form = JSON.parse(JSON.stringify(this.getConceptoId));
+    },
     addSucursal() {
       if (!this.$refs.formDetail.validate()) return null;
       this.form.sucursal.push({
@@ -82,8 +114,13 @@ export default {
     },
     async guardar() {
       if (!this.$refs.form.validate()) return null;
-      const response = await this.createConcepto(this.form);
-      if (response.success) {
+      const response = this.isEdit
+        ? await this.updateConcepto({
+            id: this.$route.params.id,
+            form: this.form,
+          })
+        : await this.createConcepto(this.form);
+      if (response.success && !this.isEdit) {
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchConcepto();
