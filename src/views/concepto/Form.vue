@@ -25,14 +25,18 @@
               />
             </c-col>
             <c-col cols="12">
-              <TextNumber ref="concepto2" label="Precio" v-model="form.precio" />
+              <TextNumber
+                ref="concepto2"
+                label="Precio"
+                v-model="form.precio"
+              />
             </c-col>
           </c-row>
         </c-form>
       </c-container>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
-          {{isEdit ? 'Modificar' : 'Registrar'}}</c-btn
+          {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
         >
       </c-container>
     </c-card>
@@ -51,7 +55,7 @@ export default {
     BtnClose,
     Delete,
     TextField,
-    TextNumber
+    TextNumber,
   },
   data: () => ({
     sucursal: "",
@@ -120,7 +124,10 @@ export default {
             form: this.form,
           })
         : await this.createConcepto(this.form);
-      if (response.success && !this.isEdit) {
+      if (response.success) {
+        const redirect = this.$router.history.current.query.redirect;
+        if (redirect) this.$router.replace({ path: redirect });
+        if (this.isEdit) this.$router.replace({ path: "/concepto" });
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchConcepto();

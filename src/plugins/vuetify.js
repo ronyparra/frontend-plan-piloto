@@ -13,7 +13,7 @@ export default new Vuetify({
     themes: {
       light: {
         //primary: colors.indigo.darken4,
-        primary: colors.green,
+        primary: colors.purple.darken3,
         secondary: colors.shades.white
       },
       dark: {

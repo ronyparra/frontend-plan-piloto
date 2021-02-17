@@ -1,5 +1,5 @@
 <template>
-  <v-list-item :two-line="twoLine" :to="to"><slot /></v-list-item>
+  <v-list-item :two-line="twoLine" :to="to" @click="$emit('click')"><slot /></v-list-item>
 </template>
 <script>
 export default {

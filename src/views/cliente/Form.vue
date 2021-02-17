@@ -32,7 +32,11 @@
         <c-form ref="formDetail">
           <c-row dense>
             <c-col cols="10">
-              <TextField ref="cliente3" label="Sucursal" v-model="sucursal" />
+              <TextField
+                ref="cliente3"
+                label="Sucursal"
+                v-model="sucursal.descripcion"
+              />
             </c-col>
             <c-spacer></c-spacer>
             <BtnAdd :x-small="false" class="mt-2 mr-1" @click="addSucursal()" />
@@ -47,13 +51,14 @@
           hide-default-footer
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <BtnDelete class="my-1" @click="deletSucursal(item)" />
+            <BtnDelete class="my-1 mr-2" @click="deletSucursal(item)" />
+            <BtnEdit @click="editSucursal(item)" />
           </template>
         </v-data-table>
       </c-container>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
-          Registrar</c-btn
+          {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
         >
       </c-container>
     </c-card>
@@ -62,6 +67,7 @@
 <script>
 import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
+import BtnEdit from "@/components/BtnEdit";
 import BtnDelete from "@/components/BtnDelete";
 import TextField from "@/components/TextField";
 import Delete from "../delete/Delete";
@@ -70,12 +76,17 @@ export default {
   components: {
     BtnAdd,
     BtnClose,
+    BtnEdit,
     BtnDelete,
     TextField,
     Delete,
   },
   data: () => ({
-    sucursal: "",
+    sucursal: {
+      descripcion: "",
+      latitud: null,
+      longitud: null,
+    },
     isEdit: false,
     deleteView: false,
     form: {
@@ -124,12 +135,12 @@ export default {
     },
     addSucursal() {
       if (!this.$refs.formDetail.validate()) return null;
-      this.form.sucursal.push({
-        descripcion: this.sucursal,
+      this.form.sucursal.push(this.sucursal);
+      this.sucursal = {
+        descripcion: "",
         latitud: null,
         longitud: null,
-      });
-      this.sucursal = "";
+      };
       this.$refs.formDetail.resetValidation();
     },
     async guardar() {
@@ -139,17 +150,24 @@ export default {
             id: this.$route.params.id,
             form: this.form,
           })
-        : this.createCliente(this.form);
-      if (response.success && !this.isEdit) {
+        : await this.createCliente(this.form);
+      if (response.success) {
+        const redirect = this.$router.history.current.query.redirect;
+        if (redirect) this.$router.replace({ path: redirect });
+        if (this.isEdit) this.$router.replace({ path: "/cliente" });
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchCliente();
       }
     },
-
+    
     deletSucursal(sucursal) {
       const index = this.form.sucursal.indexOf(sucursal);
       this.form.sucursal.splice(index, 1);
+    },
+    editSucursal(sucursal) {
+      this.sucursal = JSON.parse(JSON.stringify(sucursal));
+      this.deletSucursal(sucursal);
     },
   },
 };

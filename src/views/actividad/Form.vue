@@ -21,10 +21,17 @@
               <TextDate label="Fecha" v-model="form.fecha" />
             </c-col>
             <c-col cols="12">
-              <AutocompleteCliente v-model="form.idcliente" return-object />
+              <AutocompleteCliente
+                :redirect="$route.path"
+                v-model="form.idcliente"
+                return-object
+              />
             </c-col>
             <c-col cols="12" v-if="sucursal.length > 1">
-              <AutocompleteClienteSucursal :items="sucursal" />
+              <AutocompleteClienteSucursal
+                :items="sucursal"
+                v-model="form.idcliente_sucursal.idcliente_sucursal"
+              />
             </c-col>
             <c-col cols="12">
               <AutocompleteTecnico
@@ -42,6 +49,7 @@
             <c-col cols="12">
               <AutocompleteConcepto
                 v-model="detalle.idconcepto"
+                :redirect="$route.path"
                 return-object
                 @change="detalle.precio = detalle.idconcepto.precio"
               />
@@ -105,6 +113,7 @@ import { current_date } from "@/util/date.util";
 import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
+
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import TextDate from "@/components/TextDate";
@@ -207,8 +216,16 @@ export default {
   },
   computed: {
     ...mapGetters("actividad", ["isLoading", "getActividadId"]),
+    ...mapGetters("cliente", ["getCliente"]),
     ...mapGetters("auth", ["getUserInfo"]),
-    sucursal: (vm) => vm.form.idcliente.sucursal || [],
+    sucursal: (vm) => {
+      let suc = vm.getCliente
+        .filter((cliente) => cliente.idcliente === vm.form.idcliente.idcliente)
+        .reduce((acc, curr) => {
+          return (acc = curr.sucursal);
+        }, []);
+      return suc;
+    },
   },
   methods: {
     ...mapActions("actividad", [
@@ -235,7 +252,7 @@ export default {
       if (!this.$refs.form.validate()) return null;
       this.form.idusuario.idusuario = this.getUserInfo.idusuario;
       if (this.sucursal.length === 1)
-        this.form.idcliente_sucursal.idcliente_sucursal = 1;
+        this.form.idcliente_sucursal.idcliente_sucursal = this.sucursal[0].idcliente_sucursal;
       const response = this.isEdit
         ? await this.updateActividad({
             id: this.$route.params.id,

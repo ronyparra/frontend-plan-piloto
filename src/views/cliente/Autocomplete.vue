@@ -12,7 +12,8 @@
       :return-object="returnObject"
       @input="$emit('input', $event)"
       @change="$emit('change')"
-      to="/cliente/add"
+      :to="to"
+      :redirect="redirect"
     />
   </div>
 </template>
@@ -28,6 +29,11 @@ export default {
     value: [Number, Object],
     rules: Array,
     returnObject: Boolean,
+    redirect: String,
+    to: {
+      type: String,
+      default: '/cliente/add'
+    }
   },
   mounted() {
     this.fetchCliente();

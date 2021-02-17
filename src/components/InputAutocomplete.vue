@@ -21,7 +21,7 @@
     @change="$emit('change')"
   >
     <template v-slot:no-data v-if="to">
-      <c-list-item :to="to">
+      <c-list-item @click="toRoute()">
         <c-list-item-content>
           <c-list-item-title
             >No existe concidencia. Click para agregar</c-list-item-title
@@ -52,7 +52,8 @@ export default {
       type: Boolean,
       default: false,
     },
-    to:String
+    to: String,
+    redirect: String,
   },
   computed: {
     validator: (vm) => {
@@ -63,6 +64,14 @@ export default {
     },
   },
   methods: {
+    toRoute() {
+      this.$router.push({
+        path: this.to,
+        query: {
+          redirect: this.redirect,
+        },
+      });
+    },
     focus: (vm) => vm.$refs.input.focus(),
     isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
   },

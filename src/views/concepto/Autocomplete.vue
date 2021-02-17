@@ -12,6 +12,8 @@
       :return-object="returnObject"
       @input="$emit('input', $event)"
       @change="$emit('change')"
+      :to="to"
+      :redirect="redirect"
     />
   </div>
 </template>
@@ -27,6 +29,11 @@ export default {
     value: [Number, Object, Array],
     rules: Array,
     returnObject: Boolean,
+    redirect: String,
+    to: {
+      type: String,
+      default: '/concepto/add'
+    },
   },
   mounted() {
     this.fetchConcepto();
@@ -41,4 +48,3 @@ export default {
   },
 };
 </script>
-
