@@ -18,21 +18,33 @@
     <c-divider></c-divider>
     <c-list nav dense>
       <c-list-item-group active-class="deep-purple--text text--accent-4">
-        <c-list-item v-for="(item,i) of navs" :key="i" :to="item.to">
+        <c-list-item v-for="(item, i) of navs" :key="i" :to="item.to">
           <c-list-item-icon>
-            <c-icon>{{item.icon}}</c-icon>
+            <c-icon>{{ item.icon }}</c-icon>
           </c-list-item-icon>
           <c-list-item-content>
-            <c-list-item-title>{{item.title}}</c-list-item-title>
+            <c-list-item-title>{{ item.title }}</c-list-item-title>
           </c-list-item-content>
         </c-list-item>
-      
+      </c-list-item-group>
+    </c-list>
+    <c-divider></c-divider>
+    <c-list nav dense>
+      <c-list-item-group>
+        <c-list-item @click="logout()">
+          <c-list-item-icon>
+            <c-icon>logout</c-icon>
+          </c-list-item-icon>
+          <c-list-item-content>
+            <c-list-item-title>Cerrar Sesion</c-list-item-title>
+          </c-list-item-content>
+        </c-list-item>
       </c-list-item-group>
     </c-list>
   </c-navigation-drawer>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { navs } from "./constants";
 export default {
   props: {
@@ -42,5 +54,8 @@ export default {
     ...mapGetters("auth", ["getUserInfo"]),
     navs: () => navs,
   },
+  methods:{
+    ...mapActions('auth',['logout'])
+  }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="fill-height">
     <c-app-bar app flat color="secondary">
-      <BtnClose to="/concepto" />
+      <BtnClose to="/pendiente" />
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
@@ -9,26 +9,27 @@
     </c-app-bar>
     <Delete
       v-model="deleteView"
-      vuex-action="concepto/deleteConcepto"
+      vuex-action="pendiente/deletePendiente"
       :id-to-delete="$route.params.id"
-      @success="$router.push({ path: '/concepto' })"
+      @success="$router.push({ path: '/pendiente' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
       <c-container>
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12">
-              <TextField
-                ref="concepto1"
-                label="Descripcion"
-                v-model="form.descripcion"
+              <TextDate ref="pendiente2" label="Fecha" v-model="form.fecha" />
+            </c-col>
+            <c-col cols="12">
+              <AutocompleteTipo
+                v-model="form.idtipo_pendiente.idtipo_pendiente"
               />
             </c-col>
             <c-col cols="12">
-              <TextNumber
-                ref="concepto2"
-                label="Precio"
-                v-model="form.precio"
+              <TextArea
+                ref="pendiente1"
+                label="Descripcion"
+                v-model="form.descripcion"
               />
             </c-col>
           </c-row>
@@ -44,68 +45,75 @@
 </template>
 <script>
 import BtnClose from "@/components/BtnClose";
-import TextField from "@/components/TextField";
-import TextNumber from "@/components/TextNumber";
+import TextArea from "@/components/TextArea";
+import TextDate from "@/components/TextDate";
 import BtnDelete from "@/components/BtnDelete";
+import { current_date } from "@/util/date.util";
 import Delete from "../delete/Delete";
 import { mapActions, mapGetters } from "vuex";
+import AutocompleteTipo from "../tipo_pendiente/Autocomplete";
 export default {
   components: {
+    AutocompleteTipo,
     BtnDelete,
     BtnClose,
     Delete,
-    TextField,
-    TextNumber,
+    TextArea,
+    TextDate,
   },
   data: () => ({
     isEdit: false,
     deleteView: false,
     form: {
+      idtipo_pendiente: {
+        idtipo_pendiente: null
+      },
+      fecha: current_date(),
       descripcion: "",
-      precio: "",
     },
     default: {
+      idtipo_pendiente: {
+        idtipo_pendiente: null
+      },
+      fecha: current_date(),
       descripcion: "",
-      precio: "",
-    }
+    },
   }),
 
   mounted() {
     if (this.$route.params.id) this.editHandler();
   },
   computed: {
-    ...mapGetters("concepto", ["getConceptoId"]),
+    ...mapGetters("pendiente", ["getPendienteId"]),
   },
   methods: {
-    ...mapActions("concepto", [
-      "createConcepto",
-      "fetchConcepto",
-      "fetchConceptoId",
-      "updateConcepto",
+    ...mapActions("pendiente", [
+      "createPendiente",
+      "fetchPendiente",
+      "fetchPendienteId",
+      "updatePendiente",
     ]),
     async editHandler() {
       this.isEdit = true;
-      if (this.getConceptoId)
-        return (this.form = JSON.parse(JSON.stringify(this.getConceptoId)));
-      await this.fetchConceptoId({ id: this.$route.params.id });
-      this.form = JSON.parse(JSON.stringify(this.getConceptoId));
+      if (this.getPendienteId)
+        return (this.form = JSON.parse(JSON.stringify(this.getPendienteId)));
+      await this.fetchPendienteId({ id: this.$route.params.id });
+      this.form = JSON.parse(JSON.stringify(this.getPendienteId));
     },
 
     async guardar() {
       if (!this.$refs.form.validate()) return null;
       const response = this.isEdit
-        ? await this.updateConcepto({
+        ? await this.updatePendiente({
             id: this.$route.params.id,
             form: this.form,
           })
-        : await this.createConcepto(this.form);
+        : await this.createPendiente(this.form);
       if (response.success) {
-        const redirect = this.$router.history.current.query.redirect;
-        if (redirect) this.$router.replace({ path: redirect });
-        if (this.isEdit) this.$router.replace({ path: "/concepto" });
+        if (this.isEdit) this.$router.replace({ path: "/pendiente" });
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
-        this.fetchConcepto();
+        this.fetchPendiente();
       }
     },
   },

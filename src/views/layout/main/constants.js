@@ -5,11 +5,11 @@ export const navs = [
     title: "Inicio",
   },
 
-  /*       {
-        icon: "query_builder",
-        to: "/pendiente",
-        title: "Pendientes",
-      }, */
+  {
+    icon: "query_builder",
+    to: "/pendiente",
+    title: "Pendientes",
+  },
   {
     icon: "assignment",
     to: "/actividad",

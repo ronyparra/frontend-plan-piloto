@@ -4,7 +4,7 @@
       <c-toolbar-title class="title font-weight-black">
         {{ $route.name }}
       </c-toolbar-title>
-      <div style="position: absolute; right: 3%;">
+      <div style="position: absolute; right: 1rem;">
         <BtnSearch class="mr-1" @click="show = !show" />
         <BtnAdd to="/concepto/add" />
       </div>

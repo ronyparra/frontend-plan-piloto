@@ -56,6 +56,39 @@ const routes = [
     ],
   },
   {
+    path: "/pendiente",
+
+    component: () =>
+      import(/* webpackChunkName: "Pendiente" */ "../views/pendiente/Pendiente.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "/",
+        name: "Pendientes",
+        component: () =>
+          import(/* webpackChunkName: "Pendiente" */ "../views/pendiente/List.vue"),
+      },
+      {
+        path: "add",
+        name: "Registrar Pendiente",
+        component: () =>
+          import(
+            /* webpackChunkName: "Pendiente ADD" */ "../views/pendiente/Form.vue"
+          ),
+      },
+      {
+        path: "edit/:id",
+        name: "Modificar Pendiente",
+        component: () =>
+          import(
+            /* webpackChunkName: "Pendiente EDIT" */ "../views/pendiente/Form.vue"
+          ),
+      },
+    ],
+  },
+  {
     path: "/actividad",
     name: "",
     component: () =>

@@ -6,7 +6,7 @@
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
         <BtnSearch class="mr-1" @click="show = !show" />
-        <BtnAdd to="/actividad/add" />
+        <BtnAdd to="/pendiente/add" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
@@ -15,12 +15,18 @@
     <v-data-table
       :headers="headers"
       :search="search"
-      :items="getActividad"
+      :items="getPendiente"
       :loading="isLoading"
       :mobile-breakpoint="0"
       :items-per-page="99999"
       hide-default-footer
     >
+     <template v-slot:[`item.descripcion`]="{ item }">
+        <div class="caption">{{item.descripcion}}</div>
+      </template>
+           <template v-slot:[`item.idtipo_pendiente.descripcion`]="{ item }">
+        <div class="caption">{{item.idtipo_pendiente.descripcion}}</div>
+      </template>
       <template v-slot:[`item.actions`]="{ item }">
         <c-btn
           fab
@@ -50,25 +56,24 @@ export default {
     SearchField,
   },
   mounted() {
-    this.fetchActividad();
+    this.fetchPendiente();
   },
   computed: {
-    ...mapGetters("actividad", ["getActividad", "isLoading"]),
+    ...mapGetters("pendiente", ["getPendiente", "isLoading"]),
   },
   methods: {
-    ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    ...mapActions("pendiente", ["fetchPendiente", "fetchPendienteId"]),
     async setData(data) {
-      await this.fetchActividadId({ data });
-      this.$router.push({ path: `/actividad/edit/` + data.idactividad });
+      await this.fetchPendienteId({ data });
+      this.$router.push({ path: `/pendiente/edit/` + data.idpendiente });
     },
   },
   data: () => ({
     show: false,
     search: "",
     headers: [
-      { text: "Fecha", value: "fecha" },
-      { text: "Cliente", value: "idcliente.razonsocial" },
-      { text: "Comentario", value: "comentario" },
+      { text: "Pendiente", value: "descripcion" },
+      { text: "Tipo", value: "idtipo_pendiente.descripcion", align: 'end' },
       { text: "", value: "actions", align: "end" },
     ],
   }),
