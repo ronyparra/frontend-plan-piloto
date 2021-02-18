@@ -1,5 +1,5 @@
-import { FETCH, LOADING, SET_ID, url } from "./contants";
-import { get, post, del, put  } from "@/services/api/api.services.js";
+import { FETCH, LOADING, SET_ID, FETCH_DASH, url } from "./contants";
+import { get, post, del, put } from "@/services/api/api.services.js";
 
 export default {
   async fetchPendiente({ commit }) {
@@ -41,5 +41,17 @@ export default {
     const response = await del(`${url}/${id}`);
     commit(LOADING, false);
     return response;
+  },
+
+  async fetchDashboard({ commit }) {
+    commit(LOADING, true);
+    try {
+      const response = await get(url + "/dashboard");
+      commit(FETCH_DASH, response.data);
+    } catch (e) {
+      commit(LOADING, false);
+      throw e;
+    }
+    commit(LOADING, false);
   },
 };

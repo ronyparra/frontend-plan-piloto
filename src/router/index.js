@@ -17,7 +17,7 @@ const routes = [
   {
     path: "/",
     name: "Dashboard",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
+    component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -157,23 +157,6 @@ const routes = [
           ),
       },
     ],
-  },
-
-  {
-    path: "/pendiente",
-    name: "Pendientes",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
-    path: "/mas",
-    name: "Mas",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
-    meta: {
-      requiresAuth: true,
-    },
   },
 ];
 
