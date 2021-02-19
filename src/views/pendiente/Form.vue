@@ -14,18 +14,18 @@
       @success="$router.push({ path: '/pendiente' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-container>
+      <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextDate ref="pendiente2" label="Fecha" v-model="form.fecha" />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <AutocompleteTipo
                 v-model="form.idtipo_pendiente.idtipo_pendiente"
               />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" >
               <TextArea
                 ref="pendiente1"
                 label="Descripcion"
@@ -34,7 +34,7 @@
             </c-col>
           </c-row>
         </c-form>
-      </c-container>
+      </c-card-text>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn

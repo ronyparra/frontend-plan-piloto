@@ -14,17 +14,17 @@
       @success="$router.push({ path: '/concepto' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-container>
+      <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextField
                 ref="concepto1"
                 label="Descripcion"
                 v-model="form.descripcion"
               />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextNumber
                 ref="concepto2"
                 label="Precio"
@@ -33,7 +33,7 @@
             </c-col>
           </c-row>
         </c-form>
-      </c-container>
+      </c-card-text>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn

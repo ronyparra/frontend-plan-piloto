@@ -6,12 +6,12 @@
           <AutocompleteEstadoCobro :dense="false" :filled="false" />
         </c-col>
 
-        <c-btn class="mt-md-6 mt-0" rounded small text color="blue"
+        <c-btn class="mt-sm-6 mt-0" rounded small text color="blue"
           >Cambiar Estado</c-btn
         >
         <v-spacer></v-spacer>
 
-        <c-btn class="mt-md-6 mt-0" rounded small text color="red">Generar PDF</c-btn>
+        <c-btn class="mt-sm-6 mt-0" rounded small text color="red">Generar PDF</c-btn>
       </c-row>
     </c-card-text></c-card
   >

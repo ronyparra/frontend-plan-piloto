@@ -14,13 +14,13 @@
       @success="$router.push({ path: '/actividad' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-container>
+      <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextDate label="Fecha" v-model="form.fecha" />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <AutocompleteCliente
                 :redirect="$route.path"
                 v-model="form.idcliente"
@@ -46,7 +46,7 @@
         <c-divider class="mb-3"></c-divider>
         <c-form ref="formDetail">
           <c-row dense>
-            <c-col cols="12">
+            <c-col cols="12" sm="5">
               <AutocompleteConcepto
                 v-model="detalle.idconcepto"
                 :redirect="$route.path"
@@ -54,10 +54,10 @@
                 @change="detalle.precio = detalle.idconcepto.precio"
               />
             </c-col>
-            <c-col cols="5">
+            <c-col cols="5" sm="3">
               <TextNumber label="Cantidad" v-model="detalle.cantidad" />
             </c-col>
-            <c-col cols="5">
+            <c-col cols="5" sm="3">
               <TextNumber label="Precio" v-model="detalle.precio" />
             </c-col>
 
@@ -77,10 +77,10 @@
             <BtnDelete class="my-1" @click="deletDetalle(item)" />
           </template>
         </v-data-table>
-      </c-container>
-      <c-container>
+      </c-card-text>
+      <c-card-text>
         <c-row dense>
-          <c-col cols="12">
+          <c-col cols="12" sm="6">
             <TextField
               ref="cliente3"
               :rules="[]"
@@ -88,7 +88,7 @@
               v-model="form.solicitante"
             />
           </c-col>
-          <c-col cols="12">
+          <c-col cols="12" sm="6">
             <TextField
               ref="cliente3"
               :rules="[]"
@@ -97,7 +97,7 @@
             />
           </c-col>
         </c-row>
-      </c-container>
+      </c-card-text>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn

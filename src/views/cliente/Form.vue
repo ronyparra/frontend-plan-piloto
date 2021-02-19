@@ -14,17 +14,17 @@
       @success="$router.push({ path: '/cliente' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-container>
+      <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextField
                 ref="cliente1"
                 label="Razon Social"
                 v-model="form.razonsocial"
               />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" sm="6">
               <TextField ref="cliente2" label="Ruc / CI" v-model="form.ruc" />
             </c-col>
           </c-row>
@@ -55,7 +55,7 @@
             <BtnEdit @click="editSucursal(item)" />
           </template>
         </v-data-table>
-      </c-container>
+      </c-card-text>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
