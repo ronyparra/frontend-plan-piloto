@@ -15,7 +15,7 @@
       </template>
     </c-app-bar>
     <FilterAdvanced :params="params" v-if="filter" />
-    <Opciones v-if="options" />
+    <Opciones :value="selected" v-if="options" />
     <v-data-table
       :headers="headers"
       :search="search"
