@@ -92,6 +92,7 @@ export default {
       "fetchPendiente",
       "fetchPendienteId",
       "updatePendiente",
+      "fetchDashboard"
     ]),
     async editHandler() {
       this.isEdit = true;
@@ -114,6 +115,7 @@ export default {
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchPendiente();
+        this.fetchDashboard();
       }
     },
   },

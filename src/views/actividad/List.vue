@@ -15,7 +15,7 @@
       </template>
     </c-app-bar>
     <FilterAdvanced :params="params" v-if="filter" />
-    <Opciones :value="selected" v-if="options" />
+    <Opciones :value="selected" @fetch="fetch()" v-if="options" />
     <v-data-table
       :headers="headers"
       :search="search"
@@ -31,7 +31,7 @@
       <template v-slot:[`item.idestadocobro`]="{ item }">
         <c-chip
           dark
-          :color="item.idestadocobro.idestadocobro === 1 ? 'red' : 'green'"
+          :color="item.idestadocobro.idestadocobro === 1 ? 'red darken-1' : 'green accent-4'"
           >{{ item.idestadocobro.descripcion }}</c-chip
         >
       </template>
@@ -79,13 +79,17 @@ export default {
     SearchField,
   },
   mounted() {
-    this.fetchActividad(this.params);
+    this.fetch();
   },
   computed: {
     ...mapGetters("actividad", ["getActividad", "isLoading"]),
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    fetch() {
+      this.selected = [];
+      this.fetchActividad(this.params);
+    },
     async setData(data) {
       await this.fetchActividadId({ data });
       this.$router.push({ path: `/actividad/edit/` + data.idactividad });
@@ -120,7 +124,7 @@ export default {
       idcliente: null,
       fechadesde: subtract_days(90),
       fechahasta: current_date(),
-      idestadocobro: 1,
+      idestadocobro: null,
     },
     headerProps: {
       sortByText: "Filtrar por",

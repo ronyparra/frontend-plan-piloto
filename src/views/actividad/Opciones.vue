@@ -1,5 +1,5 @@
 <template>
-  <c-card flat>
+  <c-card flat class="mb-n3">
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
@@ -8,6 +8,7 @@
               :rules="rules"
               :dense="false"
               :filled="false"
+              v-model="form.idestadocobro"
             />
           </c-col>
           <c-btn
@@ -29,12 +30,13 @@
   >
 </template>
 <script>
+import { mapActions } from "vuex";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
 export default {
   computed: {
     rules() {
       return [
-        () => this.value.length > 0 || "Seleccione la/s activadad/es",
+        () => this.value.length > 0 || "Seleccione una o mas actividades",
         (v) => !!v || "Obligatorio",
       ];
     },
@@ -46,9 +48,22 @@ export default {
     AutocompleteEstadoCobro,
   },
   methods: {
-    cambiarEstado() {
-      
+    ...mapActions("actividad", ["setChangeStatus"]),
+    async cambiarEstado() {
+      this.form.detalle = JSON.parse(JSON.stringify(this.value));
+      const response = await this.setChangeStatus(this.form);
+      if (response.success) {
+        this.$emit("fetch");
+        this.form.idestadocobro = null;
+        this.$refs.form.resetValidation();
+      }
     },
   },
+  data: () => ({
+    form: {
+      idestadocobro: null,
+      detalle: [],
+    },
+  }),
 };
 </script>

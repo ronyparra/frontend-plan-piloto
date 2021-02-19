@@ -2,8 +2,15 @@ import { FETCH, LOADING, SET_ID, url } from "./contants";
 import { get, post, put, del } from "@/services/api/api.services.js";
 
 export default {
-  async fetchActividad({ commit }, {idcliente, fechadesde, fechahasta, idestadocobro}) {
-    const urlWithParams = `${url}/?cliente=${idcliente ? idcliente : 'undefined'}&desde=${fechadesde}&hasta=${fechahasta}&estado=${idestadocobro ? idestadocobro : 'undefined'}`;
+  async fetchActividad(
+    { commit },
+    { idcliente, fechadesde, fechahasta, idestadocobro }
+  ) {
+    const urlWithParams = `${url}/?cliente=${
+      idcliente ? idcliente : "undefined"
+    }&desde=${fechadesde}&hasta=${fechahasta}&estado=${
+      idestadocobro ? idestadocobro : "undefined"
+    }`;
     commit(LOADING, true);
     try {
       const response = await get(urlWithParams);
@@ -24,6 +31,12 @@ export default {
       console.log(e);
     }
     commit(LOADING, false);
+  },
+  async setChangeStatus({ commit }, form) {
+    commit(LOADING, true);
+    const response = await post(url+'/status', form);
+    commit(LOADING, false);
+    return response;
   },
   async createActividad({ commit }, form) {
     commit(LOADING, true);

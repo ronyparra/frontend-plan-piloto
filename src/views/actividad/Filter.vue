@@ -1,5 +1,5 @@
 <template>
-  <c-card flat>
+  <c-card flat class="mb-n3">
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
@@ -14,23 +14,7 @@
               v-model="form.idcliente"
             />
           </c-col>
-          <c-col cols="12" sm="3" class="my-n3">
-            <TextDate
-              :dense="false"
-              :filled="false"
-              placeholder="Filtrar Desde"
-              v-model="form.fechadesde"
-            />
-          </c-col>
-          <c-col cols="12" sm="3" class="my-n3">
-            <TextDate
-              :dense="false"
-              :filled="false"
-              placeholder="Filtrar Hasta"
-              v-model="form.fechahasta"
-            />
-          </c-col>
-          <c-col cols="9" sm="2" class="my-n3">
+           <c-col cols="12" sm="3" class="my-n3">
             <AutocompleteEstadoCobro
               label=""
               clearable
@@ -41,6 +25,23 @@
               v-model="form.idestadocobro"
             />
           </c-col>
+          <c-col cols="12" sm="2" class="my-n3">
+            <TextDate
+              :dense="false"
+              :filled="false"
+              placeholder="Filtrar Desde"
+              v-model="form.fechadesde"
+            />
+          </c-col>
+          <c-col cols="9" sm="2" class="my-n3">
+            <TextDate
+              :dense="false"
+              :filled="false"
+              placeholder="Filtrar Hasta"
+              v-model="form.fechahasta"
+            />
+          </c-col>
+         
           <v-spacer></v-spacer>
           <c-btn text color="blue" class="mt-2 text-capitalize" @click="filtrar"
             >Filtrar</c-btn
