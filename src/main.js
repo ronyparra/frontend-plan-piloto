@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "./cvuetify";
 import "./services/api/axios.service";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
