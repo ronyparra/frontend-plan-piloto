@@ -259,7 +259,8 @@ export default {
             form: this.form,
           })
         : await this.createActividad(this.form);
-      if (response.success && !this.isEdit) {
+      if (response.success) {
+        if (this.isEdit) this.$router.replace({ path: "/actividad" });
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
         this.fetchActividad();

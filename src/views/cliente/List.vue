@@ -59,14 +59,9 @@ export default {
     show: false,
     search: "",
     headers: [
-      {
-        text: "#",
-        align: "start",
-        value: "idcliente",
-      },
       { text: "Cliente", value: "razonsocial" },
       { text: "Ruc", value: "ruc" },
-      { text: "", value: "actions", align: "end" },
+      { text: "", value: "actions", align: "end",sortable: false },
     ],
   }),
 };

@@ -21,6 +21,9 @@
       :items-per-page="99999"
       hide-default-footer
     >
+    <template v-slot:[`item.precio`]="{ item }">
+      <div>{{toCurrency(item.precio)}}</div>
+    </template>
       <template v-slot:[`item.actions`]="{ item }">
         <c-btn
           fab
@@ -43,6 +46,7 @@ import BtnAdd from "@/components/BtnAdd";
 import BtnSearch from "@/components/BtnSearch";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
+import { currencyFormatter } from "@/util/number.util";
 export default {
   components: {
     BtnAdd,
@@ -61,19 +65,17 @@ export default {
       await this.fetchConceptoId({ data });
       this.$router.push({ path: `/concepto/edit/` + data.idconcepto });
     },
+    toCurrency(value){
+      return currencyFormatter(value)
+    }
   },
   data: () => ({
     show: false,
     search: "",
     headers: [
-      {
-        text: "#",
-        align: "start",
-        value: "idconcepto",
-      },
       { text: "Concepto", value: "descripcion" },
-      { text: "Precio", value: "precio" },
-      { text: "", value: "actions", align: "end" },
+      { text: "Precio", value: "precio", align: 'end' },
+      { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),
 };

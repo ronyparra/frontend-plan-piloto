@@ -1,7 +1,7 @@
 <template>
 
-  <v-row dense>
-    <v-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
+  <c-row dense>
+    <c-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
       <v-expansion-panels accordion>
         <v-expansion-panel >
           <v-expansion-panel-header hide-actions class="d-flex flex-column">
@@ -35,7 +35,7 @@
             <v-divider></v-divider>
             <v-list dense>
               <v-list-item-group >
-                <v-list-item v-for="(list, j) in item.detalle" :key="j">
+                <v-list-item v-for="(list, j) in item.detalle" :key="j" :to="'/pendiente/edit/'+list.idpendiente">
                   <v-list-item-icon>
                     <v-icon>keyboard_arrow_right</v-icon>
                   </v-list-item-icon>
@@ -50,8 +50,8 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
-    </v-col>
-  </v-row>
+    </c-col>
+  </c-row>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";

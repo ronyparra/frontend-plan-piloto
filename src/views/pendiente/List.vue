@@ -74,7 +74,7 @@ export default {
     headers: [
       { text: "Pendiente", value: "descripcion" },
       { text: "Tipo", value: "idtipo_pendiente.descripcion", align: 'end' },
-      { text: "", value: "actions", align: "end" },
+      { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),
 };
