@@ -1,19 +1,21 @@
 <template>
-  <c-autocomplete
+  <v-autocomplete
     :value="value"
     ref="input"
     :items="items"
     :loading="loading"
     :item-value="itemValue"
     :rules="rules"
+    :placeholder="placeholder"
     :return-object="returnObject"
     :item-text="itemText"
     :label="label"
     :multiple="multiple"
     :chips="chips"
     :small-chips="chips"
-    filled
-    dense
+    :clearable="clearable"
+    :filled="filled"
+    :dense="dense"
     flat
     rounded
     background-color="grey lighten-4"
@@ -29,7 +31,7 @@
         </c-list-item-content>
       </c-list-item>
     </template>
-  </c-autocomplete>
+  </v-autocomplete>
 </template>
 <script>
 export default {
@@ -42,6 +44,16 @@ export default {
     itemText: String,
     multiple: Boolean,
     chips: Boolean,
+    clearable: Boolean,
+    placeholder: String,
+    filled: {
+      type: Boolean,
+      default: true,
+    },
+    dense: {
+      type: Boolean,
+      default: true,
+    },
     rules: {
       type: Array,
       default: function() {

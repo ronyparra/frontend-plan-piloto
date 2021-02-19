@@ -14,8 +14,10 @@
         :label="label"
         prepend-icon="calendar_today"
         readonly
-        filled
-        dense
+        :rules="rules"
+        :filled="filled"
+        :dense="dense"
+        :placeholder="placeholder"
         flat
         rounded
         background-color="grey lighten-4"
@@ -35,6 +37,19 @@ export default {
   props: {
     value: String,
     label: String,
+    placeholder: String,
+    rules: {
+      type: [Array],
+      default: () => [(v) => !!v || "Obligatorio"],
+    },
+    dense: {
+      type: Boolean,
+      default: true
+    },
+    filled: {
+      type: Boolean,
+      default: true
+    }
   },
   mounted(){
     this.date = this.parseDate(this.value)

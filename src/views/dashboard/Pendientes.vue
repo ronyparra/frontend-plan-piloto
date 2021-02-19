@@ -1,35 +1,9 @@
 <template>
-  <!--   <v-row dense>
-    <v-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
-      <v-progress-linear
-        value="100"
-        height="3"
-        :color="item.color"
-      ></v-progress-linear>
-      <v-card class="d-flex flex-row" flat>
-        <div class="align-self-center mx-4">
-          <v-icon x-large>{{ item.icon }}</v-icon>
-        </div>
-        <v-divider vertical class="my-3"></v-divider>
-        <div>
-          <v-card-subtitle> {{ item.tipo }} </v-card-subtitle>
-          <v-card-text
-            >Hay {{ item.detalle.length }}
-            {{
-              item.detalle.length > 1 ? "pendientes" : "pendiente"
-            }}</v-card-text
-          >
-        </div>
-        <v-spacer></v-spacer>
-        <div class="align-self-center mr-4">
-          <v-icon>keyboard_arrow_right</v-icon>
-        </div>
-      </v-card>
-    </v-col> -->
+
   <v-row dense>
     <v-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
       <v-expansion-panels accordion>
-        <v-expansion-panel>
+        <v-expansion-panel >
           <v-expansion-panel-header hide-actions class="d-flex flex-column">
             <v-progress-linear
               value="100"
@@ -56,8 +30,10 @@
               </div>
             </v-card>
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
-            <v-list>
+            <v-divider></v-divider>
+            <v-list dense>
               <v-list-item-group >
                 <v-list-item v-for="(list, j) in item.detalle" :key="j">
                   <v-list-item-icon>

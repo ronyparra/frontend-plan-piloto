@@ -5,13 +5,15 @@
         {{ $route.name }}
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
-        <BtnSearch class="mr-1" @click="show = !show" />
+        <BtnIcon @click="filter = !filter">filter_alt</BtnIcon>
+        <BtnSearch class="mx-1" @click="show = !show" />
         <BtnAdd to="/actividad/add" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
       </template>
     </c-app-bar>
+    <FilterAdvanced :params="params" v-if="filter" />
     <v-data-table
       :headers="headers"
       :search="search"
@@ -41,16 +43,22 @@
 <script>
 import BtnAdd from "@/components/BtnAdd";
 import BtnSearch from "@/components/BtnSearch";
+import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
+
 import { mapActions, mapGetters } from "vuex";
+import {subtract_days, current_date} from '@/util/date.util';
+import FilterAdvanced from "./Filter";
 export default {
   components: {
+    FilterAdvanced,
+    BtnIcon,
     BtnAdd,
     BtnSearch,
     SearchField,
   },
   mounted() {
-    this.fetchActividad();
+    this.fetchActividad(this.params);
   },
   computed: {
     ...mapGetters("actividad", ["getActividad", "isLoading"]),
@@ -63,8 +71,15 @@ export default {
     },
   },
   data: () => ({
+    filter: false,
     show: false,
     search: "",
+    params: {
+      idcliente: null,
+      fechadesde:  subtract_days(90),
+      fechahasta:  current_date(),
+      idestadocobro: 1,
+    },
     headers: [
       { text: "Fecha", value: "fecha" },
       { text: "Cliente", value: "idcliente.razonsocial" },

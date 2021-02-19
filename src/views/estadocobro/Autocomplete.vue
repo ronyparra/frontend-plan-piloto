@@ -2,22 +2,21 @@
   <div>
     <InputAutocomplete
       :label="label"
-      item-value="idcliente"
-      item-text="razonsocial"
+      item-value="idestadocobro"
+      item-text="descripcion"
       ref="input"
       :value="value"
-      :items="getCliente"
+      :items="getEstadoCobro"
       :loading="isLoading"
-      :placeholder="placeholder"
-      :clearable="clearable"
       :rules="rules"
+      :clearable="clearable"
       :filled="filled"
+      :placeholder="placeholder"
       :dense="dense"
       :return-object="returnObject"
+      :multiple="multiple"
       @input="$emit('input', $event)"
       @change="$emit('change')"
-      :to="to"
-      :redirect="redirect"
     />
   </div>
 </template>
@@ -30,10 +29,16 @@ export default {
     InputAutocomplete,
   },
   props: {
-    value: [Number, Object, String],
+    value: [Number, Object, Array, String],
     rules: Array,
     returnObject: Boolean,
-    clearable: Boolean,
+    multiple: Boolean,
+    clearable:Boolean,
+    placeholder: String,
+    label:{
+      type: String,
+      default: 'Estado Cobro'
+    },
     filled: {
       type: Boolean,
       default: true,
@@ -42,27 +47,19 @@ export default {
       type: Boolean,
       default: true,
     },
-    redirect: String,
-    placeholder: String,
-    label: {
-      type: String,
-      default: "Cliente",
-    },
-    to: {
-      type: String,
-      default: "/cliente/add",
-    },
   },
   mounted() {
-    this.fetchCliente();
+    this.fetchEstadoCobro();
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    ...mapGetters("estadocobro", ["getEstadoCobro", "isLoading"]),
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions("estadocobro", ["fetchEstadoCobro"]),
     focus: (vm) => vm.$refs.input.focus(),
     isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
   },
 };
 </script>
+
+<style></style>
