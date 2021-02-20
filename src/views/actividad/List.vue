@@ -5,7 +5,7 @@
         {{ $route.name }}
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
-        <BtnIcon class="mx-1" @click="options = !options">build</BtnIcon>
+        <BtnIcon class="mx-1" @click="generarPDF()">build</BtnIcon>
         <BtnIcon @click="filter = !filter">filter_alt</BtnIcon>
         <BtnSearch class="mx-1" @click="show = !show" />
         <BtnAdd to="/actividad/add" />
@@ -31,7 +31,11 @@
       <template v-slot:[`item.idestadocobro`]="{ item }">
         <c-chip
           dark
-          :color="item.idestadocobro.idestadocobro === 1 ? 'red darken-1' : 'green accent-4'"
+          :color="
+            item.idestadocobro.idestadocobro === 1
+              ? 'red darken-1'
+              : 'green accent-4'
+          "
           >{{ item.idestadocobro.descripcion }}</c-chip
         >
       </template>
@@ -66,7 +70,8 @@ import SearchField from "@/components/SearchField";
 
 import { mapActions, mapGetters } from "vuex";
 import { subtract_days, current_date } from "@/util/date.util";
-import { currencyFormatter } from "@/util/number.util";
+import { formatTecnico, formatDetalle } from './formatter';
+import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
 import Opciones from "./Opciones";
 export default {
@@ -94,24 +99,14 @@ export default {
       await this.fetchActividadId({ data });
       this.$router.push({ path: `/actividad/edit/` + data.idactividad });
     },
+    generarPDF() {
+      exportPDF(this.headers, this.getActividad, this.params);
+    },
     formatDetalle(detalle) {
-      return detalle.reduce((acc, curr) => {
-        if (acc != "") acc = acc + ", ";
-        return (acc =
-          acc +
-          curr.cantidad +
-          " " +
-          curr.idconcepto.descripcion +
-          " (" +
-          currencyFormatter(curr.precio * curr.cantidad) +
-          ")");
-      }, "");
+      return formatDetalle(detalle)
     },
     formatTecnico(tecnico) {
-      return tecnico.reduce((acc, curr) => {
-        if (acc != "") acc = acc + ", ";
-        return (acc = acc + curr.nombre);
-      }, "");
+      return formatTecnico(tecnico)
     },
   },
   data: () => ({

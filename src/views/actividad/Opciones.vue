@@ -1,5 +1,5 @@
 <template>
-  <c-card flat class="mb-n3">
+  <c-card flat class="mb-n2">
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
@@ -22,6 +22,7 @@
           >
           <v-spacer></v-spacer>
           <c-btn class="mt-sm-6 mt-0" rounded small text color="red"
+     
             >Generar PDF</c-btn
           >
         </c-row>
@@ -58,6 +59,7 @@ export default {
         this.$refs.form.resetValidation();
       }
     },
+
   },
   data: () => ({
     form: {

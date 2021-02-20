@@ -73,6 +73,9 @@
           :items-per-page="99999"
           hide-default-footer
         >
+          <template v-slot:[`item.precio`]="{ item }">
+            <div>{{toCurrency(item.precio)}}</div>
+          </template>
           <template v-slot:[`item.actions`]="{ item }">
             <BtnDelete class="my-1" @click="deletDetalle(item)" />
           </template>
@@ -118,6 +121,7 @@ import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import TextDate from "@/components/TextDate";
 import Delete from "../delete/Delete";
+import { currencyFormatter } from "@/util/number.util";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
@@ -196,16 +200,15 @@ export default {
       },
       {
         text: "Cantidad",
-        align: "start",
         value: "cantidad",
+        align: "end",
       },
       {
         text: "Precio",
-        align: "start",
+        align: "end",
         value: "precio",
       },
       {
-        text: "#",
         align: "end",
         value: "actions",
       },
@@ -234,7 +237,9 @@ export default {
       "fetchActividad",
       "fetchActividadId",
     ]),
-
+    toCurrency(value){
+      return currencyFormatter(value)
+    },
     async editHandler() {
       this.isEdit = true;
       if (this.getActividadId)

@@ -1,10 +1,13 @@
 <template>
-  <v-switch :label="label" :inset="inset" :value="value" @input="$emit('input', $event)"><slot /></v-switch>
+  <v-switch :label="label" :inset="inset" :value="value" @change="$emit('input', !value)"><slot /></v-switch>
 </template>
 <script>
 export default {
   props: {
-    value: Boolean,
+    value: {
+      type: Boolean,
+      required: true
+    },
     label: String,
     inset:{
         type: Boolean,

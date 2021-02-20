@@ -16,11 +16,17 @@ const routes = [
   },
   {
     path: "/",
-    name: "Dashboard",
-    component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
+    component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Dashboard.vue"),
     meta: {
       requiresAuth: true,
     },
+    children: [
+      {
+        path: "/",
+        name: "Dashboard",
+        component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
+      },
+    ]
   },
   {
     path: "/cliente",

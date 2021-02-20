@@ -1,7 +1,8 @@
 <template>
-  <c-footer
-    padless
+  <c-app-bar
+    
     app
+    bottom
     color="secondary"
     class="d-flex flex-row justify-space-around"
   >
@@ -24,7 +25,7 @@
         </c-row>
       </c-col>
     </c-btn>
-  </c-footer>
+  </c-app-bar>
 </template>
 <script>
 import { navs } from "./constants";

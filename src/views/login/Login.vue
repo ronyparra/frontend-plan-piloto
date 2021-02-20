@@ -18,7 +18,7 @@
         </div>
       </div>
       <c-container>
-        <v-form ref="form">
+        <c-form ref="form">
           <c-text-field
             color="primary"
             outlined
@@ -40,7 +40,8 @@
             label="Contrasena"
             v-model="data.password"
           ></c-text-field>
-        </v-form>
+         
+        </c-form>
         <div class="mt-n8 d-flex justify-end">
           <c-switch
             label="Recuerdame"
@@ -49,6 +50,7 @@
             class="mr-2"
           ></c-switch>
         </div>
+         <c-alert dense text type="error" v-if="response" class="caption">{{response}}</c-alert>
       </c-container>
 
       <c-container>
@@ -68,14 +70,15 @@ export default {
     data: {
       username: "",
       password: "",
-      remember: "",
+      remember: false,
     },
+    response: null
   }),
   methods: {
     ...mapActions("auth", ["loginAction"]),
-    login() {
+    async login() {
       if (!this.$refs.form.validate()) return null;
-      this.loginAction(this.data);
+      this.response = await this.loginAction(this.data);
     },
   },
 };

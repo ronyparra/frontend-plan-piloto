@@ -55,6 +55,7 @@
 import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
+
 import { mapActions } from "vuex";
 export default {
   props: {
@@ -74,6 +75,7 @@ export default {
       if (!this.$refs.form.validate()) return null;
       this.fetchActividad(this.form);
     },
+
   },
   data: () => ({
     form: {

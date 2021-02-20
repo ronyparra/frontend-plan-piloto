@@ -1,10 +1,9 @@
 <template>
-
   <c-row dense>
     <c-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
       <v-expansion-panels accordion>
-        <v-expansion-panel >
-          <v-expansion-panel-header hide-actions class="d-flex flex-column">
+        <v-expansion-panel>
+          <v-expansion-panel-header hide-actions class="d-flex flex-column" v-if="pendiente(item.detalle)">
             <v-progress-linear
               value="100"
               height="3"
@@ -18,9 +17,9 @@
               <div>
                 <v-card-subtitle> {{ item.tipo }} </v-card-subtitle>
                 <v-card-text
-                  >Hay {{ item.detalle.length }}
+                  >Hay {{ pendiente(item.detalle) }}
                   {{
-                    item.detalle.length > 1 ? "pendientes" : "pendiente"
+                    pendiente(item.detalle) > 1 ? "pendientes" : "pendiente"
                   }}</v-card-text
                 >
               </div>
@@ -34,8 +33,12 @@
           <v-expansion-panel-content>
             <v-divider></v-divider>
             <v-list dense>
-              <v-list-item-group >
-                <v-list-item v-for="(list, j) in item.detalle" :key="j" :to="'/pendiente/edit/'+list.idpendiente">
+              <v-list-item-group>
+                <v-list-item
+                  v-for="(list, j) in item.detalle"
+                  :key="j"
+                  :to="'/pendiente/edit/' + list.idpendiente"
+                >
                   <v-list-item-icon>
                     <v-icon>keyboard_arrow_right</v-icon>
                   </v-list-item-icon>
@@ -64,16 +67,20 @@ export default {
   },
   methods: {
     ...mapActions("pendiente", ["fetchDashboard"]),
+    pendiente(detalle) {
+      if (!detalle) return null;
+      return detalle.length;
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 ::v-deep .v-expansion-panel-header {
   padding: 0px 0px;
-};
+}
 ::v-deep .v-expansion-panel-content__wrap {
-    padding: 0 2px 2px;
-    flex: 1 1 auto;
-    max-width: 100%;
-};
+  padding: 0 2px 2px;
+  flex: 1 1 auto;
+  max-width: 100%;
+}
 </style>

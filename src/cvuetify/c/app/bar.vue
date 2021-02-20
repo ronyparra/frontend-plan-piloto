@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :color="color" extension-height="48" :absolute="absolute"  :flat="flat" :dense="dense" :app="app">
+  <v-app-bar :color="color" extension-height="48"  :bottom="bottom" :absolute="absolute"  :flat="flat" :dense="dense" :app="app">
     <slot />
     <template v-slot:extension v-if="$slots.extension"><slot name="extension"/></template>
   </v-app-bar>
@@ -8,6 +8,7 @@
 export default {
   props: {
     color: String,
+    bottom: Boolean,
     dense: {
       type: Boolean,
       default: false,

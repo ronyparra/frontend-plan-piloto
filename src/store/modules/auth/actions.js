@@ -11,13 +11,15 @@ export default {
       { username, password, remember },
       "disabledEvents"
     );
-    if (response) {
+    if (response.success) {
       saveToken(response.data.data.token, remember);
       saveUser(response.data.data.user, remember);
       commit(LOGIN_SUCCESS, response.data.data);
       router.push(router.history.current.query.redirect || "/");
+      return null;
     } else {
       commit(LOGIN_RESET);
+      return response.message;
     }
   },
   logout({ commit }) {
