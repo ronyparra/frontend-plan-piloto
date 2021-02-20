@@ -1,9 +1,9 @@
 <template>
   <c-row dense>
     <c-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
-      <v-expansion-panels accordion>
+      <v-expansion-panels accordion v-if="pendiente(item.detalle)">
         <v-expansion-panel>
-          <v-expansion-panel-header hide-actions class="d-flex flex-column" v-if="pendiente(item.detalle)">
+          <v-expansion-panel-header hide-actions class="d-flex flex-column" >
             <v-progress-linear
               value="100"
               height="3"
