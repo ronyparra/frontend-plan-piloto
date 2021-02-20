@@ -5,7 +5,6 @@
         {{ $route.name }}
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
-        <BtnIcon class="mx-1" @click="generarPDF()">build</BtnIcon>
         <BtnIcon @click="filter = !filter">filter_alt</BtnIcon>
         <BtnSearch class="mx-1" @click="show = !show" />
         <BtnAdd to="/actividad/add" />
@@ -14,8 +13,14 @@
         <SearchField class="mb-2" v-model="search" />
       </template>
     </c-app-bar>
-    <FilterAdvanced :params="params" v-if="filter" />
-    <Opciones :value="selected" @fetch="fetch()" v-if="options" />
+    <FilterAdvanced
+      :params="params"
+      v-if="filter"
+      :value="selected"
+      @fetch="fetch()"
+      @pdf="generarPDF()"
+    />
+
     <v-data-table
       :headers="headers"
       :search="search"
@@ -23,7 +28,7 @@
       :loading="isLoading"
       :header-props="headerProps"
       :items-per-page="9999999"
-      :show-select="options"
+      :show-select="filter"
       item-key="idactividad"
       v-model="selected"
       hide-default-footer
@@ -70,14 +75,14 @@ import SearchField from "@/components/SearchField";
 
 import { mapActions, mapGetters } from "vuex";
 import { subtract_days, current_date } from "@/util/date.util";
-import { formatTecnico, formatDetalle } from './formatter';
+import { formatTecnico, formatDetalle } from "./formatter";
 import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
-import Opciones from "./Opciones";
+
 export default {
   components: {
     FilterAdvanced,
-    Opciones,
+
     BtnIcon,
     BtnAdd,
     BtnSearch,
@@ -103,15 +108,14 @@ export default {
       exportPDF(this.headers, this.getActividad, this.params);
     },
     formatDetalle(detalle) {
-      return formatDetalle(detalle)
+      return formatDetalle(detalle);
     },
     formatTecnico(tecnico) {
-      return formatTecnico(tecnico)
+      return formatTecnico(tecnico);
     },
   },
   data: () => ({
     filter: false,
-    options: false,
     show: false,
     search: "",
     selected: [],

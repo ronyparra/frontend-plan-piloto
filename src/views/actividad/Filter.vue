@@ -1,5 +1,5 @@
 <template>
-  <c-card flat class="mb-n3">
+  <c-card flat class="mb-n2">
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
@@ -14,7 +14,7 @@
               v-model="form.idcliente"
             />
           </c-col>
-           <c-col cols="12" sm="3" class="my-n3">
+          <c-col cols="12" sm="3" class="my-n3">
             <AutocompleteEstadoCobro
               label=""
               clearable
@@ -41,13 +41,15 @@
               v-model="form.fechahasta"
             />
           </c-col>
-         
+
           <v-spacer></v-spacer>
           <c-btn text color="blue" class="mt-2 text-capitalize" @click="filtrar"
             >Filtrar</c-btn
           >
         </c-row>
       </c-form>
+      <c-divider></c-divider>
+      <Opciones :value="value" @fetch="$emit('fetch')" @pdf="$emit('pdf')" />
     </c-card-text>
   </c-card>
 </template>
@@ -55,13 +57,15 @@
 import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
-
 import { mapActions } from "vuex";
+import Opciones from "./Opciones";
 export default {
   props: {
+    value: Array,
     params: [Object],
   },
   components: {
+    Opciones,
     TextDate,
     AutocompleteCliente,
     AutocompleteEstadoCobro,
@@ -75,7 +79,6 @@ export default {
       if (!this.$refs.form.validate()) return null;
       this.fetchActividad(this.form);
     },
-
   },
   data: () => ({
     form: {

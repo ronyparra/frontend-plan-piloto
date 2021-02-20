@@ -1,8 +1,8 @@
 <template>
   <c-app-bar
-    
     app
     bottom
+    style="z-index: 1"
     color="secondary"
     class="d-flex flex-row justify-space-around"
   >
@@ -30,8 +30,8 @@
 <script>
 import { navs } from "./constants";
 export default {
-  computed:{
-    navs:()=>navs
-  }
+  computed: {
+    navs: () => navs,
+  },
 };
 </script>

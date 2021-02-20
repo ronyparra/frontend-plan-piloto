@@ -1,6 +1,6 @@
 <template>
-  <c-card flat class="mb-n2">
-    <c-card-text>
+
+
       <c-form ref="form">
         <c-row dense>
           <c-col cols="12" sm="5">
@@ -22,13 +22,12 @@
           >
           <v-spacer></v-spacer>
           <c-btn class="mt-sm-6 mt-0" rounded small text color="red"
-     
+            @click="$emit('pdf')"
             >Generar PDF</c-btn
           >
         </c-row>
       </c-form>
-    </c-card-text></c-card
-  >
+
 </template>
 <script>
 import { mapActions } from "vuex";
