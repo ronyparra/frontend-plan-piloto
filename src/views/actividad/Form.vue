@@ -25,16 +25,19 @@
                 :redirect="$route.path"
                 v-model="form.idcliente"
                 return-object
+                ref="act1"
               />
             </c-col>
             <c-col cols="12" v-if="sucursal.length > 1">
               <AutocompleteClienteSucursal
+                ref="act2"
                 :items="sucursal"
                 v-model="form.idcliente_sucursal.idcliente_sucursal"
               />
             </c-col>
             <c-col cols="12">
               <AutocompleteTecnico
+                ref="act3"
                 multiple
                 label="Tecnicos"
                 v-model="form.tecnico"
@@ -50,19 +53,20 @@
               <AutocompleteConcepto
                 v-model="detalle.idconcepto"
                 :redirect="$route.path"
+                ref="act4"
                 return-object
                 @change="detalle.precio = detalle.idconcepto.precio"
               />
             </c-col>
             <c-col cols="5" sm="3">
-              <TextNumber label="Cantidad" v-model="detalle.cantidad" />
+              <TextNumber ref="act5" label="Cantidad" v-model="detalle.cantidad" />
             </c-col>
             <c-col cols="5" sm="3">
-              <TextNumber label="Precio" v-model="detalle.precio" />
+              <TextNumber ref="act6" label="Precio" v-model="detalle.precio" />
             </c-col>
 
             <c-spacer></c-spacer>
-            <BtnAdd :x-small="false" class="mt-2 mr-1" @click="addDetalle()" />
+            <BtnAdd ref="act7" :x-small="false" class="mt-2 mr-1" @click="addDetalle()" />
           </c-row>
         </c-form>
         <v-data-table

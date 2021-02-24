@@ -164,6 +164,41 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/usuario",
+    name: "",
+    component: () =>
+      import(/* webpackChunkName: "Usuario" */ "../views/usuario/Usuario.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "/",
+        name: "Usuarios",
+        component: () =>
+          import(
+            /* webpackChunkName: "Usuarios" */ "../views/usuario/List.vue"
+          ),
+      },
+      {
+        path: "add",
+        name: "Registrar Usuario",
+        component: () =>
+          import(
+            /* webpackChunkName: "Usuario ADD" */ "../views/usuario/Form.vue"
+          ),
+      },
+      {
+        path: "edit/:id",
+        name: "Modificar Usuario",
+        component: () =>
+          import(
+            /* webpackChunkName: "Usuario EDIT" */ "../views/usuario/Form.vue"
+          ),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

@@ -1,4 +1,5 @@
 export default {
-  getUsuario: (state) => state.usuario,
+  getUsuario: (state) => state.data,
+  getUsuarioId: (state) => state.dataId,
   isLoading: (state) => state.loading,
 };

@@ -1,8 +1,8 @@
 import { FETCH, LOADING, SET_ID, url } from "./contants";
-import { get, post, put, del } from "@/services/api/api.services.js";
+import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
-  fetchUsuario: async({ commit })=> {
+  async fetchGrupo({ commit }) {
     commit(LOADING, true);
     try {
       const response = await get(url);
@@ -13,7 +13,7 @@ export default {
     }
     commit(LOADING, false);
   },
-  fetchUsuarioId: async ({ commit }, { id, data }) => {
+  fetchGrupoId: async ({ commit }, { id, data }) => {
     if (data) return commit(SET_ID, data);
     commit(LOADING, true);
     try {
@@ -24,21 +24,19 @@ export default {
     }
     commit(LOADING, false);
   },
-  
-  createUsuario: async({ commit }, form)=>{
+  async createGrupo({ commit }, form) {
     commit(LOADING, true);
     const response = await post(url, form);
     commit(LOADING, false);
     return response;
   },
-
-  updateUsuario: async ({ commit }, { id, form }) => {
+  updateGrupo: async ({ commit }, { id, form }) => {
     commit(LOADING, true);
     const response = await put(`${url}/${id}`, form);
     commit(LOADING, false);
     return response;
   },
-  deleteUsuario: async ({ commit }, id) => {
+  deleteGrupo: async ({ commit }, id) => {
     commit(LOADING, true);
     const response = await del(`${url}/${id}`);
     commit(LOADING, false);
