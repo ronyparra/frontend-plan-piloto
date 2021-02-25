@@ -1,12 +1,12 @@
 <template>
   <div>
     <InputAutocomplete
-      label="Grupo de Usuario"
-      item-value="idgrupo_usuario"
+      label="Rol de Usuario"
+      item-value="idusuario_rol"
       item-text="descripcion"
       ref="input"
       :value="value"
-      :items="getGrupo"
+      :items="getUsuarioRol"
       :loading="isLoading"
       :rules="rules"
       :return-object="returnObject"
@@ -31,13 +31,13 @@ export default {
     multiple: Boolean,
   },
   mounted() {
-    this.fetchGrupo();
+    this.fetchUsuarioRol();
   },
   computed: {
-    ...mapGetters("grupo", ["getGrupo", "isLoading"]),
+    ...mapGetters("usuario_rol", ["getUsuarioRol", "isLoading"]),
   },
   methods: {
-    ...mapActions("grupo", ["fetchGrupo"]),
+    ...mapActions("usuario_rol", ["fetchUsuarioRol"]),
     focus: (vm) => vm.$refs.input.focus(),
     isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
   },

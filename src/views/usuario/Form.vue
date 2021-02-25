@@ -43,9 +43,8 @@
               />
             </c-col>
             <c-col cols="12">
-            <AutocompleteGrupo multiple />
+              <AutocompleteRol multiple v-model="form.usuario_rol_detalle" />
             </c-col>
-
           </c-row>
         </c-form>
       </c-card-text>
@@ -62,11 +61,11 @@ import BtnClose from "@/components/BtnClose";
 import TextField from "@/components/TextField";
 import BtnDelete from "@/components/BtnDelete";
 import Delete from "../delete/Delete";
-import AutocompleteGrupo from  '../grupo/Autocomplete';
+import AutocompleteRol from "../usuario_rol/Autocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
-    AutocompleteGrupo,
+    AutocompleteRol,
     BtnDelete,
     BtnClose,
     Delete,
@@ -79,13 +78,15 @@ export default {
       username: "",
       password: "",
       nombre: "",
-      apellido: ""
+      apellido: "",
+      usuario_rol_detalle: [],
     },
-    default:  {
+    default: {
       username: "",
       password: "",
       nombre: "",
-      apellido: ""
+      apellido: "",
+      usuario_rol_detalle: [],
     },
   }),
 
