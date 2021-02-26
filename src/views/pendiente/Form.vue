@@ -17,15 +17,24 @@
       <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="4">
               <TextDate ref="pendiente2" label="Fecha" v-model="form.fecha" />
             </c-col>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="4">
               <AutocompleteTipo
                 v-model="form.idtipo_pendiente.idtipo_pendiente"
               />
             </c-col>
-            <c-col cols="12" >
+            <c-col cols="12" sm="4">
+              <AutocompleteTecnico
+                label="Asignar pendiente a"
+                multiple
+                return-object
+                :rules="[]"
+                v-model="form.pendiente_tecnico"
+              />
+            </c-col>
+            <c-col cols="12">
               <TextArea
                 ref="pendiente1"
                 label="Descripcion"
@@ -52,8 +61,10 @@ import { current_date } from "@/util/date.util";
 import Delete from "../delete/Delete";
 import { mapActions, mapGetters } from "vuex";
 import AutocompleteTipo from "../tipo_pendiente/Autocomplete";
+import AutocompleteTecnico from "../usuario/Autocomplete";
 export default {
   components: {
+    AutocompleteTecnico,
     AutocompleteTipo,
     BtnDelete,
     BtnClose,
@@ -66,17 +77,19 @@ export default {
     deleteView: false,
     form: {
       idtipo_pendiente: {
-        idtipo_pendiente: null
+        idtipo_pendiente: null,
       },
       fecha: current_date(),
       descripcion: "",
+      pendiente_tecnico: [],
     },
     default: {
       idtipo_pendiente: {
-        idtipo_pendiente: null
+        idtipo_pendiente: null,
       },
       fecha: current_date(),
       descripcion: "",
+      pendiente_tecnico: [],
     },
   }),
 
@@ -92,7 +105,7 @@ export default {
       "fetchPendiente",
       "fetchPendienteId",
       "updatePendiente",
-      "fetchDashboard"
+      "fetchDashboard",
     ]),
     async editHandler() {
       this.isEdit = true;

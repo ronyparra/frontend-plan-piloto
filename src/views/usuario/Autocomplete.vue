@@ -1,7 +1,7 @@
 <template>
   <div>
     <InputAutocomplete
-      label="Tecnico"
+      :label="label"
       item-value="idusuario"
       item-text="nombre"
       ref="input"
@@ -28,6 +28,10 @@ export default {
     value: [Number, Object, Array],
     rules: Array,
     returnObject: Boolean,
+    label:{
+      type: String,
+      default: 'Tecnico'
+    },
     multiple: Boolean,
   },
   mounted() {
