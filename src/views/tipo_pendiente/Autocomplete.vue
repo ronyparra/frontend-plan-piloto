@@ -9,6 +9,7 @@
       :items="getTipoPendiente"
       :loading="isLoading"
       :rules="rules"
+      :readonly="readonly"
       :return-object="returnObject"
       :multiple="multiple"
       @input="$emit('input', $event)"
@@ -26,6 +27,7 @@ export default {
   },
   props: {
     value: [Number, Object, Array],
+    readonly:Boolean,
     rules: Array,
     returnObject: Boolean,
     multiple: Boolean,

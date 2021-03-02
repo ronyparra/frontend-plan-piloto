@@ -7,6 +7,7 @@
     :filled="filled"
     :dense="dense"
     :rounded="rounded"
+    :readonly="readonly"
     @input="$emit('input', $event)"
   ></v-textarea>
 </template>
@@ -19,6 +20,7 @@ export default {
     filled: Boolean,
     dense: Boolean,
     rounded: Boolean,
+    readonly:Boolean
   },
 };
 </script>

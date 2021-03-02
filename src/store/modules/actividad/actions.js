@@ -50,9 +50,10 @@ export default {
     commit(LOADING, false);
     return response;
   },
-  async deleteActividad({ commit }, id) {
+  async deleteActividad({ commit , dispatch}, id) {
     commit(LOADING, true);
     const response = await del(`${url}/${id}`);
+    dispatch('pendiente/fetchPendiente', null, {root:true})
     commit(LOADING, false);
     return response;
   },

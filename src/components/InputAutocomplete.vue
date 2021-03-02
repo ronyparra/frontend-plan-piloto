@@ -13,6 +13,7 @@
     :multiple="multiple"
     :chips="chips"
     :small-chips="chips"
+    :readonly="readonly"
     :clearable="clearable"
     :filled="filled"
     :dense="dense"
@@ -45,6 +46,7 @@ export default {
     multiple: Boolean,
     chips: Boolean,
     clearable: Boolean,
+    readonly: Boolean,
     placeholder: String,
     filled: {
       type: Boolean,

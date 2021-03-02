@@ -59,14 +59,23 @@
               />
             </c-col>
             <c-col cols="5" sm="3">
-              <TextNumber ref="act5" label="Cantidad" v-model="detalle.cantidad" />
+              <TextNumber
+                ref="act5"
+                label="Cantidad"
+                v-model="detalle.cantidad"
+              />
             </c-col>
             <c-col cols="5" sm="3">
               <TextNumber ref="act6" label="Precio" v-model="detalle.precio" />
             </c-col>
 
             <c-spacer></c-spacer>
-            <BtnAdd ref="act7" :x-small="false" class="mt-2 mr-1" @click="addDetalle()" />
+            <BtnAdd
+              ref="act7"
+              :x-small="false"
+              class="mt-2 mr-1"
+              @click="addDetalle()"
+            />
           </c-row>
         </c-form>
         <v-data-table
@@ -78,7 +87,7 @@
           hide-default-footer
         >
           <template v-slot:[`item.precio`]="{ item }">
-            <div>{{toCurrency(item.precio)}}</div>
+            <div>{{ toCurrency(item.precio) }}</div>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <BtnDelete class="my-1" @click="deletDetalle(item)" />
@@ -96,7 +105,7 @@
             />
           </c-col>
           <c-col cols="12" sm="6">
-            <TextField
+            <TextArea
               ref="cliente3"
               :rules="[]"
               label="Comentario"
@@ -124,6 +133,7 @@ import BtnDelete from "@/components/BtnDelete";
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import TextDate from "@/components/TextDate";
+import TextArea from "@/components/TextArea";
 import Delete from "../delete/Delete";
 import { currencyFormatter } from "@/util/number.util";
 import AutocompleteCliente from "../cliente/Autocomplete";
@@ -137,6 +147,7 @@ export default {
     BtnClose,
     BtnDelete,
     TextField,
+    TextArea,
     TextNumber,
     TextDate,
     Delete,
@@ -164,6 +175,7 @@ export default {
       comentario: "",
       tecnico: [],
       detalle: [],
+      actividad_pendiente: [],
     },
     default: {
       fecha: current_date(),
@@ -181,6 +193,7 @@ export default {
       comentario: "",
       tecnico: [],
       detalle: [],
+      actividad_pendiente: [],
     },
     detalle: {
       idconcepto: {
@@ -220,9 +233,11 @@ export default {
   }),
   mounted() {
     if (this.$route.params.id) this.editHandler();
+    if (this.$route.query.idpendiente) this.pendienteHanler();
   },
   computed: {
     ...mapGetters("actividad", ["isLoading", "getActividadId"]),
+    ...mapGetters("pendiente", ["getPendienteId"]),
     ...mapGetters("cliente", ["getCliente"]),
     ...mapGetters("auth", ["getUserInfo"]),
     sucursal: (vm) => {
@@ -238,11 +253,11 @@ export default {
     ...mapActions("actividad", [
       "createActividad",
       "updateActividad",
-      "fetchActividad",
       "fetchActividadId",
     ]),
-    toCurrency(value){
-      return currencyFormatter(value)
+    ...mapActions("pendiente", ["fetchPendienteId", "fetchPendiente"]),
+    toCurrency(value) {
+      return currencyFormatter(value);
     },
     async editHandler() {
       this.isEdit = true;
@@ -250,6 +265,13 @@ export default {
         return (this.form = JSON.parse(JSON.stringify(this.getActividadId)));
       await this.fetchActividadId({ id: this.$route.params.id });
       this.form = JSON.parse(JSON.stringify(this.getActividadId));
+    },
+    async pendienteHanler() {
+      this.form.actividad_pendiente[0] = Number(this.$route.query.idpendiente);
+      if (this.getPendienteId)
+        return (this.form.comentario = this.getPendienteId.descripcion);
+      await this.fetchPendienteId({ id: this.$route.query.idpendiente });
+      return (this.form.comentario = this.getPendienteId.descripcion);
     },
     addDetalle() {
       if (!this.$refs.formDetail.validate()) return null;
@@ -270,9 +292,11 @@ export default {
         : await this.createActividad(this.form);
       if (response.success) {
         if (this.isEdit) this.$router.replace({ path: "/actividad" });
+        if (this.$route.query.idpendiente) {
+          this.$router.replace("/pendiente");
+        }
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
-        this.fetchActividad();
       }
     },
     deletDetalle(detalle) {

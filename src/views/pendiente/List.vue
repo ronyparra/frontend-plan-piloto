@@ -21,11 +21,14 @@
       :items-per-page="99999"
       hide-default-footer
     >
-     <template v-slot:[`item.descripcion`]="{ item }">
-        <div class="caption">{{item.descripcion}}</div>
+      <template v-slot:[`item.descripcion`]="{ item }">
+        <div class="caption">{{ item.descripcion }}</div>
       </template>
-           <template v-slot:[`item.idtipo_pendiente.descripcion`]="{ item }">
-        <div class="caption">{{item.idtipo_pendiente.descripcion}}</div>
+      <template v-slot:[`item.activo`]="{ item }"
+        ><v-chip small :color="item.activo ? 'red' : 'green accent-3'"></v-chip
+      ></template>
+      <template v-slot:[`item.idtipo_pendiente.descripcion`]="{ item }">
+        <div class="caption">{{ item.idtipo_pendiente.descripcion }}</div>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <c-btn
@@ -72,8 +75,10 @@ export default {
     show: false,
     search: "",
     headers: [
+      { value: "activo", align: "start" },
       { text: "Pendiente", value: "descripcion" },
-      { text: "Tipo", value: "idtipo_pendiente.descripcion", align: 'end' },
+      { text: "Tipo", value: "idtipo_pendiente.descripcion", align: "end" },
+
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

@@ -5,7 +5,11 @@
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
-      <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" />
+      <BtnDelete
+        :text="false"
+        v-if="isEdit && form.activo"
+        @click="deleteView = true"
+      />
     </c-app-bar>
     <Delete
       v-model="deleteView"
@@ -18,15 +22,22 @@
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12" sm="4">
-              <TextDate ref="pendiente2" label="Fecha" v-model="form.fecha" />
+              <TextDate
+                ref="pendiente2"
+                :readonly="!form.activo"
+                label="Fecha"
+                v-model="form.fecha"
+              />
             </c-col>
             <c-col cols="12" sm="4">
               <AutocompleteTipo
+                :readonly="!form.activo"
                 v-model="form.idtipo_pendiente.idtipo_pendiente"
               />
             </c-col>
             <c-col cols="12" sm="4">
               <AutocompleteTecnico
+                :readonly="!form.activo"
                 label="Asignar pendiente a"
                 multiple
                 return-object
@@ -36,6 +47,7 @@
             </c-col>
             <c-col cols="12">
               <TextArea
+                :readonly="!form.activo"
                 ref="pendiente1"
                 label="Descripcion"
                 v-model="form.descripcion"
@@ -44,28 +56,49 @@
           </c-row>
         </c-form>
       </c-card-text>
-      <c-container>
-        <c-btn block dark color="primary" rounded @click="guardar()">
-          {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
-        >
+
+      <c-container v-if="form.activo">
+        <c-col cols="12">
+          <c-btn block dark color="primary" rounded @click="guardar()">
+            {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
+          >
+        </c-col>
+        <c-col cols="12" v-if="isEdit">
+          <c-btn
+            block
+            text
+            elevation="2"
+            color="primary"
+            rounded
+
+            @click="sheet = !sheet"
+          >
+            Finalizar</c-btn
+          >
+        </c-col>
       </c-container>
+      <Finalizar v-model="sheet" />
+
     </c-card>
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
+import { current_date } from "@/util/date.util";
+
 import BtnClose from "@/components/BtnClose";
 import TextArea from "@/components/TextArea";
 import TextDate from "@/components/TextDate";
 import BtnDelete from "@/components/BtnDelete";
-import { current_date } from "@/util/date.util";
 import Delete from "../delete/Delete";
-import { mapActions, mapGetters } from "vuex";
+import Finalizar from "./Finalizar";
 import AutocompleteTipo from "../tipo_pendiente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 export default {
   components: {
     AutocompleteTecnico,
     AutocompleteTipo,
+    Finalizar,
     BtnDelete,
     BtnClose,
     Delete,
@@ -73,9 +106,11 @@ export default {
     TextDate,
   },
   data: () => ({
+    sheet: false,
     isEdit: false,
     deleteView: false,
     form: {
+      activo: true,
       idtipo_pendiente: {
         idtipo_pendiente: null,
       },
@@ -84,6 +119,7 @@ export default {
       pendiente_tecnico: [],
     },
     default: {
+       activo: true,
       idtipo_pendiente: {
         idtipo_pendiente: null,
       },
@@ -105,6 +141,7 @@ export default {
       "fetchPendiente",
       "fetchPendienteId",
       "updatePendiente",
+      "setChangeStatus",
       "fetchDashboard",
     ]),
     async editHandler() {

@@ -9,6 +9,7 @@
       :items="getUsuario"
       :loading="isLoading"
       :rules="rules"
+      :readonly="readonly"
       :return-object="returnObject"
       :multiple="multiple"
       @input="$emit('input', $event)"
@@ -32,6 +33,7 @@ export default {
       type: String,
       default: 'Tecnico'
     },
+    readonly: Boolean,
     multiple: Boolean,
   },
   mounted() {

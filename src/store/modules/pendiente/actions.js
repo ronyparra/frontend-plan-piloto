@@ -24,6 +24,12 @@ export default {
     }
     commit(LOADING, false);
   },
+  async setChangeStatus({ commit }, form) {
+    commit(LOADING, true);
+    const response = await post(url+'/status', form);
+    commit(LOADING, false);
+    return response;
+  },
   async createPendiente({ commit }, form) {
     commit(LOADING, true);
     const response = await post(url, form);
