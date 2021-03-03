@@ -1,5 +1,12 @@
 <template>
   <c-row dense>
+    <c-overlay :value="isLoading">
+      <c-progress-circular
+        indeterminate
+        :size="64"
+      ></c-progress-circular>
+    </c-overlay>
+
     <c-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
       <v-expansion-panels accordion v-if="pendiente(item.detalle)">
         <v-expansion-panel>

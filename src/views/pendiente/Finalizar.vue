@@ -27,7 +27,7 @@ export default {
     value: Boolean,
   },
   methods: {
-    ...mapActions("pendiente", ["setChangeStatus"]),
+    ...mapActions("pendiente", ["setChangeStatus", "fetchDashboard"]),
     async terminar() {
       const form = {
         idpendiente: this.$route.params.id,
@@ -36,6 +36,7 @@ export default {
      const response = await  this.setChangeStatus(form);
      if(response.success) {
         this.$emit('input', false);
+        this.fetchDashboard();
         this.$router.replace({ path: "/pendiente" });
      }
     },
