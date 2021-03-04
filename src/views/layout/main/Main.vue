@@ -3,7 +3,8 @@
     <AppBar @click:drawer="drawer = !drawer" />
     <NavBar v-model="drawer" />
     <v-main>
-      <c-col cols="12" class="fill-height" style="background-color: #F5F5F5;">
+   <!--    <c-col cols="12" class="fill-height" style="background-color: #F5F5F5;"> -->
+         <c-col cols="12" class="fill-height" style="background-color: white;">
         <transition>
           <keep-alive>
             <router-view></router-view>

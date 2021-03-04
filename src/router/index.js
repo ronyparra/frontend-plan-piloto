@@ -16,7 +16,8 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Dashboard.vue"),
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/dashboard/Dashboard.vue"),
     meta: {
       requiresAuth: true,
     },
@@ -24,9 +25,10 @@ const routes = [
       {
         path: "/",
         name: "Dashboard",
-        component: () => import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
+        component: () =>
+          import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
       },
-    ]
+    ],
   },
   {
     path: "/cliente",
@@ -65,7 +67,9 @@ const routes = [
     path: "/pendiente",
 
     component: () =>
-      import(/* webpackChunkName: "Pendiente" */ "../views/pendiente/Pendiente.vue"),
+      import(
+        /* webpackChunkName: "Pendiente" */ "../views/pendiente/Pendiente.vue"
+      ),
     meta: {
       requiresAuth: true,
     },
@@ -74,7 +78,9 @@ const routes = [
         path: "/",
         name: "Pendientes",
         component: () =>
-          import(/* webpackChunkName: "Pendiente" */ "../views/pendiente/List.vue"),
+          import(
+            /* webpackChunkName: "Pendiente" */ "../views/pendiente/List.vue"
+          ),
       },
       {
         path: "add",
@@ -133,7 +139,9 @@ const routes = [
     path: "/concepto",
     name: "",
     component: () =>
-      import(/* webpackChunkName: "Concepto" */ "../views/concepto/Concepto.vue"),
+      import(
+        /* webpackChunkName: "Concepto" */ "../views/concepto/Concepto.vue"
+      ),
     meta: {
       requiresAuth: true,
     },
@@ -195,6 +203,50 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "Usuario EDIT" */ "../views/usuario/Form.vue"
+          ),
+      },
+    ],
+  },
+  {
+    path: "/analytics",
+    component: () =>
+      import(
+        /* webpackChunkName: "Analytics" */ "../views/analytics/Analytics.vue"
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "actividad",
+        name: "Analytics Actividad",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente" */ "../views/analytics/Actividad.vue"
+          ),
+      },
+      {
+        path: "pendiente",
+        name: "Analytics Pendientes",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente" */ "../views/analytics/Pendiente.vue"
+          ),
+      },
+      {
+        path: "cliente",
+        name: "Analytics Clientes",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente" */ "../views/analytics/Clientes.vue"
+          ),
+      },
+      {
+        path: "concepto",
+        name: "Analytics Conceptos",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cliente" */ "../views/analytics/Concepto.vue"
           ),
       },
     ],

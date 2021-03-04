@@ -26,6 +26,12 @@ export const navs = [
     title: "Clientes",
   },
   {
+    icon: "analytics",
+    to: "/analytics",
+    title: "Analytics",
+    disableFooter: true
+  },
+  {
     icon: "group",
     to: "/usuario",
     title: "Usuarios",

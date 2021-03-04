@@ -2,6 +2,7 @@
   <c-app-bar
     app
     bottom
+    elevation="0"
     style="z-index: 1"
     color="secondary"
     class="d-flex flex-row justify-space-around"
