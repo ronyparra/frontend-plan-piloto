@@ -31,7 +31,7 @@
             <c-col cols="12" v-if="sucursal.length > 1">
               <AutocompleteClienteSucursal
                 ref="act2"
-                :idcliente="form.idcliente.idcliente"
+                :items="sucursal"
                 v-model="form.idcliente_sucursal.idcliente_sucursal"
               />
             </c-col>

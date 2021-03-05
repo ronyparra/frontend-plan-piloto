@@ -1,13 +1,18 @@
 <template>
   <div>
     <InputAutocomplete
-      label="Sucursal"
+      :label="label"
       item-value="idcliente_sucursal"
       item-text="descripcion"
+      :placeholder="placeholder"
       ref="input"
+      :loading="isLoading"
       :value="value"
-      :items="items"
+      :items="sucursal"
+      :clearable="clearable"
       :rules="rules"
+      :filled="filled"
+      :dense="dense"
       :return-object="returnObject"
       @input="$emit('input', $event)"
       @change="$emit('change')"
@@ -23,8 +28,26 @@ export default {
     InputAutocomplete,
   },
   props: {
+    
     value: [Number, Object],
-    items: Array,
+    placeholder: String,
+    label:{
+      type: String,
+      default: 'Sucursal'
+    },
+    clearable:Boolean,
+    idcliente: {
+      type: Number,
+      default: null,
+    },
+    filled: {
+      type: Boolean,
+      default: true,
+    },
+    dense: {
+      type: Boolean,
+      default: true,
+    },
     rules: Array,
     returnObject: Boolean,
   },
@@ -33,6 +56,15 @@ export default {
   },
   computed: {
     ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    sucursal: (vm) => {
+      if (!vm.idcliente) return [];
+      let suc = vm.getCliente
+        .filter((cliente) => cliente.idcliente === vm.idcliente)
+        .reduce((acc, curr) => {
+          return (acc = curr.sucursal);
+        }, []);
+      return suc;
+    },
   },
   methods: {
     ...mapActions("cliente", ["fetchCliente"]),

@@ -4,10 +4,12 @@ import { get, post, put, del } from "@/services/api/api.services.js";
 export default {
   async fetchActividad(
     { commit },
-    { idcliente, fechadesde, fechahasta, idestadocobro }
+    { idcliente, idsucursal, fechadesde, fechahasta, idestadocobro }
   ) {
     const urlWithParams = `${url}/?cliente=${
       idcliente ? idcliente : "undefined"
+    }&sucursal=${
+      idsucursal ? idsucursal : "undefined"
     }&desde=${fechadesde}&hasta=${fechahasta}&estado=${
       idestadocobro ? idestadocobro : "undefined"
     }`;
@@ -34,7 +36,7 @@ export default {
   },
   async setChangeStatus({ commit }, form) {
     commit(LOADING, true);
-    const response = await post(url+'/status', form);
+    const response = await post(url + "/status", form);
     commit(LOADING, false);
     return response;
   },
@@ -50,10 +52,10 @@ export default {
     commit(LOADING, false);
     return response;
   },
-  async deleteActividad({ commit , dispatch}, id) {
+  async deleteActividad({ commit, dispatch }, id) {
     commit(LOADING, true);
     const response = await del(`${url}/${id}`);
-    dispatch('pendiente/fetchPendiente', null, {root:true})
+    dispatch("pendiente/fetchPendiente", null, { root: true });
     commit(LOADING, false);
     return response;
   },

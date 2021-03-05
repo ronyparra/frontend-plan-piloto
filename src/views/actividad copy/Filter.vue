@@ -3,7 +3,7 @@
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="3" class="my-n3">
             <AutocompleteCliente
               label=""
               clearable
@@ -11,23 +11,10 @@
               :dense="false"
               :rules="[]"
               :filled="false"
-              @change="form.idsucursal = undefined"
               v-model="form.idcliente"
             />
           </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
-            <AutocompleteClienteSucursal
-              label=""
-              placeholder="Sucursal"
-              :rules="[]"
-              clearable
-              :dense="false"
-              :filled="false"
-              :idcliente="form.idcliente"
-              v-model="form.idsucursal"
-            />
-          </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="3" class="my-n3">
             <AutocompleteEstadoCobro
               label=""
               clearable
@@ -38,7 +25,7 @@
               v-model="form.idestadocobro"
             />
           </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="2" class="my-n3">
             <TextDate
               :dense="false"
               :filled="false"
@@ -46,7 +33,7 @@
               v-model="form.fechadesde"
             />
           </c-col>
-          <c-col cols="9" sm="4" md="2" class="my-n3">
+          <c-col cols="9" sm="2" class="my-n3">
             <TextDate
               :dense="false"
               :filled="false"
@@ -70,7 +57,6 @@
 import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
-import AutocompleteClienteSucursal from "../cliente/AutocompleteSucursal";
 import { mapActions } from "vuex";
 import Opciones from "./Opciones";
 export default {
@@ -83,7 +69,6 @@ export default {
     TextDate,
     AutocompleteCliente,
     AutocompleteEstadoCobro,
-    AutocompleteClienteSucursal,
   },
   created() {
     this.form = JSON.parse(JSON.stringify(this.params));
@@ -98,7 +83,6 @@ export default {
   data: () => ({
     form: {
       idcliente: "",
-      idsucursal: "",
       fechadesde: "",
       fechahasta: "",
       idestadocobro: "",

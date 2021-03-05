@@ -1,10 +1,11 @@
 <template>
   <v-container>
-    <v-row dense>
-      <div class="ml-3   subtitle-1 font-weight-medium">
+         <div class="ml-3   subtitle-1 font-weight-medium">
         Rendimiento en pendientes
       </div>
-      <v-col cols="6" v-for="(n, i) in pendiente" :key="i">
+    <v-row dense>
+   
+      <v-col cols="6" sm="3" v-for="(n, i) in pendiente" :key="i">
         <v-card
           :color="n.color || 'white'"
           class="rounded-xl pa-1"

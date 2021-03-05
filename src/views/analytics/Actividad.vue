@@ -1,8 +1,9 @@
 <template>
-<v-container>
+<v-container filled>
+  <div class="ml-3   subtitle-1 font-weight-medium">Saldos de Actividades</div>
   <v-row dense >
-    <div class="ml-3   subtitle-1 font-weight-medium">Saldos de Actividades</div>
-    <v-col cols="6" v-for="(n,i) in actividad" :key="i">
+    
+    <v-col cols="6" sm="3" v-for="(n,i) in actividad" :key="i">
       <v-card :color="n.color || 'white'" class="rounded-xl pa-1" elevation="0">
         <v-container>
           <div class="caption  grey--text">{{n.title}}</div>
