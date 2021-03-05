@@ -7,8 +7,8 @@
       ></c-progress-circular>
     </c-overlay>
 
-    <c-col cols="12" sm="4" v-for="(item, i) of getDashboard" :key="i">
-      <v-expansion-panels accordion v-if="pendiente(item.detalle)">
+    <c-col cols="12" sm="4" v-for="(item, i) of cards" :key="i">
+      <v-expansion-panels accordion>
         <v-expansion-panel>
           <v-expansion-panel-header hide-actions class="d-flex flex-column" >
             <v-progress-linear
@@ -71,11 +71,14 @@ export default {
   },
   computed: {
     ...mapGetters("pendiente", ["getDashboard", "isLoading"]),
+    cards(){
+      return this.getDashboard.filter(x=> x.detalle)
+    }
   },
   methods: {
     ...mapActions("pendiente", ["fetchDashboard"]),
+
     pendiente(detalle) {
-      if (!detalle) return null;
       return detalle.length;
     },
   },
