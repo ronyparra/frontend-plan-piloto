@@ -4,7 +4,7 @@
     <div class="title fill-height">
       <v-card outlined class="fill-height d-flex flex-row">
         <v-tabs vertical>
-          <v-tab to="/analytics/actividad">
+          <v-tab exact to="/analytics/">
             <v-icon>
               assignment
             </v-icon>
@@ -22,6 +22,12 @@
           <v-tab to="/analytics/concepto">
             <v-icon>
               add_shopping_cart
+            </v-icon>
+          </v-tab>
+          <v-spacer></v-spacer>
+           <v-tab to="/analytics/filtros">
+            <v-icon>
+              build
             </v-icon>
           </v-tab>
           <v-tabs-items vertical class="fill-height">

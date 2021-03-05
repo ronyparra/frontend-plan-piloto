@@ -218,11 +218,11 @@ const routes = [
     },
     children: [
       {
-        path: "actividad",
+        path: "/",
         name: "Analytics Actividad",
         component: () =>
           import(
-            /* webpackChunkName: "Cliente" */ "../views/analytics/Actividad.vue"
+            /* webpackChunkName: "A Actividades" */ "../views/analytics/Actividad.vue"
           ),
       },
       {
@@ -230,7 +230,7 @@ const routes = [
         name: "Analytics Pendientes",
         component: () =>
           import(
-            /* webpackChunkName: "Cliente" */ "../views/analytics/Pendiente.vue"
+            /* webpackChunkName: "A Pendientes" */ "../views/analytics/Pendiente.vue"
           ),
       },
       {
@@ -238,7 +238,7 @@ const routes = [
         name: "Analytics Clientes",
         component: () =>
           import(
-            /* webpackChunkName: "Cliente" */ "../views/analytics/Clientes.vue"
+            /* webpackChunkName: "A Cliente" */ "../views/analytics/Clientes.vue"
           ),
       },
       {
@@ -246,7 +246,15 @@ const routes = [
         name: "Analytics Conceptos",
         component: () =>
           import(
-            /* webpackChunkName: "Cliente" */ "../views/analytics/Concepto.vue"
+            /* webpackChunkName: "A Conceptos" */ "../views/analytics/Concepto.vue"
+          ),
+      },
+      {
+        path: "filtros",
+        name: "Filtros",
+        component: () =>
+          import(
+            /* webpackChunkName: "A Parametros" */ "../views/analytics/Parametros.vue"
           ),
       },
     ],

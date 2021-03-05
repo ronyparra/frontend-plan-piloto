@@ -1,10 +1,9 @@
 <template>
   <v-container>
-         <div class="ml-3   subtitle-1 font-weight-medium">
-        Rendimiento en pendientes
-      </div>
+    <div class="ml-2 mb-4   subtitle-1 font-weight-medium">
+      Rendimiento en pendientes
+    </div>
     <v-row dense>
-   
       <v-col cols="6" sm="3" v-for="(n, i) in pendiente" :key="i">
         <v-card
           :color="n.color || 'white'"
@@ -13,8 +12,12 @@
         >
           <v-container>
             <div class="caption  grey--text mb-1">{{ n.title }}</div>
-            <div class="caption">{{ n.terminada }}/{{n.regitrada}} Terminado</div>
-            <div class="caption font-weight-thin">{{getPorcentaje(n.terminada,n.regitrada) }}% Efectividad</div>
+            <div class="caption">
+              {{ n.terminada }}/{{ n.regitrada }} Terminado
+            </div>
+            <div class="caption font-weight-thin">
+              {{ getPorcentaje(n.terminada, n.regitrada) }}% Efectividad
+            </div>
           </v-container>
         </v-card>
       </v-col>
@@ -47,10 +50,10 @@ export default {
       },
     ],
   }),
-  methods:{
-      getPorcentaje(ter,reg){
-          return ter * 100 /reg;
-      }
-  }
+  methods: {
+    getPorcentaje(ter, reg) {
+      return (ter * 100) / reg;
+    },
+  },
 };
 </script>
