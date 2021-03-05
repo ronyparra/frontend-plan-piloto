@@ -143,6 +143,7 @@ export default {
       sortByText: "Filtrar por",
     },
     headers: [
+      { text: "#", value: "idactividad" },
       { text: "Fecha", value: "fecha" },
       { text: "Cliente", value: "idcliente.razonsocial" },
       { text: "Sucursal", value: "idcliente_sucursal.descripcion" },
