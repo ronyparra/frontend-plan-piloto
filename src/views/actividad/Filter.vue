@@ -56,7 +56,7 @@
           </c-col>
 
           <v-spacer></v-spacer>
-          <c-btn text color="blue" class="mt-2 text-capitalize" @click="filtrar"
+          <c-btn text color="blue" class="mt-2 text-capitalize" @click="filtrar()"
             >Filtrar</c-btn
           >
         </c-row>
@@ -90,9 +90,11 @@ export default {
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad"]),
+    
     filtrar() {
       if (!this.$refs.form.validate()) return null;
       this.fetchActividad(this.form);
+      this.$emit('sync', this.form);
     },
   },
   data: () => ({

@@ -17,6 +17,7 @@
       :params="params"
       v-if="filter"
       :value="selected"
+      @sync="syncronizarFiltro($event)"
       @fetch="fetch()"
       @pdf="generarPDF()"
     />
@@ -93,18 +94,30 @@ export default {
   },
   computed: {
     ...mapGetters("actividad", ["getActividad", "isLoading"]),
+    ...mapGetters("cliente", ["getCliente"]),
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
     fetch() {
       this.selected = [];
+
       this.fetchActividad(this.params);
     },
     async setData(data) {
       await this.fetchActividadId({ data });
       this.$router.push({ path: `/actividad/edit/` + data.idactividad });
     },
+    syncronizarFiltro(filtro) {
+      this.params = JSON.parse(JSON.stringify(filtro));
+    },
     generarPDF() {
+      if (this.params.idcliente) {
+        const cliente = this.getCliente.find(
+          ({ idcliente }) => idcliente === this.params.idcliente
+        );
+        this.params.cliente = cliente.razonsocial;
+        return exportPDF(this.headers, this.getActividad, this.params);
+      }
       exportPDF(this.headers, this.getActividad, this.params);
     },
     formatDetalle(detalle) {
@@ -121,6 +134,7 @@ export default {
     selected: [],
     params: {
       idcliente: null,
+      idsucursal: null,
       fechadesde: subtract_days(90),
       fechahasta: current_date(),
       idestadocobro: null,

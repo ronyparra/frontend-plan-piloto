@@ -13,9 +13,9 @@ export const exportPDF = (header, lista, params) => {
   doc.setLineWidth(0.4);
   doc.line(13, 23, doc.internal.pageSize.width - 12, 23);
   doc.setFontSize(9);
-  doc.text("Cliente: " + params.idcliente, 15, 28);
+  doc.text("Cliente: " + (params.cliente || 'Todos'), 15, 28);
   doc.text(
-    `Periodo de Pago: ${params.fechadesde} al ${params.fechahasta}`,
+    `Rango de Fecha: ${params.fechadesde} al ${params.fechahasta}`,
     15,
     34
   );
