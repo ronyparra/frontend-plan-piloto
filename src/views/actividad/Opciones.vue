@@ -31,6 +31,7 @@
         <v-alert type="error" v-if="!uniqueClien" dense class="ma-1"
           >Hay mas de un cliente en seleccionado</v-alert
         >
+        <TextField placeholder="Descripcion" :rules="[]" class="ma-1 mx-2" v-model="form.descripcion" />
         <v-data-table
           :headers="headers"
           :items="value"
@@ -84,7 +85,11 @@
 import { mapActions } from "vuex";
 import { formatDetalle } from "./formatter";
 import { currencyFormatter } from "@/util/number.util";
+import TextField from "@/components/TextField";
 export default {
+  components:{
+    TextField
+  },
   computed: {
     rules() {
       return [
@@ -157,6 +162,7 @@ export default {
       dialog: false,
     },
     form: {
+      descripcion: "",
       idestadocobro: null,
       detalle: [],
     },

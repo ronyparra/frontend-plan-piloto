@@ -4,6 +4,7 @@
     :label="label"
     :rules="rules"
     :readonly="readonly"
+    :placeholder="placeholder"
     filled
     dense
     flat
@@ -18,6 +19,7 @@ export default {
     value: String,
     label: String,
     readonly: Boolean,
+    placeholder: String,
     rules: Array
   },
 };
