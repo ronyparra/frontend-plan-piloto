@@ -2,18 +2,18 @@
   <c-form ref="form">
     <c-row dense>
       <c-btn
-        class="mt-sm-6 mt-0"
+        class="mt-sm-6 mt-2"
         rounded
         small
         dark
         :disabled="value.length === 0"
-        color="red"
+        :color="value.length === 0 ? 'grey' : 'red darken-1'"
         @click="facturar()"
         >{{ textButtom }}</c-btn
       >
       <v-spacer></v-spacer>
       <c-btn
-        class="mt-sm-6 mt-0"
+        class="mt-sm-6 mt-2"
         rounded
         elevation="0"
         small
@@ -28,7 +28,9 @@
         <c-toolbar flat dense>
           <c-toolbar-title>Desea facturar estas actividades?</c-toolbar-title>
         </c-toolbar>
-
+        <v-alert type="error" v-if="!uniqueClien" dense class="ma-1"
+          >Hay mas de un cliente en seleccionado</v-alert
+        >
         <v-data-table
           :headers="headers"
           :items="value"
@@ -63,7 +65,13 @@
             >CANCELAR</c-btn
           >
           <c-spacer></c-spacer>
-          <c-btn rounded elevation="0" color="red darken-1" dark  :disabled="form.detalle.length === 0" @click="cambiarEstado()"
+          <c-btn
+            rounded
+            elevation="0"
+            :color="disabledSaveButton ? 'grey' : 'red darken-1'"
+            dark
+            :disabled="disabledSaveButton"
+            @click="cambiarEstado()"
             >Si, quiero facturar</c-btn
           >
         </c-card-actions>
@@ -85,7 +93,7 @@ export default {
     },
     total: (vm) => {
       const total = vm.form.detalle.reduce((acc, curr) => {
-        const subtotal =  curr.detalle.reduce(
+        const subtotal = curr.detalle.reduce(
           (acc1, curr1) => (acc1 = curr1.cantidad * curr1.precio),
           0
         );
@@ -93,6 +101,18 @@ export default {
       }, 0);
       return currencyFormatter(total);
     },
+    uniqueClien: (vm) => {
+      if (vm.form.detalle.length === 0) return true;
+      const first = vm.form.detalle[0].idcliente.idcliente;
+      const unique = vm.form.detalle.find(
+        ({ idcliente }) => idcliente.idcliente !== first
+      )
+        ? false
+        : true;
+      return unique;
+    },
+    disabledSaveButton: (vm) =>
+      !vm.uniqueClien || vm.form.detalle.length === 0 ? true : false,
     textButtom: (vm) =>
       vm.value.length === 0
         ? "Seleccione una o mas actividades"
