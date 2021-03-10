@@ -61,12 +61,13 @@
         </v-data-table>
 
         <c-card-actions>
-          <c-btn rounded text color="grey" @click="confirm.dialog = false"
+          <c-btn rounded text small color="grey" @click="confirm.dialog = false"
             >CANCELAR</c-btn
           >
           <c-spacer></c-spacer>
           <c-btn
             rounded
+            small
             elevation="0"
             :color="disabledSaveButton ? 'grey' : 'red darken-1'"
             dark
