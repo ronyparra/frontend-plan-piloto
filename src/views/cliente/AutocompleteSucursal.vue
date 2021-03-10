@@ -8,6 +8,7 @@
       ref="input"
       :loading="isLoading"
       :value="value"
+       :readonly="readonly"
       :items="sucursal"
       :clearable="clearable"
       :rules="rules"
@@ -31,6 +32,7 @@ export default {
     
     value: [Number, Object],
     placeholder: String,
+    readonly: Boolean,
     label:{
       type: String,
       default: 'Sucursal'

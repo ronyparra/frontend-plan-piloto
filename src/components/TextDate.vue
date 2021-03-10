@@ -2,6 +2,7 @@
   <v-menu
     ref="menu1"
     v-model="menu1"
+    :disabled="readonly"
     :close-on-content-click="false"
     transition="scale-transition"
     offset-y
@@ -38,6 +39,7 @@ export default {
     value: String,
     label: String,
     placeholder: String,
+    readonly: Boolean,
     rules: {
       type: [Array],
       default: () => [(v) => !!v || "Obligatorio"],

@@ -1,37 +1,80 @@
 <template>
+  <c-form ref="form">
+    <c-row dense>
+      <c-btn
+        class="mt-sm-6 mt-0"
+        rounded
+        small
+        dark
+        :disabled="value.length === 0"
+        color="red"
+        @click="facturar()"
+        >{{ textButtom }}</c-btn
+      >
+      <v-spacer></v-spacer>
+      <c-btn
+        class="mt-sm-6 mt-0"
+        rounded
+        elevation="0"
+        small
+        text
+        color="red darken-1"
+        @click="$emit('pdf')"
+        >Generar PDF</c-btn
+      >
+    </c-row>
+    <c-dialog v-model="confirm.dialog" max-width="800" persistent>
+      <c-card>
+        <c-toolbar flat dense>
+          <c-toolbar-title>Desea facturar estas actividades?</c-toolbar-title>
+        </c-toolbar>
 
+        <v-data-table
+          :headers="headers"
+          :items="value"
+          show-select
+          :items-per-page="9999999"
+          v-model="form.detalle"
+          item-key="idactividad"
+          hide-default-footer
+        >
+          <template v-slot:[`item.detalle`]="{ item }">
+            <div>{{ formatDetalle(item.detalle) }}</div>
+          </template>
+          <template v-slot:[`item.subtotal`]="{ item }">
+            <div>{{ formatSubTotal(item.detalle) }}</div>
+          </template>
 
-      <c-form ref="form">
-        <c-row dense>
-          <c-col cols="12" sm="5">
-            <AutocompleteEstadoCobro
-              :rules="rules"
-              :dense="false"
-              :filled="false"
-              v-model="form.idestadocobro"
-            />
-          </c-col>
-          <c-btn
-            class="mt-sm-6 mt-0"
-            rounded
-            small
-            text
-            color="blue"
-            @click="cambiarEstado()"
-            >Cambiar Estado</c-btn
+          <template slot="body.append">
+            <tr>
+              <th class="subtitle-2 font-weight-black hidden-xs-only">TOTAL</th>
+              <th class="hidden-xs-only"></th>
+              <th class="hidden-xs-only"></th>
+              <th class="hidden-xs-only"></th>
+              <th class="subtitle-1 text-end font-weight-black">
+                {{ total }}
+              </th>
+            </tr>
+          </template>
+        </v-data-table>
+
+        <c-card-actions>
+          <c-btn rounded text color="grey" @click="confirm.dialog = false"
+            >CANCELAR</c-btn
           >
-          <v-spacer></v-spacer>
-          <c-btn class="mt-sm-6 mt-0" rounded small text color="red"
-            @click="$emit('pdf')"
-            >Generar PDF</c-btn
+          <c-spacer></c-spacer>
+          <c-btn rounded elevation="0" color="red darken-1" dark  :disabled="form.detalle.length === 0" @click="cambiarEstado()"
+            >Si, quiero facturar</c-btn
           >
-        </c-row>
-      </c-form>
-
+        </c-card-actions>
+      </c-card>
+    </c-dialog>
+  </c-form>
 </template>
 <script>
 import { mapActions } from "vuex";
-import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
+import { formatDetalle } from "./formatter";
+import { currencyFormatter } from "@/util/number.util";
 export default {
   computed: {
     rules() {
@@ -40,31 +83,72 @@ export default {
         (v) => !!v || "Obligatorio",
       ];
     },
+    total: (vm) => {
+      const total = vm.form.detalle.reduce((acc, curr) => {
+        const subtotal =  curr.detalle.reduce(
+          (acc1, curr1) => (acc1 = curr1.cantidad * curr1.precio),
+          0
+        );
+        return (acc = acc + subtotal);
+      }, 0);
+      return currencyFormatter(total);
+    },
+    textButtom: (vm) =>
+      vm.value.length === 0
+        ? "Seleccione una o mas actividades"
+        : "Facturar " +
+          vm.value.length +
+          (vm.value.length === 1 ? " Actividad" : " Actividades"),
   },
   props: {
     value: Array,
   },
-  components: {
-    AutocompleteEstadoCobro,
-  },
   methods: {
     ...mapActions("actividad", ["setChangeStatus"]),
     async cambiarEstado() {
-      this.form.detalle = JSON.parse(JSON.stringify(this.value));
+      this.form.idestadocobro = 2;
       const response = await this.setChangeStatus(this.form);
       if (response.success) {
         this.$emit("fetch");
         this.form.idestadocobro = null;
+        this.confirm.dialog = false;
         this.$refs.form.resetValidation();
       }
     },
-
+    facturar() {
+      this.form.detalle = JSON.parse(JSON.stringify(this.value));
+      this.confirm.dialog = true;
+    },
+    formatDetalle(detalle) {
+      return formatDetalle(detalle);
+    },
+    formatSubTotal(detalle) {
+      return currencyFormatter(
+        detalle.reduce(
+          (acc, curr) => (acc = acc + curr.cantidad * curr.precio),
+          0
+        )
+      );
+    },
   },
   data: () => ({
+    confirm: {
+      dialog: false,
+    },
     form: {
       idestadocobro: null,
       detalle: [],
     },
+    headers: [
+      { text: "Cliente", value: "idcliente.razonsocial", sortable: false },
+      {
+        text: "Sucursal",
+        value: "idcliente_sucursal.descripcion",
+        sortable: false,
+      },
+      { text: "Conceptos", value: "detalle", sortable: false },
+      { text: "SubTotal", value: "subtotal", align: "end", sortable: false },
+    ],
   }),
 };
 </script>

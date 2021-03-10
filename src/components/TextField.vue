@@ -3,6 +3,7 @@
     :value="value"
     :label="label"
     :rules="rules"
+    :readonly="readonly"
     filled
     dense
     flat
@@ -16,6 +17,7 @@ export default {
   props: {
     value: String,
     label: String,
+    readonly: Boolean,
     rules: Array
   },
 };

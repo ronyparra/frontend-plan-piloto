@@ -5,7 +5,12 @@
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
-      <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" />
+      <BtnDelete
+        :disabled="readonly"
+        :text="false"
+        v-if="isEdit"
+        @click="deleteView = true"
+      />
     </c-app-bar>
     <Delete
       v-model="deleteView"
@@ -18,10 +23,15 @@
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12" sm="6">
-              <TextDate label="Fecha" v-model="form.fecha" />
+              <TextDate
+                :readonly="readonly"
+                label="Fecha"
+                v-model="form.fecha"
+              />
             </c-col>
             <c-col cols="12" sm="6">
               <AutocompleteCliente
+                :readonly="readonly"
                 :redirect="$route.path"
                 v-model="form.idcliente"
                 return-object
@@ -30,6 +40,7 @@
             </c-col>
             <c-col cols="12" v-if="sucursal.length > 1">
               <AutocompleteClienteSucursal
+                :readonly="readonly"
                 ref="act2"
                 :idcliente="form.idcliente.idcliente"
                 v-model="form.idcliente_sucursal.idcliente_sucursal"
@@ -37,6 +48,7 @@
             </c-col>
             <c-col cols="12">
               <AutocompleteTecnico
+                :readonly="readonly"
                 ref="act3"
                 multiple
                 label="Tecnicos"
@@ -51,6 +63,7 @@
           <c-row dense>
             <c-col cols="12" sm="5">
               <AutocompleteConcepto
+                :readonly="readonly"
                 v-model="detalle.idconcepto"
                 :redirect="$route.path"
                 ref="act4"
@@ -60,18 +73,25 @@
             </c-col>
             <c-col cols="5" sm="3">
               <TextNumber
+                :readonly="readonly"
                 ref="act5"
                 label="Cantidad"
                 v-model="detalle.cantidad"
               />
             </c-col>
             <c-col cols="5" sm="3">
-              <TextNumber ref="act6" label="Precio" v-model="detalle.precio" />
+              <TextNumber
+                :readonly="readonly"
+                ref="act6"
+                label="Precio"
+                v-model="detalle.precio"
+              />
             </c-col>
 
             <c-spacer></c-spacer>
             <BtnAdd
               ref="act7"
+              :disabled="readonly"
               :x-small="false"
               class="mt-2 mr-1"
               @click="addDetalle()"
@@ -90,7 +110,11 @@
             <div>{{ toCurrency(item.precio) }}</div>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <BtnDelete class="my-1" @click="deletDetalle(item)" />
+            <BtnDelete
+              :disabled="readonly"
+              class="my-1"
+              @click="deletDetalle(item)"
+            />
           </template>
         </v-data-table>
       </c-card-text>
@@ -98,6 +122,7 @@
         <c-row dense>
           <c-col cols="12" sm="6">
             <TextField
+              :readonly="readonly"
               ref="cliente3"
               :rules="[]"
               label="Solicitante del servicio"
@@ -106,6 +131,7 @@
           </c-col>
           <c-col cols="12" sm="6">
             <TextArea
+              :readonly="readonly"
               ref="cliente3"
               :rules="[]"
               label="Comentario"
@@ -115,7 +141,14 @@
         </c-row>
       </c-card-text>
       <c-container>
-        <c-btn block dark color="primary" rounded @click="guardar()">
+        <c-btn
+          :disabled="readonly"
+          block
+          dark
+          color="primary"
+          rounded
+          @click="guardar()"
+        >
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
         >
       </c-container>
@@ -161,6 +194,9 @@ export default {
     deleteView: false,
     form: {
       fecha: current_date(),
+      idestadocobro: {
+        idestadocobro: 1,
+      },
       idcliente: {
         idcliente: null,
         sucursal: [],
@@ -179,6 +215,9 @@ export default {
     },
     default: {
       fecha: current_date(),
+      idestadocobro: {
+        idestadocobro: 1,
+      },
       idcliente: {
         idcliente: null,
         sucursal: [],
@@ -240,6 +279,8 @@ export default {
     ...mapGetters("pendiente", ["getPendienteId"]),
     ...mapGetters("cliente", ["getCliente"]),
     ...mapGetters("auth", ["getUserInfo"]),
+    readonly: (vm) =>
+      vm.form.idestadocobro.idestadocobro === 1 ? false : true,
     sucursal: (vm) => {
       let suc = vm.getCliente
         .filter((cliente) => cliente.idcliente === vm.form.idcliente.idcliente)

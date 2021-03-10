@@ -3,6 +3,7 @@
     :value="value"
     :label="label"
     :rules="rules"
+    :readonly="readonly"
     type="number"
     filled
     dense
@@ -18,6 +19,7 @@ export default {
     value: [Number,String],
     label: String,
     rules: Array,
+    readonly: Boolean
   },
 };
 </script>

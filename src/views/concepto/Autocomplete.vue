@@ -8,6 +8,7 @@
       :value="value"
       :items="getConcepto"
       :loading="isLoading"
+      :readonly="readonly"
       :rules="rules"
       :return-object="returnObject"
       @input="$emit('input', $event)"
@@ -28,6 +29,7 @@ export default {
   props: {
     value: [Number, Object, Array],
     rules: Array,
+    readonly: Boolean,
     returnObject: Boolean,
     redirect: String,
     to: {

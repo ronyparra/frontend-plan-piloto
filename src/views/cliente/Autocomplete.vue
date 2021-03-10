@@ -12,6 +12,7 @@
       :clearable="clearable"
       :rules="rules"
       :filled="filled"
+      :readonly="readonly"
       :dense="dense"
       :return-object="returnObject"
       @input="$emit('input', $event)"
@@ -34,6 +35,7 @@ export default {
     rules: Array,
     returnObject: Boolean,
     clearable: Boolean,
+    readonly: Boolean,
     filled: {
       type: Boolean,
       default: true,

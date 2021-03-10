@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex flex-column align-center">
-    <c-overlay :value="isActive" :opacity="0.9">
+  <div class="d-flex flex-column align-center" style="z-index: 999" >
+    <c-overlay :value="isActive" :opacity="0.9" >
       <Failed v-if="isFailed" :message="getMessage" />
       <Loading v-if="isLoading" />
       <Success v-if="isSuccess" />

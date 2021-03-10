@@ -12,6 +12,7 @@ export const formatHeader = (header) => {
 export const formatLista = (lista) => {
   return lista.map((x) => {
     return [
+      x.idactividad,
       x.fecha,
       x.idcliente.razonsocial,
       x.idcliente_sucursal.descripcion,

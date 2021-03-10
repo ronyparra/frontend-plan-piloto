@@ -6,7 +6,8 @@ export default {
   props: {
     value: String,
     label: String,
-    readonly: Boolean
+    readonly: Boolean,
+    
   },
 };
 </script>

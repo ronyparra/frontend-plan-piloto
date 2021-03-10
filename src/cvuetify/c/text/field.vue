@@ -13,7 +13,7 @@
     :append-icon="appendIcon"
     :label="label"
     :flat="flat"
-  
+    :readonly="readonly"
     :filled="filled"
     :placeholder="placeholder"
     :background-color="backgroundColor"
@@ -62,6 +62,7 @@ export default {
       type: [Array],
       default: () => [(v) => !!v || "Obligatorio"],
     },
+    readonly: Boolean,
     label: String,
     placeholder: String,
     "prepend-inner-icon": String,

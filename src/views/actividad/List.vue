@@ -25,7 +25,7 @@
     <v-data-table
       :headers="headers"
       :search="search"
-      :items="getActividad"
+      :items="desserts"
       :loading="isLoading"
       :header-props="headerProps"
       :items-per-page="9999999"
@@ -33,6 +33,7 @@
       item-key="idactividad"
       v-model="selected"
       hide-default-footer
+      @toggle-select-all="selectAllToggle"
     >
       <template v-slot:[`item.idestadocobro`]="{ item }">
         <c-chip
@@ -50,6 +51,17 @@
       </template>
       <template v-slot:[`item.tecnico`]="{ item }">
         <div>{{ formatTecnico(item.tecnico) }}</div>
+      </template>
+      <template
+        v-slot:[`item.data-table-select`]="{ item, isSelected, select }"
+      >
+        <v-simple-checkbox
+          :value="isSelected"
+          :readonly="item.idestadocobro.idestadocobro !== 1"
+          :disabled="item.idestadocobro.idestadocobro !== 1"
+          @input="select($event)"
+          :ripple="false"
+        ></v-simple-checkbox>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <c-btn
@@ -96,8 +108,27 @@ export default {
     ...mapGetters("actividad", ["getActividad", "isLoading"]),
     ...mapGetters("cliente", ["getCliente"]),
   },
+  watch: {
+    getActividad(items) {
+      items.map((item) => {
+        if (item.idestadocobro.idestadocobro !== 1) this.disabledCount += 1;
+      });
+      this.desserts = JSON.parse(JSON.stringify(items))
+    },
+  },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    selectAllToggle(props) {
+      if (this.selected.length != this.desserts.length - this.disabledCount) {
+        this.selected = [];
+        const self = this;
+        props.items.forEach((item) => {
+          if (item.idestadocobro.idestadocobro === 1) {
+            self.selected.push(item);
+          }
+        });
+      } else this.selected = [];
+    },
     fetch() {
       this.selected = [];
 
@@ -131,7 +162,9 @@ export default {
     filter: false,
     show: false,
     search: "",
+    disabledCount: 0,
     selected: [],
+    desserts: [],
     params: {
       idcliente: null,
       idsucursal: null,

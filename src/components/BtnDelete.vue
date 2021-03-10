@@ -1,5 +1,5 @@
 <template>
-  <c-btn color="primary" elevation="2" fab  :text="text" x-small @click="$emit('click')">
+  <c-btn color="primary" elevation="2" fab :disabled="disabled"  :text="text" x-small @click="$emit('click')">
     <c-icon>
       delete
     </c-icon>
@@ -11,7 +11,8 @@ export default {
     text: {
       type: Boolean,
       default: true
-    }
+    },
+    disabled: Boolean
   }
 };
 </script>

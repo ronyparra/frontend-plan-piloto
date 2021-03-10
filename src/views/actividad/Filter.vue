@@ -3,60 +3,51 @@
     <c-card-text>
       <c-form ref="form">
         <c-row dense>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="4" md="2" class="my-n2">
             <AutocompleteCliente
               label=""
               clearable
               placeholder="Cliente"
-              :dense="false"
               :rules="[]"
-              :filled="false"
               @change="form.idsucursal = undefined"
               v-model="form.idcliente"
             />
           </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="4" md="2" class="my-n2">
             <AutocompleteClienteSucursal
               label=""
               placeholder="Sucursal"
               :rules="[]"
               clearable
-              :dense="false"
-              :filled="false"
+             
               :idcliente="form.idcliente"
               v-model="form.idsucursal"
             />
           </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="4" md="2" class="my-n2">
             <AutocompleteEstadoCobro
               label=""
               clearable
               placeholder="Estado de Cobro"
               :rules="[]"
-              :dense="false"
-              :filled="false"
               v-model="form.idestadocobro"
             />
           </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n3">
+          <c-col cols="12" sm="4" md="2" class="my-n2">
             <TextDate
-              :dense="false"
-              :filled="false"
               placeholder="Filtrar Desde"
               v-model="form.fechadesde"
             />
           </c-col>
-          <c-col cols="9" sm="4" md="2" class="my-n3">
+          <c-col cols="9" sm="4" md="2" class="my-n2">
             <TextDate
-              :dense="false"
-              :filled="false"
               placeholder="Filtrar Hasta"
               v-model="form.fechahasta"
             />
           </c-col>
 
           <v-spacer></v-spacer>
-          <c-btn text color="blue" class="mt-2 text-capitalize" @click="filtrar()"
+          <c-btn text color="blue" class="mt-n3 text-capitalize" @click="filtrar()"
             >Filtrar</c-btn
           >
         </c-row>
