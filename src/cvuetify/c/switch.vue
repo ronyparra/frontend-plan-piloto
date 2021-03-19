@@ -1,5 +1,5 @@
 <template>
-  <v-switch :label="label" :inset="inset" :value="value" @change="$emit('input', !value)"><slot /></v-switch>
+  <v-switch :label="label" :inset="inset" :value="value" @change="$emit('input', !value), $emit('change')"><slot /></v-switch>
 </template>
 <script>
 export default {

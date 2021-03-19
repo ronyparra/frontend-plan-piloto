@@ -16,6 +16,11 @@ export const navs = [
     title: "Actividad",
   },
   {
+    icon: "attach_money",
+    to: "/cobro",
+    title: "Cobros",
+  },
+  {
     icon: "add_shopping_cart",
     to: "/concepto",
     title: "Conceptos",

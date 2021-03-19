@@ -208,6 +208,41 @@ const routes = [
     ],
   },
   {
+    path: "/cobro",
+    name: "",
+    component: () =>
+      import(/* webpackChunkName: "Cobro" */ "../views/cobro/Cobro.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "/",
+        name: "Cobros",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cobros" */ "../views/cobro/List.vue"
+          ),
+      },
+      {
+        path: "add",
+        name: "Registrar Cobro",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cobro ADD" */ "../views/cobro/Form.vue"
+          ),
+      },
+      {
+        path: "edit/:id",
+        name: "Modificar Cobro",
+        component: () =>
+          import(
+            /* webpackChunkName: "Cobro EDIT" */ "../views/cobro/Form.vue"
+          ),
+      },
+    ],
+  },
+  {
     path: "/analytics",
     component: () =>
       import(
