@@ -42,7 +42,11 @@
           </c-row>
         </c-form>
 
-        <c-switch label="Aplicar Retencion" v-model="form.retencion" @change="calcularRetencion()"></c-switch>
+        <c-switch
+          label="Aplicar Retencion"
+          v-model="form.retencion"
+          @change="calcularRetencion()"
+        ></c-switch>
         <c-divider class="mb-3" v-if="form.retencion"></c-divider>
         <c-row dense v-if="form.retencion">
           <c-col cols="6" sm="6">
@@ -60,7 +64,16 @@
             />
           </c-col>
         </c-row>
-         <TextArea v-model="form.comentario" />
+
+        <c-divider class="mb-3"></c-divider>
+        <InputSelect
+          label="Seleccione Estado"
+          :items="select"
+          v-model="form.idestadocobro.idestadocobro"
+          item-value="value"
+          item-text="text"
+        ></InputSelect>
+        <TextArea v-model="form.comentario" />
       </c-card-text>
 
       <c-container>
@@ -75,6 +88,7 @@
 import BtnClose from "@/components/BtnClose";
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
+import InputSelect from "@/components/InputSelect";
 import TextArea from "@/components/TextArea";
 import BtnDelete from "@/components/BtnDelete";
 import Delete from "../delete/Delete";
@@ -86,11 +100,22 @@ export default {
     Delete,
     TextField,
     TextNumber,
-    TextArea
+    TextArea,
+    InputSelect,
   },
   data: () => ({
     isEdit: false,
     deleteView: false,
+    select: [
+      {
+        value: 3,
+        text: "Cobrado",
+      },
+      {
+        value: 4,
+        text: "Entregado",
+      },
+    ],
     form: {
       idcliente_cobro: "",
       descripcion: "",
@@ -102,6 +127,9 @@ export default {
       saldoacobrar: 0,
       saldocobrado: 0,
       saldoretencion: 0,
+      idestadocobro: {
+        idestadocobro: 3,
+      },
       comentario: "",
     },
     default: {
@@ -115,6 +143,9 @@ export default {
       saldoacobrar: 0,
       saldocobrado: 0,
       saldoretencion: 0,
+      idestadocobro: {
+        idestadocobro: 3,
+      },
       comentario: "",
     },
   }),
@@ -134,10 +165,17 @@ export default {
     ]),
     async editHandler() {
       this.isEdit = true;
-      if (this.getCobroId)
-        return (this.form = JSON.parse(JSON.stringify(this.getCobroId)));
+      if (this.getCobroId) {
+        this.form = JSON.parse(JSON.stringify(this.getCobroId));
+        return (this.form.idestadocobro = JSON.parse(
+          JSON.stringify(this.default.idestadocobro)
+        ));
+      }
       await this.fetchCobroId({ id: this.$route.params.id });
       this.form = JSON.parse(JSON.stringify(this.getCobroId));
+      return (this.form.idestadocobro = JSON.parse(
+        JSON.stringify(this.default.idestadocobro)
+      ));
     },
     calcularRetencion() {
       const total = Number(this.form.saldoacobrar);
@@ -147,7 +185,7 @@ export default {
         this.form.saldocobrado = Math.floor(total - retencion);
         this.form.saldoretencion = Math.floor(retencion);
       } else {
-        this.form.saldocobrado  = Math.floor(total);
+        this.form.saldocobrado = Math.floor(total);
       }
     },
 

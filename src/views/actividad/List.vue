@@ -36,15 +36,9 @@
       @toggle-select-all="selectAllToggle"
     >
       <template v-slot:[`item.idestadocobro`]="{ item }">
-        <c-chip
-          dark
-          :color="
-            item.idestadocobro.idestadocobro === 1
-              ? 'red darken-1'
-              : 'green accent-4'
-          "
-          >{{ item.idestadocobro.descripcion }}</c-chip
-        >
+        <c-chip dark :color="color(item.idestadocobro.idestadocobro)">{{
+          item.idestadocobro.descripcion
+        }}</c-chip>
       </template>
       <template v-slot:[`item.detalle`]="{ item }">
         <div>{{ formatDetalle(item.detalle) }}</div>
@@ -88,7 +82,7 @@ import SearchField from "@/components/SearchField";
 
 import { mapActions, mapGetters } from "vuex";
 import { subtract_days, current_date } from "@/util/date.util";
-import { formatTecnico, formatDetalle } from "./formatter";
+import { formatTecnico, formatDetalle, formatColor } from "./formatter";
 import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
 
@@ -113,11 +107,12 @@ export default {
       items.map((item) => {
         if (item.idestadocobro.idestadocobro !== 1) this.disabledCount += 1;
       });
-      this.desserts = JSON.parse(JSON.stringify(items))
+      this.desserts = JSON.parse(JSON.stringify(items));
     },
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    color: (estadocobro) => formatColor(estadocobro),
     selectAllToggle(props) {
       if (this.selected.length != this.desserts.length - this.disabledCount) {
         this.selected = [];

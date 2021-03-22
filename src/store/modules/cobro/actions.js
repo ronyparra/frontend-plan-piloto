@@ -2,10 +2,15 @@ import { FETCH, LOADING, SET_ID, url } from "./contants";
 import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
-  async fetchCobro({ commit }) {
+  async fetchCobro({ commit },{idcliente, fechadesde, fechahasta, idestadocobro}) {
+    const urlWithParams = `${url}/?cliente=${
+      idcliente ? idcliente : "undefined"
+    }&desde=${fechadesde}&hasta=${fechahasta}&estado=${
+      idestadocobro ? idestadocobro : "undefined"
+    }`;
     commit(LOADING, true);
     try {
-      const response = await get(url);
+      const response = await get(urlWithParams);
       commit(FETCH, response.data);
     } catch (e) {
       commit(LOADING, false);

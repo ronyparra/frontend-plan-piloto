@@ -45,3 +45,10 @@ export const formatTecnico = (tecnico) => {
     return (acc = acc + curr.nombre);
   }, "");
 };
+
+export const  formatColor = (estadocobro)=>{
+  if(estadocobro === 1) return 'red darken-1';
+  if(estadocobro === 2) return 'amber darken-2';
+  if(estadocobro === 3) return 'green accent-3';
+  return 'light-blue darken-3'
+};
