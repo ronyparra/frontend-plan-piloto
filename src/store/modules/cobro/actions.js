@@ -3,7 +3,6 @@ import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
   async fetchCobro({ commit },{idcliente, fechadesde, fechahasta, idestadocobro}) {
-    console.log(idcliente, fechadesde, fechahasta, idestadocobro)
     const urlWithParams = `${url}/?cliente=${
       idcliente ? idcliente : "undefined"
     }&desde=${fechadesde}&hasta=${fechahasta}&estado=${

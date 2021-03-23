@@ -17,7 +17,7 @@
       <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="4">
               <TextField
                 readonly
                 :rules="[]"
@@ -25,14 +25,14 @@
                 v-model="form.descripcion"
               />
             </c-col>
-            <c-col cols="6" sm="6">
+            <c-col cols="6" sm="4">
               <TextField
                 readonly
                 label="Cliente"
                 v-model="form.idcliente.razonsocial"
               />
             </c-col>
-            <c-col cols="6" sm="6">
+            <c-col cols="6" sm="4">
               <TextNumber
                 readonly
                 label="Saldo a Cobrar"
