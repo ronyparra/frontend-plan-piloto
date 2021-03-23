@@ -118,7 +118,7 @@
               :disabled="readonly"
               @click="showConfirmationDelete(item)"
             />
-            <BtnIcon class="ma-1" @click="editDetalle(item)">edit</BtnIcon>
+            <BtnIcon :disabled="readonly" class="ma-1" @click="editDetalle(item)">edit</BtnIcon>
           </template>
         </v-data-table>
       </c-card-text>
