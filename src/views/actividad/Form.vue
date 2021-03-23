@@ -64,15 +64,18 @@
         <c-divider class="mb-3"></c-divider>
         <c-form ref="formDetail">
           <c-row dense>
-            <c-col cols="12" sm="5">
+            <c-col cols="7" sm="6">
               <AutocompleteConcepto
                 :readonly="readonly"
                 v-model="detalle.idconcepto"
                 :redirect="$route.path"
                 ref="act4"
                 return-object
-                @change="detalle.precio = detalle.idconcepto.precio"
+                @change="asignarDetalle(detalle.idconcepto)"
               />
+            </c-col>
+            <c-col cols="5" sm="6">
+              <AutocompleteMoneda v-model="detalle.idmoneda.idmoneda" />
             </c-col>
             <c-col cols="5" sm="3">
               <TextNumber
@@ -118,7 +121,12 @@
               :disabled="readonly"
               @click="showConfirmationDelete(item)"
             />
-            <BtnIcon :disabled="readonly" class="ma-1" @click="editDetalle(item)">edit</BtnIcon>
+            <BtnIcon
+              :disabled="readonly"
+              class="ma-1"
+              @click="editDetalle(item)"
+              >edit</BtnIcon
+            >
           </template>
         </v-data-table>
       </c-card-text>
@@ -175,6 +183,7 @@ import TextDate from "@/components/TextDate";
 import TextArea from "@/components/TextArea";
 import Delete from "../delete/Delete";
 import { currencyFormatter } from "@/util/number.util";
+import AutocompleteMoneda from "../moneda/Autocomplete";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
@@ -192,6 +201,7 @@ export default {
     TextNumber,
     TextDate,
     Delete,
+    AutocompleteMoneda,
     AutocompleteCliente,
     AutocompleteTecnico,
     AutocompleteConcepto,
@@ -250,12 +260,18 @@ export default {
       idconcepto: {
         idconcepto: "",
       },
+      idmoneda: {
+        idmoneda: null,
+      },
       precio: "",
       cantidad: "",
     },
     detalle_default: {
       idconcepto: {
         idconcepto: "",
+      },
+      idmoneda: {
+        idmoneda: null,
       },
       precio: "",
       cantidad: "",
@@ -275,6 +291,11 @@ export default {
         text: "Precio",
         align: "end",
         value: "precio",
+      },
+      {
+        text: "Moneda",
+        align: "end",
+        value: "idmoneda.abreviatura",
       },
       {
         align: "end",
@@ -311,6 +332,10 @@ export default {
     ...mapActions("pendiente", ["fetchPendienteId", "fetchPendiente"]),
     toCurrency(value) {
       return currencyFormatter(value);
+    },
+    asignarDetalle(concepto) {
+      this.detalle.precio = concepto.precio;
+      this.detalle.idmoneda = JSON.parse(JSON.stringify(concepto.idmoneda));
     },
     async editHandler() {
       this.isEdit = true;
@@ -352,7 +377,7 @@ export default {
         this.$refs.form.resetValidation();
       }
     },
-    editDetalle(detalle){
+    editDetalle(detalle) {
       this.detalle = JSON.parse(JSON.stringify(detalle));
       this.deletDetalle(detalle);
     },

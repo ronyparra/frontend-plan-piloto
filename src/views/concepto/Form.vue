@@ -17,19 +17,22 @@
       <c-card-text>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="4">
               <TextField
                 ref="concepto1"
                 label="Descripcion"
                 v-model="form.descripcion"
               />
             </c-col>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="4">
               <TextNumber
                 ref="concepto2"
                 label="Precio"
                 v-model="form.precio"
               />
+            </c-col>
+            <c-col cols="12" sm="4">
+              <AutocompleteMoneda v-model="form.idmoneda.idmoneda" />
             </c-col>
           </c-row>
         </c-form>
@@ -48,9 +51,11 @@ import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
 import BtnDelete from "@/components/BtnDelete";
 import Delete from "../delete/Delete";
+import AutocompleteMoneda from "../moneda/Autocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
+    AutocompleteMoneda,
     BtnDelete,
     BtnClose,
     Delete,
@@ -63,11 +68,17 @@ export default {
     form: {
       descripcion: "",
       precio: "",
+      idmoneda: {
+        idmoneda: null,
+      },
     },
     default: {
       descripcion: "",
       precio: "",
-    }
+      idmoneda: {
+        idmoneda: null,
+      },
+    },
   }),
 
   mounted() {
