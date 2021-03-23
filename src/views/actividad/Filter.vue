@@ -94,7 +94,7 @@ export default {
       idsucursal: "",
       fechadesde: "",
       fechahasta: "",
-      idestadocobro: "",
+      idestadocobro: 1,
     },
   }),
 };

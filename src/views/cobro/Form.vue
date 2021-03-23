@@ -159,7 +159,6 @@ export default {
   methods: {
     ...mapActions("cobro", [
       "createCobro",
-      "fetchCobro",
       "fetchCobroId",
       "updateCobro",
     ]),
@@ -203,7 +202,6 @@ export default {
         if (this.isEdit) this.$router.replace({ path: "/cobro" });
         this.form = JSON.parse(JSON.stringify(this.default));
         this.$refs.form.resetValidation();
-        this.fetchCobro();
       }
     },
   },

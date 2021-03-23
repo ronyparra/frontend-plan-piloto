@@ -95,6 +95,7 @@ export default {
     BtnSearch,
     SearchField,
   },
+
   mounted() {
     this.fetch();
   },
@@ -109,6 +110,9 @@ export default {
       });
       this.desserts = JSON.parse(JSON.stringify(items));
     },
+    $route(to){
+      if(to.path ==='/actividad') this.fetch();
+    }
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
@@ -165,7 +169,7 @@ export default {
       idsucursal: null,
       fechadesde: subtract_days(90),
       fechahasta: current_date(),
-      idestadocobro: null,
+      idestadocobro: 1,
     },
     headerProps: {
       sortByText: "Filtrar por",

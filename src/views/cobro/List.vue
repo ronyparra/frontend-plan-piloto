@@ -6,7 +6,7 @@
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
         <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
-        <BtnSearch  @click="show = !show" />
+        <BtnSearch @click="show = !show" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
@@ -62,6 +62,12 @@ export default {
     BtnIcon,
     BtnSearch,
     SearchField,
+  },
+  watch: {
+    $route(to) {
+      console.log(this.params)
+      if (to.path === "/cobro") this.fetchCobro(this.params);
+    },
   },
   mounted() {
     this.fetchCobro(this.params);
