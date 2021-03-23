@@ -18,6 +18,9 @@
       :id-to-delete="$route.params.id"
       @success="$router.push({ path: '/actividad' })"
     />
+    <Confirmation v-model="confirm.delete" @confirm="deletDetalle(confirm.item)"
+      >Desea eliminar este detalle?</Confirmation
+    >
     <c-card class="fill-height d-flex flex-column justify-space-between">
       <c-card-text>
         <c-form ref="form">
@@ -111,10 +114,11 @@
           </template>
           <template v-slot:[`item.actions`]="{ item }">
             <BtnDelete
+              class="ma-1"
               :disabled="readonly"
-              class="my-1"
-              @click="deletDetalle(item)"
+              @click="showConfirmationDelete(item)"
             />
+            <BtnIcon class="ma-1" @click="editDetalle(item)">edit</BtnIcon>
           </template>
         </v-data-table>
       </c-card-text>
@@ -162,6 +166,8 @@ import { current_date } from "@/util/date.util";
 import BtnClose from "@/components/BtnClose";
 import BtnAdd from "@/components/BtnAdd";
 import BtnDelete from "@/components/BtnDelete";
+import BtnIcon from "@/components/BtnIcon";
+import Confirmation from "@/components/Confirmation";
 
 import TextField from "@/components/TextField";
 import TextNumber from "@/components/TextNumber";
@@ -176,9 +182,11 @@ import AutocompleteClienteSucursal from "../cliente/AutocompleteSucursal";
 
 export default {
   components: {
+    BtnIcon,
     BtnAdd,
     BtnClose,
     BtnDelete,
+    Confirmation,
     TextField,
     TextArea,
     TextNumber,
@@ -192,6 +200,10 @@ export default {
   data: () => ({
     isEdit: false,
     deleteView: false,
+    confirm: {
+      delete: false,
+      item: null,
+    },
     form: {
       fecha: current_date(),
       idestadocobro: {
@@ -340,9 +352,20 @@ export default {
         this.$refs.form.resetValidation();
       }
     },
+    editDetalle(detalle){
+      this.detalle = JSON.parse(JSON.stringify(detalle));
+      this.deletDetalle(detalle);
+    },
+    showConfirmationDelete(detalle) {
+      this.confirm.item = null;
+      this.confirm.delete = true;
+      this.confirm.item = JSON.parse(JSON.stringify(detalle));
+    },
     deletDetalle(detalle) {
       const index = this.form.detalle.indexOf(detalle);
       this.form.detalle.splice(index, 1);
+      this.confirm.delete = false;
+      this.confirm.item = null;
     },
   },
 };
