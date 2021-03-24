@@ -36,7 +36,7 @@ export const formatDetalle = (detalle) => {
       curr.idconcepto.descripcion +
       " (" +
       currencyFormatter(curr.precio * curr.cantidad) +
-      ")");
+      " "+curr.idmoneda.abreviatura+")");
   }, "");
 };
 export const formatTecnico = (tecnico) => {

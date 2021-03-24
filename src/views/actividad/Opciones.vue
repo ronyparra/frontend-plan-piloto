@@ -31,7 +31,20 @@
         <v-alert type="error" v-if="!uniqueClien" dense class="ma-1"
           >Hay mas de un cliente en seleccionado</v-alert
         >
-        <TextField placeholder="Descripcion" :rules="[]" class="ma-1 mx-2" v-model="form.descripcion" />
+        <v-alert type="info" v-if="!uniqueMoney" dense class="ma-1"
+          ><span class="caption"
+            >Se encontro mas de una moneda entre las actividades</span
+          >
+          <br />
+          Si decide continuar se va a generar <strong>DOS</strong> facturas
+          (<strong>UNO</strong> para cada moneda)
+        </v-alert>
+        <TextField
+          placeholder="Descripcion"
+          :rules="[]"
+          class="ma-1 mx-2"
+          v-model="form.descripcion"
+        />
         <v-data-table
           :headers="headers"
           :items="value"
@@ -87,8 +100,8 @@ import { formatDetalle } from "./formatter";
 import { currencyFormatter } from "@/util/number.util";
 import TextField from "@/components/TextField";
 export default {
-  components:{
-    TextField
+  components: {
+    TextField,
   },
   computed: {
     rules() {
@@ -115,6 +128,17 @@ export default {
       )
         ? false
         : true;
+      return unique;
+    },
+    uniqueMoney: (vm) => {
+      if (vm.form.detalle.length === 0) return true;
+      const first = vm.form.detalle[0].detalle[0].idmoneda.idmoneda;
+      let unique = true;
+      vm.form.detalle.map(({ detalle }) => {
+        detalle.map(({ idmoneda }) => {
+          if (idmoneda.idmoneda !== first) unique = false;
+        });
+      });
       return unique;
     },
     disabledSaveButton: (vm) =>
