@@ -75,7 +75,7 @@
               />
             </c-col>
             <c-col cols="5" sm="6">
-              <AutocompleteMoneda v-model="detalle.idmoneda.idmoneda" />
+              <AutocompleteMoneda v-model="detalle.idmoneda" return-object />
             </c-col>
             <c-col cols="5" sm="3">
               <TextNumber
