@@ -65,12 +65,8 @@ export default {
   },
   watch: {
     $route(to) {
-      console.log(this.params)
       if (to.path === "/cobro") this.fetchCobro(this.params);
     },
-  },
-  mounted() {
-    this.fetchCobro(this.params);
   },
   computed: {
     ...mapGetters("cobro", ["getCobro", "isLoading"]),
