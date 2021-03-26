@@ -12,6 +12,7 @@
         <SearchField class="mb-2" v-model="search" />
       </template>
     </c-app-bar>
+    <c-container>
     <v-data-table
       :headers="headers"
       :search="search"
@@ -45,6 +46,7 @@
         </c-btn>
       </template>
     </v-data-table>
+    </c-container>
   </div>
 </template>
 <script>

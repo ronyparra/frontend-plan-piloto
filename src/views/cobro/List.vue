@@ -68,6 +68,9 @@ export default {
       if (to.path === "/cobro") this.fetchCobro(this.params);
     },
   },
+  mounted() {
+    this.fetchCobro(this.params);
+  },
   computed: {
     ...mapGetters("cobro", ["getCobro", "isLoading"]),
   },

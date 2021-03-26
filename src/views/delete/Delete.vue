@@ -1,5 +1,5 @@
 <template>
-  <div v-if="value" >
+  <div v-if="value">
     <div class="d-flex flex-column align-center" style="z-index: 10">
       <c-overlay :value="true" :opacity="0.9">
         <div class="d-flex justify-center flex-column align-center">
@@ -24,24 +24,31 @@
           </div>
 
           <c-container style="z-index: 999; position: fixed; bottom: 3%;">
-            <c-btn
-              block
-              large
-              color="red"
-              class="text-capitalize"
-              rounded
-              @click="close()"
-              >No, quiero cancelar</c-btn
-            >
-            <c-btn
-              block
-              large
-              color="primary"
-              class="mt-2 text-capitalize"
-              rounded
-              @click="confirmDelete()"
-              >Si, estoy seguro</c-btn
-            >
+            <c-row dense>
+              <c-col cols="12" sm="5">
+                <c-btn
+                  block
+                  large
+                  color="red"
+                  class="text-capitalize"
+                  rounded
+                  @click="close()"
+                  >No, quiero cancelar</c-btn
+                >
+              </c-col>
+              <c-spacer></c-spacer>
+              <c-col cols="12" sm="5">
+                <c-btn
+                  block
+                  large
+                  color="primary"
+                  class="mt-2 text-capitalize"
+                  rounded
+                  @click="confirmDelete()"
+                  >Si, estoy seguro</c-btn
+                >
+              </c-col>
+            </c-row>
           </c-container>
         </div>
       </c-overlay>

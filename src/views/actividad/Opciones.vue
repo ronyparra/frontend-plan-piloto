@@ -57,8 +57,11 @@
           <template v-slot:[`item.detalle`]="{ item }">
             <div>{{ formatDetalle(item.detalle) }}</div>
           </template>
-          <template v-slot:[`item.subtotal`]="{ item }">
-            <div>{{ formatSubTotal(item.detalle) }}</div>
+          <template v-slot:[`item.usd`]="{ item }">
+            <div>{{ formatSubTotal(item.detalle, 2) }}</div>
+          </template>
+          <template v-slot:[`item.gs`]="{ item }">
+            <div>{{ formatSubTotal(item.detalle, 1) }}</div>
           </template>
 
           <template slot="body.append">
@@ -68,7 +71,10 @@
               <th class="hidden-xs-only"></th>
               <th class="hidden-xs-only"></th>
               <th class="subtitle-1 text-end font-weight-black">
-                {{ total }}
+                {{ totalUsd }}
+              </th>
+              <th class="subtitle-1 text-end font-weight-black">
+                {{ totalGs }}
               </th>
             </tr>
           </template>
@@ -110,12 +116,24 @@ export default {
         (v) => !!v || "Obligatorio",
       ];
     },
-    total: (vm) => {
-      const total = vm.form.detalle.reduce((acc, curr) => {    
-        const subtotal = curr.detalle.reduce(
-          (acc1, curr1) => (acc1 = acc1 + curr1.cantidad * curr1.precio),
-          0
-        );
+    totalUsd: (vm) => {
+      const total = vm.form.detalle.reduce((acc, curr) => {
+        const subtotal = curr.detalle.reduce((acc1, curr1) => {
+          if (curr1.idmoneda.idmoneda === 2)
+            return (acc1 = acc1 + curr1.cantidad * curr1.precio);
+          return acc1;
+        }, 0);
+        return (acc = acc + subtotal);
+      }, 0);
+      return currencyFormatter(total);
+    },
+    totalGs: (vm) => {
+      const total = vm.form.detalle.reduce((acc, curr) => {
+        const subtotal = curr.detalle.reduce((acc1, curr1) => {
+          if (curr1.idmoneda.idmoneda === 1)
+            return (acc1 = acc1 + curr1.cantidad * curr1.precio);
+          return acc1;
+        }, 0);
         return (acc = acc + subtotal);
       }, 0);
       return currencyFormatter(total);
@@ -172,12 +190,13 @@ export default {
     formatDetalle(detalle) {
       return formatDetalle(detalle);
     },
-    formatSubTotal(detalle) {
+    formatSubTotal(detalle, idmoneda) {
       return currencyFormatter(
-        detalle.reduce(
-          (acc, curr) => (acc = acc + curr.cantidad * curr.precio),
-          0
-        )
+        detalle.reduce((acc, curr) => {
+          if (curr.idmoneda.idmoneda === idmoneda)
+            return (acc = acc + curr.cantidad * curr.precio);
+          return acc;
+        }, 0)
       );
     },
   },
@@ -198,7 +217,8 @@ export default {
         sortable: false,
       },
       { text: "Conceptos", value: "detalle", sortable: false },
-      { text: "SubTotal", value: "subtotal", align: "end", sortable: false },
+      { text: "USD", value: "usd", align: "end", sortable: false },
+      { text: "GS", value: "gs", align: "end", sortable: false },
     ],
   }),
 };
