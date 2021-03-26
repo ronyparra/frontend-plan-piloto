@@ -93,8 +93,8 @@ export default {
       idestadocobro: 2,
     },
     headers: [
-      { text: "Fecha", value: "fechainsert" },
       { text: "Cliente", value: "idcliente.razonsocial" },
+      { text: "Moneda", value: "idmoneda.abreviatura", align: "end" },
       { text: "Monto a Cobrar", value: "saldoacobrar", align: "end" },
       { text: "Estado", value: "idestadocobro", align: "end" },
       { text: "", value: "actions", align: "end", sortable: false },

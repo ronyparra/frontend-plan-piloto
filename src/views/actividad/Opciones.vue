@@ -111,9 +111,9 @@ export default {
       ];
     },
     total: (vm) => {
-      const total = vm.form.detalle.reduce((acc, curr) => {
+      const total = vm.form.detalle.reduce((acc, curr) => {    
         const subtotal = curr.detalle.reduce(
-          (acc1, curr1) => (acc1 = curr1.cantidad * curr1.precio),
+          (acc1, curr1) => (acc1 = acc1 + curr1.cantidad * curr1.precio),
           0
         );
         return (acc = acc + subtotal);
