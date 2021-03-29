@@ -13,6 +13,7 @@
       </template>
     </c-app-bar>
     <Filters v-if="filter" :params="params" />
+    <c-container>
     <v-data-table
       :headers="headers"
       :search="search"
@@ -45,6 +46,7 @@
         </c-btn>
       </template>
     </v-data-table>
+    </c-container>
   </div>
 </template>
 <script>
