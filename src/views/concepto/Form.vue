@@ -14,7 +14,7 @@
       @success="$router.push({ path: '/concepto' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-card-text>
+      <c-container>
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12" sm="4">
@@ -36,7 +36,7 @@
             </c-col>
           </c-row>
         </c-form>
-      </c-card-text>
+      </c-container>
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()">
           {{ isEdit ? "Modificar" : "Registrar" }}</c-btn

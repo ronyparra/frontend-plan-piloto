@@ -22,17 +22,17 @@
       >Desea eliminar este detalle?</Confirmation
     >
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-card-text>
+      <c-container>
         <c-form ref="form">
           <c-row dense>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="3">
               <TextDate
                 :readonly="readonly"
                 label="Fecha"
                 v-model="form.fecha"
               />
             </c-col>
-            <c-col cols="12" sm="6">
+            <c-col cols="12" sm="3">
               <AutocompleteCliente
                 :readonly="readonly"
                 :redirect="$route.path"
@@ -41,7 +41,7 @@
                 ref="act1"
               />
             </c-col>
-            <c-col cols="12" v-if="sucursal.length > 1">
+            <c-col cols="12" sm="3" v-if="sucursal.length > 1">
               <AutocompleteClienteSucursal
                 :readonly="readonly"
                 ref="act2"
@@ -49,7 +49,7 @@
                 v-model="form.idcliente_sucursal.idcliente_sucursal"
               />
             </c-col>
-            <c-col cols="12">
+            <c-col cols="12" sm="3">
               <AutocompleteTecnico
                 :readonly="readonly"
                 ref="act3"
@@ -64,7 +64,7 @@
         <c-divider class="mb-3"></c-divider>
         <c-form ref="formDetail">
           <c-row dense>
-            <c-col cols="7" sm="6">
+            <c-col cols="7" sm="3">
               <AutocompleteConcepto
                 :readonly="readonly"
                 v-model="detalle.idconcepto"
@@ -74,10 +74,10 @@
                 @change="asignarDetalle(detalle.idconcepto)"
               />
             </c-col>
-            <c-col cols="5" sm="6">
+            <c-col cols="5" sm="3">
               <AutocompleteMoneda v-model="detalle.idmoneda" return-object />
             </c-col>
-            <c-col cols="5" sm="3">
+            <c-col cols="5" sm="2">
               <TextNumber
                 :readonly="readonly"
                 ref="act5"
@@ -85,7 +85,7 @@
                 v-model="detalle.cantidad"
               />
             </c-col>
-            <c-col cols="5" sm="3">
+            <c-col cols="5" sm="2">
               <TextNumber
                 :readonly="readonly"
                 ref="act6"
@@ -129,8 +129,8 @@
             >
           </template>
         </v-data-table>
-      </c-card-text>
-      <c-card-text>
+      </c-container>
+      <c-container>
         <c-row dense>
           <c-col cols="12" sm="6">
             <TextField
@@ -151,7 +151,7 @@
             />
           </c-col>
         </c-row>
-      </c-card-text>
+      </c-container>
       <c-container>
         <c-btn
           :disabled="readonly"
