@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     ...mapGetters("auth", ["getUserInfo"]),
-    navs: () => navs,
+    navs: () => navs(),
   },
   methods:{
     ...mapActions('auth',['logout'])

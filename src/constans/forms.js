@@ -1,13 +1,14 @@
-const form = {
+export const form = {
   concepto: "Concepto",
   cliente: "Cliente",
   actividad: "Actividad",
   pendiente: "Pendiente",
   usuario: "Usuario",
+  cobro: "Cobro",
   analytics: "Analytics",
 };
 
-const permission = {
+export const permission = {
     registrar: 'Puede Registrar',
     modificar: 'Puede Modificar',
     eliminar: 'Puede Eliminar',

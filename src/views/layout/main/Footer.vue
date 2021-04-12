@@ -36,7 +36,7 @@
 import { navs } from "./constants";
 export default {
   computed: {
-    navs: () => navs,
+    navs: () => navs(),
   },
 };
 </script>

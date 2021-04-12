@@ -30,5 +30,6 @@ export default {
     removeUser();
     removePermission();
     router.push("/login");
+    location.reload();
   },
 };
