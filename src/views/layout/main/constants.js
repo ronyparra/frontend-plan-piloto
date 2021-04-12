@@ -4,7 +4,6 @@ export const navs = [
     to: "/",
     title: "Inicio",
   },
-
   {
     icon: "query_builder",
     to: "/pendiente",
@@ -43,3 +42,4 @@ export const navs = [
     disableFooter: true
   },
 ];
+

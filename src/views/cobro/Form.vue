@@ -14,7 +14,7 @@
       @success="$router.push({ path: '/cobro' })"
     />
     <c-card class="fill-height d-flex flex-column justify-space-between">
-      <c-card-text>
+      <c-container>
         <c-form ref="form">
           <c-row dense>
             <c-col cols="12" sm="4">
@@ -74,7 +74,7 @@
           item-text="text"
         ></InputSelect>
         <TextArea v-model="form.comentario" />
-      </c-card-text>
+      </c-container>
 
       <c-container>
         <c-btn block dark color="primary" rounded @click="guardar()"
