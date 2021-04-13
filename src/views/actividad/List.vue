@@ -35,7 +35,7 @@
       hide-default-footer
       @toggle-select-all="selectAllToggle"
     >
-      <template v-slot:[`item.idestadocobro`]="{ item }">
+      <template v-slot:[`item.idestadocobro.idestadocobro`]="{ item }">
         <c-chip dark :color="color(item.idestadocobro.idestadocobro)">{{
           item.idestadocobro.descripcion
         }}</c-chip>
@@ -184,7 +184,7 @@ export default {
       { text: "Conceptos", value: "detalle" },
       { text: "Tecnicos", value: "tecnico" },
       { text: "Comentario", value: "comentario", sortable: false },
-      { text: "Estado", value: "idestadocobro", sortable: false },
+      { text: "Estado", value: "idestadocobro.idestadocobro"},
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

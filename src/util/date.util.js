@@ -17,3 +17,16 @@ export const subtract_days = (dias) => {
   date.setDate(date.getDate() - dias);
   return format_date(date.toISOString().substr(0, 10));
 };
+
+export const first_date_month = () => {
+  return format_date(new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+    .toISOString()
+    .substr(0, 10));
+};
+
+
+export const last_date_month = () => {
+  return format_date(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)
+    .toISOString()
+    .substr(0, 10));
+};

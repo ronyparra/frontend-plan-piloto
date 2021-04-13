@@ -3,11 +3,12 @@
   <div class="ml-2 mb-4  subtitle-1 font-weight-medium">Saldos de Actividades</div>
   <v-row dense >
     
-    <v-col cols="6" sm="3" v-for="(n,i) in actividad" :key="i">
+    <v-col cols="6" sm="3" v-for="(n,i) in getActividad" :key="i">
       <v-card :color="n.color || 'white'" class="rounded-xl pa-1" elevation="0">
-        <v-container>
+        <v-container >
           <div class="caption  grey--text">{{n.title}}</div>
-          <div class="caption ml-1 font-weight-black">Gs {{n.saldo}}</div>
+
+          <div class="caption ml-1 font-weight-black d-flex space-between" v-for="(j,y) in n.detalle" :key="y">{{j.moneda}} {{formatNumber(j.saldo)}}</div>
         </v-container>
       </v-card>
     </v-col>
@@ -15,27 +16,19 @@
   </v-container>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import {currencyFormatter } from "@/util/number.util";
 export default {
-    data:()=>({
-        actividad:[
-            {
-                title: 'Periodo Anterior',
-                saldo: '1,231,321',
-                color: "pink lighten-5"
-            },
-            {
-                title: 'Periodo Actual',
-                saldo: '1,231,321'
-            },
-            {
-                title: 'Cobrado',
-                saldo: '1,231,321'
-            },
-            {
-                title: 'Por Cobrar',
-                saldo: '1,231,321'
-            }
-        ]
-    })
+    data:()=>({}),
+    mounted(){
+      this.fetchActividad();
+    },
+    computed:{
+      ...mapGetters('analytics',['getActividad'])
+    },
+    methods:{
+      ...mapActions('analytics',['fetchActividad']),
+      formatNumber:(value)=>currencyFormatter(value)
+    }
 };
 </script>
