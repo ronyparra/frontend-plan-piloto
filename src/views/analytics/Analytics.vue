@@ -27,7 +27,7 @@
                     {{ getParams.desde }}/{{ getParams.hasta }}
                     <c-progress-circular
                       indeterminate
-                      size="18"
+                      :size="18"
                       v-if="isLoading"
                     ></c-progress-circular>
                   </div>

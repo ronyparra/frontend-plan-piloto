@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataTable :headers="headers" :items="getCliente" :item-body="itemBody" />
+    <DataTable :headers="headers" :items="getCliente" />
   </div>
 </template>
 <script>
@@ -10,18 +10,36 @@ export default {
   data: () => ({
     headers: [
       {
-        title: 'Cliente'
+        title: "Cliente",
+        value: "cliente",
+        class: "caption text-start font-weight-medium",
+        headClass: "caption text-start",
       },
       {
-        title: 'Resumen',
-        sortable: true
-      }
+        title: "Cantidad",
+        value: "cantidad",
+        class: "caption  text-end font-weight-black",
+        headClass: "caption text-end",
+        number: true,
+        sortable: true,
+      },
+      {
+        title: "USD",
+        value: "dolar",
+        class: "caption font-weight-black text-end",
+        headClass: "caption text-end",
+        number: true,
+        sortable: true,
+      },
+      {
+        title: "GS",
+        value: "guarani",
+        class: "caption font-weight-black text-end",
+        headClass: "caption text-end",
+        number: true,
+        sortable: true,
+      },
     ],
-    itemBody:{
-      title: 'cliente',
-      detTitle: 'Actividades',
-      detCant: 'cant_actividad'
-    }
   }),
   components: {
     DataTable,

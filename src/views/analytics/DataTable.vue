@@ -1,63 +1,46 @@
 <template>
   <div>
-    <c-row dense class="mb-n5 d-flex justify-end">
-      <c-col cols="12" sm="3">
-        <AutocompleteMoneda
-          v-model="orderBy"
-          :filled="false"
-          label="Ordenar por"
-          :rules="[]"
-        />
-      </c-col>
-    </c-row>
     <c-row dense>
       <c-col cols="12">
-        <div>
-          <c-container class="mb-n3 d-flex flex-row justify-space-between">
-            <div class="caption" v-for="(item, i) in headers" :key="i">
-              {{ item.title }} <Sortable v-if="item.sortable" v-model="asc" />
-            </div>
-          </c-container>
-        </div>
-      </c-col>
-
-      <c-col cols="12" v-for="(n, i) in itemsFormated" :key="i">
-        <c-card color="white" class="rounded-xl" elevation="0">
-          <c-container class="caption d-flex flex-row justify-space-between">
-            <div class="d-flex flex-column align-center justify-center">
-              <div class="caption font-weight-medium ">{{ n[itemBody.title] }}</div>
-            </div>
-            <div class="d-flex flex-column align-end">
-              <div class="caption">{{ n[itemBody.detCant] }} {{itemBody.detTitle}}</div>
-              <div v-for="(d, y) in n.detalle" :key="y">
-                <div class="caption  font-weight-black">
-                  {{ d.moneda }} {{ formatNumber(d.saldo) }}
-                </div>
-              </div>
-            </div>
-          </c-container>
-        </c-card>
+        <table style="width:100%">
+          <tr>
+            <th :class="item.headClass" v-for="(item, i) in heads" :key="i">
+              {{ item.title }}
+              <Sortable
+                v-if="item.sortable != undefined"
+                v-model="item.sortable"
+                @click="filterItems(item.value,item.sortable)"
+              />
+            </th>
+          </tr>
+          <tr
+            v-for="(item, i) in items"
+            :key="i"
+            style="background-color: white"
+            class="rounded-xl my-1"
+          >
+            <td :class="head.class" v-for="(head, j) in headers" :key="j">
+              {{
+                head.number ? formatNumber(item[head.value]) : item[head.value]
+              }}
+            </td>
+          </tr>
+        </table>
       </c-col>
     </c-row>
   </div>
 </template>
 <script>
-import AutocompleteMoneda from "../moneda/Autocomplete";
 import { currencyFormatter } from "../../util/number.util";
 import Sortable from "./Sortable";
 export default {
   components: {
     Sortable,
-     AutocompleteMoneda,
   },
   props: {
     headers: {
       type: Array,
       default: () => [],
-    },
-    itemBody: {
-        type: Object,
-        default: () =>  {}
     },
     items: {
       type: Array,
@@ -65,35 +48,41 @@ export default {
     },
   },
   data: () => ({
-    orderBy: 1,
+    heads: [],
     asc: true,
   }),
-
-  computed: {
-    itemsFormated() {
-      const itemsRaw = this.items;
-      if (!this.orderBy) return itemsRaw;
-      return itemsRaw.sort((a, b) => {
-        const result1 = a.detalle.find(
-          ({ idmoneda }) => idmoneda === this.orderBy
-        );
-        const result2 = b.detalle.find(
-          ({ idmoneda }) => idmoneda === this.orderBy
-        );
-        return result1?.saldo > result2?.saldo
-          ? this.asc
-            ? -1
-            : 1
-          : result1?.saldo < result2?.saldo
-          ? this.asc
-            ? 1
-            : -1
-          : 0;
-      });
-    },
+  mounted() {
+    this.heads = JSON.parse(JSON.stringify(this.headers));
   },
-  methods:{
-       formatNumber: (value) => currencyFormatter(value),
-  }
+  methods: {
+    formatNumber: (value) => currencyFormatter(value),
+    filterItems(filter,order){
+      return this.items.sort((a, b) => {
+        return a[filter] > b[filter] ? (order ? 1 : -1) : a[filter] < b[filter] ? (order ?  -1 : 1) : 0;
+      });
+    }
+  },
 };
 </script>
+<style scoped>
+table {
+  border-collapse: separate;
+  border-spacing: 0 0.4rem;
+}
+td {
+  border: 0px;
+  border-style: solid none;
+  padding: 10px;
+  background-color: white;
+}
+td:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+td:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 40px;
+  border-top-right-radius: 40px;
+}
+</style>
