@@ -9,11 +9,7 @@
               {{ item.icon }}
             </v-icon>
           </v-tab>
-          <v-tab to="/analytics/pendiente">
-            <v-icon>
-              query_builder
-            </v-icon>
-          </v-tab>
+
           <v-spacer></v-spacer>
           <v-tab to="/analytics/filtros">
             <v-icon>

@@ -1,4 +1,4 @@
-import { FETCH, FETCH_PENDIENTE, FETCH_CLIENTE, CHANGE_PARAMS, LOADING, url } from "./contants";
+import { FETCH, FETCH_PENDIENTE, FETCH_CLIENTE,  FETCH_CONCEPTO,CHANGE_PARAMS, LOADING, url } from "./contants";
 import { get } from "@/services/api/api.services.js";
 
 export default {
@@ -38,6 +38,20 @@ export default {
         `${url.cliente}?desde=${desde}&hasta=${hasta}`
       );
       commit(FETCH_CLIENTE, response.data);
+    } catch (e) {
+      commit(LOADING, false);
+      throw e;
+    }
+    commit(LOADING, false);
+  },
+  async fetchConcepto({ commit, getters }) {
+    commit(LOADING, true);
+    try {
+      const { desde, hasta } = getters.getParams;
+      const response = await get(
+        `${url.concepto}?desde=${desde}&hasta=${hasta}`
+      );
+      commit(FETCH_CONCEPTO, response.data);
     } catch (e) {
       commit(LOADING, false);
       throw e;
