@@ -14,14 +14,16 @@
       </v-row>
     </div>
     <v-container>
-      <v-btn block rounded color="primary" @click="changeParams(params)">Filtrar</v-btn>
+      <v-btn block rounded color="primary" @click="changeParams(params)"
+        >Filtrar</v-btn
+      >
     </v-container>
   </v-container>
 </template>
 <script>
 import TextDate from "@/components/TextDate";
 import { first_date_month, last_date_month } from "@/util/date.util";
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     TextDate,
@@ -30,10 +32,16 @@ export default {
     params: {
       desde: first_date_month(),
       hasta: last_date_month(),
-    },
+    }
   }),
-  methods:{
-    ...mapActions('analytics',['changeParams'])
-  }
+  created(){
+    this.params = JSON.parse(JSON.stringify(this.getParams)) 
+  },
+  computed: {
+    ...mapGetters("analytics", ["getParams"]),
+  },
+  methods: {
+    ...mapActions("analytics", ["changeParams"]),
+  },
 };
 </script>

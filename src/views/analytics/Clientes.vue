@@ -1,31 +1,47 @@
 <template>
-  <v-container>
-    <v-row dense>
-      <div class="ml-3   subtitle-1 font-weight-medium">Top Clientes</div>
-      <v-col cols="12">
+  <div>
+    <c-row dense>
+      <c-col cols="12">
         <div>
-          <v-container class="mb-n3 d-flex flex-row justify-space-between">
+          <c-container class="mb-n3 d-flex flex-row justify-space-between">
             <div class="caption ">Cliente</div>
-            <div class="caption  ">Actividades</div>
-            <div class="caption  ">Saldo</div>
-          </v-container>
+            <div class="caption  ">Resumen</div>
+          </c-container>
         </div>
-      </v-col>
-      <v-col cols="12" v-for="n in 5" :key="n">
-        <v-card color="white" class="rounded-xl" elevation="0">
-          <v-container class="caption d-flex flex-row justify-space-between">
-            <div class="d-flex flex-column">
-              <div class="caption  grey--text">Transagro</div>
-            </div>
-            <div class="d-flex flex-column align-center">
-              <div class="caption  grey--text">10</div>
+      </c-col>
+      <c-col cols="12" v-for="(n, i) in getCliente" :key="i">
+        <c-card color="white" class="rounded-xl" elevation="0">
+          <c-container class="caption d-flex flex-row justify-space-between">
+            <div class="d-flex flex-column align-center justify-center">
+              <div class="caption ">{{ n.cliente }}</div>
             </div>
             <div class="d-flex flex-column align-end">
-              <div class="caption  font-weight-black">Gs 35.666.777</div>
+              <div class="caption">{{ n.cant_actividad }} Actividades</div>
+              <div v-for="(d, y) in n.detalle" :key="y">
+                <div class="caption  font-weight-black">
+                  {{ d.moneda }} {{ formatNumber(d.saldo) }}
+                </div>
+              </div>
             </div>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+          </c-container>
+        </c-card>
+      </c-col>
+    </c-row>
+  </div>
 </template>
+<script>
+import { mapActions, mapGetters } from "vuex";
+import { currencyFormatter } from '../../util/number.util';
+export default {
+  mounted() {
+    this.fetchCliente();
+  },
+  computed: {
+    ...mapGetters("analytics", ["getCliente"]),
+  },
+  methods: {
+    ...mapActions("analytics", ["fetchCliente"]),
+    formatNumber:(value)=>currencyFormatter(value)
+  },
+};
+</script>

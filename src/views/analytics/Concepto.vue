@@ -1,7 +1,6 @@
 <template>
-  <v-container>
+  <div>
     <v-row dense>
-      <div class="ml-3   subtitle-1 font-weight-medium">Top Conceptos</div>
       <v-col cols="12">
         <div>
           <v-container class="mb-n3 d-flex flex-row justify-space-between">
@@ -24,5 +23,5 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
