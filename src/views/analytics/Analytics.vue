@@ -18,18 +18,23 @@
           </v-tab>
           <v-tabs-items vertical class="fill-height">
             <v-card color="blue-grey lighten-5" class="fill-height">
-               <c-container filled>
-              <div class="ml-2 mb-4 d-flex justify-space-between">
-                <div class="subtitle-1 font-weight-medium">
-                  {{getTitle($route.path)}}
+              <c-container filled>
+                <div class="ml-2 mb-4 d-flex justify-space-between">
+                  <div class="subtitle-1 font-weight-medium">
+                    {{ getTitle($route.path) }}
+                  </div>
+                  <div class="caption mt-1 font-italic">
+                    {{ getParams.desde }}/{{ getParams.hasta }}
+                    <c-progress-circular
+                      indeterminate
+                      size="18"
+                      v-if="isLoading"
+                    ></c-progress-circular>
+                  </div>
                 </div>
-                <div class="caption mt-1 font-italic">
-                  {{ getParams.desde }}/{{ getParams.hasta }}
-                </div>
-              </div>
-              <transition>
-                <router-view></router-view>
-              </transition>
+                <transition>
+                  <router-view></router-view>
+                </transition>
               </c-container>
             </v-card>
           </v-tabs-items>
@@ -66,12 +71,12 @@ export default {
     ],
   }),
   computed: {
-    ...mapGetters("analytics", ["getParams"]),
+    ...mapGetters("analytics", ["getParams", "isLoading"]),
   },
   methods: {
     getTitle(current_path) {
       const path = this.nav.find(({ path }) => path === current_path);
-      return path?.title || ''
+      return path?.title || "";
     },
   },
 };
