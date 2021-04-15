@@ -17,7 +17,7 @@
             </v-icon>
           </v-tab>
           <v-tabs-items vertical class="fill-height">
-            <v-card color="blue-grey lighten-5" class="fill-height">
+            <c-card elevation="0" color="blue-grey lighten-5" class="fill-height">
               <c-container filled>
                 <div class="ml-2 mb-4 d-flex justify-space-between">
                   <div class="subtitle-1 font-weight-medium">
@@ -36,7 +36,7 @@
                   <router-view></router-view>
                 </transition>
               </c-container>
-            </v-card>
+            </c-card>
           </v-tabs-items>
         </v-tabs>
       </c-card>

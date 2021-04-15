@@ -1,13 +1,13 @@
 <template>
  <div>
-    <v-row dense>
-      <v-col cols="6" sm="3" v-for="(n, i) in getActividad" :key="i">
-        <v-card
+    <c-row dense>
+      <c-col cols="6" sm="3" v-for="(n, i) in getActividad" :key="i">
+        <c-card
           :color="n.color || 'white'"
           class="rounded-xl pa-1"
           elevation="0"
         >
-          <v-container>
+          <c-container>
             <div class="caption mb-1 grey--text">{{ n.title }}</div>
 
             <div
@@ -18,10 +18,10 @@
               <div>{{ j.moneda }}</div>
               <div>{{ formatNumber(j.saldo) }}</div>
             </div>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
+          </c-container>
+        </c-card>
+      </c-col>
+    </c-row>
   </div>
 </template>
 <script>
