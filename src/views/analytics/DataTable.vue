@@ -69,10 +69,10 @@ export default {
     filterItems(filter,order){
       if(!filter && order === undefined) {
         filter = this.filter;
-        order = false;
+        order = true;
       }
       return this.itemsFormated.sort((a, b) => {
-        return a[filter] > b[filter] ? (order ? 1 : -1) : a[filter] < b[filter] ? (order ?  -1 : 1) : 0;
+        return a[filter] > b[filter] ? (!order ? 1 : -1) : a[filter] < b[filter] ? (!order ?  -1 : 1) : 0;
       });
     }
   },
