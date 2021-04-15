@@ -2,7 +2,7 @@
   <div class="fill-height">
     <c-app-bar app flat style="z-index: -3"></c-app-bar>
     <div class="title fill-height">
-      <c-card outlined class="fill-height d-flex flex-row">
+      <c-card outlined elevation="1" class="fill-height d-flex flex-row">
         <v-tabs vertical>
           <v-tab v-for="item in nav" :key="item.path" exact :to="item.path">
             <v-icon>

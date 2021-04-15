@@ -1,6 +1,6 @@
 <template>
   <div>
-    <c-row dense>
+    <c-row dense style="max-height: 74vh" class="mt-1 overflow-y-auto">
       <c-col cols="12">
         <table style="width:100%">
           <tr>
@@ -9,12 +9,12 @@
               <Sortable
                 v-if="item.sortable != undefined"
                 v-model="item.sortable"
-                @click="filterItems(item.value,item.sortable)"
+                @click="filterItems(item.value, item.sortable)"
               />
             </th>
           </tr>
           <tr
-            v-for="(item, i) in items"
+            v-for="(item, i) in itemsFormated"
             :key="i"
             style="background-color: white"
             class="rounded-xl my-1"
@@ -46,18 +46,32 @@ export default {
       type: Array,
       default: () => [],
     },
+    filter: String
   },
   data: () => ({
     heads: [],
+    itemsFormated: [],
     asc: true,
   }),
   mounted() {
     this.heads = JSON.parse(JSON.stringify(this.headers));
+    this.itemsFormated = JSON.parse(JSON.stringify(this.items));
+    this.filterItems();
+  },
+  watch:{
+    items(val){
+      this.itemsFormated = JSON.parse(JSON.stringify(val));
+      this.filterItems();
+    }
   },
   methods: {
     formatNumber: (value) => currencyFormatter(value),
     filterItems(filter,order){
-      return this.items.sort((a, b) => {
+      if(!filter && order === undefined) {
+        filter = this.filter;
+        order = false;
+      }
+      return this.itemsFormated.sort((a, b) => {
         return a[filter] > b[filter] ? (order ? 1 : -1) : a[filter] < b[filter] ? (order ?  -1 : 1) : 0;
       });
     }

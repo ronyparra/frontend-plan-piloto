@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataTable :headers="headers" :items="getCliente" />
+    <DataTable :headers="headers" :items="getCliente" filter="guarani" />
   </div>
 </template>
 <script>
