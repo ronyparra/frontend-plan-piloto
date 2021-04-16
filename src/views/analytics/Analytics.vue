@@ -68,6 +68,11 @@ export default {
         icon: "add_shopping_cart",
         path: "/analytics/concepto",
       },
+      {
+        title: "Top Tecnicos",
+        icon: "add_shopping_cart",
+        path: "/analytics/tecnico",
+      },
     ],
   }),
   computed: {

@@ -4,6 +4,7 @@ export default {
   pendiente: [],
   cliente: [],
   concepto: [],
+  tecnico:[],
   params: {
     desde: first_date_month(),
     hasta: last_date_month(),

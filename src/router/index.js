@@ -285,6 +285,14 @@ const routes = [
           ),
       },
       {
+        path: "tecnico",
+        name: "Analytics Tecnicos",
+        component: () =>
+          import(
+            /* webpackChunkName: "A Tecnico" */ "../views/analytics/Tecnico.vue"
+          ),
+      },
+      {
         path: "filtros",
         name: "Filtros",
         component: () =>
