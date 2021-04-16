@@ -15,7 +15,7 @@ export default {
     if (response.success) {
       saveToken(response.data.data.token, remember);
       saveUser(response.data.data.user, remember);
-      savePermission(response.data.data.permission);
+      savePermission(response.data.data.permission,remember);
       commit(LOGIN_SUCCESS, response.data.data);
       router.push(router.history.current.query.redirect || "/");
       return null;
