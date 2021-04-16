@@ -1,24 +1,30 @@
 <template>
   <div>
-    <c-row dense style="max-height: 74vh" class="mt-1 overflow-y-auto">
+    <c-row dense>
+      <v-spacer></v-spacer>
+      <c-col cols="12" sm="6">
+        <SearchField v-model="search" />
+      </c-col>
+    </c-row>
+    <c-row dense style="max-height: 61vh" class="mt-1 overflow-y-auto">
       <c-col cols="12">
-        <table style="width:100%">
+        <table id="my-table" style="width:100%">
           <tr>
-            <th :class="item.headClass" v-for="(item, i) in heads" :key="i">
+            <th
+              :class="item.headClass"
+              v-for="(item, i) in headsFormated"
+              :key="i"
+            >
               {{ item.title }}
               <Sortable
                 v-if="item.sortable != undefined"
+                :active-class="item.activeClass"
                 v-model="item.sortable"
                 @click="filterItems(item.value, item.sortable)"
               />
             </th>
           </tr>
-          <tr
-            v-for="(item, i) in itemsFormated"
-            :key="i"
-            style="background-color: white"
-            class="rounded-xl my-1"
-          >
+          <tr v-for="(item, i) in itemsFiltered" :key="i">
             <td :class="head.class" v-for="(head, j) in headers" :key="j">
               {{
                 head.number ? formatNumber(item[head.value]) : item[head.value]
@@ -28,14 +34,35 @@
         </table>
       </c-col>
     </c-row>
+    
+    <c-row class="py-1">
+      <c-col cols="12">
+        <table style="width:100%">
+          <tr>
+            <td
+              id="td-total"
+              :style="getWidth(j)"
+              :class="head.class"
+              v-for="(head, j) in headers"
+              :key="j"
+              class="white--text"
+            >
+              {{ head.number ? formatNumber(getSubTotal(head.value)) : "Total" }}
+            </td>
+          </tr>
+        </table>
+      </c-col>
+    </c-row>
   </div>
 </template>
 <script>
 import { currencyFormatter } from "../../util/number.util";
+import SearchField from "../../components/SearchField";
 import Sortable from "./Sortable";
 export default {
   components: {
     Sortable,
+    SearchField,
   },
   props: {
     headers: {
@@ -46,39 +73,77 @@ export default {
       type: Array,
       default: () => [],
     },
-    filter: String
+    filter: String,
   },
   data: () => ({
-    heads: [],
+    headsFormated: [],
     itemsFormated: [],
     asc: true,
+    search: "",
   }),
   mounted() {
-    this.heads = JSON.parse(JSON.stringify(this.headers));
+    this.headsFormated = this.headers.map((x) => {
+      return { ...x, activeClass: false };
+    });
     this.itemsFormated = JSON.parse(JSON.stringify(this.items));
     this.filterItems();
   },
-  watch:{
-    items(val){
+  watch: {
+    items(val) {
       this.itemsFormated = JSON.parse(JSON.stringify(val));
       this.filterItems();
-    }
+    },
+  },
+  computed: {
+    itemsFiltered() {
+      return this.itemsFormated.filter((item) =>
+        Object.keys(item).some((key) =>
+          String(item[key])
+            .toLowerCase()
+            .includes(this.search.toLowerCase())
+        )
+      );
+    },
+    getSubTotal: (vm) => (column) =>
+      vm.itemsFiltered.reduce((acc, curr) => (acc = acc + curr[column]), 0),
+    getWidth:()=> (index) => {
+      if (!document.getElementById("my-table")) return "";
+      if (!document.getElementById("my-table").rows[0].cells[index]) return "";
+      return `width: ${
+        document.getElementById("my-table").rows[0].cells[index].offsetWidth
+      }px;`;
+    },
   },
   methods: {
     formatNumber: (value) => currencyFormatter(value),
-    filterItems(filter,order){
-      if(!filter && order === undefined) {
+    
+    filterItems(filter, order) {
+      if (!filter && order === undefined) {
         filter = this.filter;
         order = true;
       }
-      return this.itemsFormated.sort((a, b) => {
-        return a[filter] > b[filter] ? (!order ? 1 : -1) : a[filter] < b[filter] ? (!order ?  -1 : 1) : 0;
+      this.headsFormated.map((x) => {
+        x.activeClass = x.value === filter ? true : false;
       });
-    }
+      return this.itemsFormated.sort((a, b) => {
+        return a[filter] > b[filter]
+          ? !order
+            ? 1
+            : -1
+          : a[filter] < b[filter]
+          ? !order
+            ? -1
+            : 1
+          : 0;
+      });
+    },
   },
 };
 </script>
 <style scoped>
+#td-total{
+  background-color: rgb(178, 77, 209);
+}
 table {
   border-collapse: separate;
   border-spacing: 0 0.4rem;
