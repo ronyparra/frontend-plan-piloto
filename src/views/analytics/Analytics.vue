@@ -70,7 +70,7 @@ export default {
       },
       {
         title: "Top Tecnicos",
-        icon: "add_shopping_cart",
+        icon: "engineering",
         path: "/analytics/tecnico",
       },
     ],
