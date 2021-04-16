@@ -35,11 +35,11 @@
       </c-col>
     </c-row>
     
-    <c-row class="py-1">
+    <c-row class="py-1" :key="key">
       <c-col cols="12">
         <table style="width:100%">
           <tr>
-            <td
+            <td 
               id="td-total"
               :style="getWidth(j)"
               :class="head.class"
@@ -80,6 +80,7 @@ export default {
     itemsFormated: [],
     asc: true,
     search: "",
+    key: 1
   }),
   mounted() {
     this.headsFormated = this.headers.map((x) => {
@@ -125,7 +126,7 @@ export default {
       this.headsFormated.map((x) => {
         x.activeClass = x.value === filter ? true : false;
       });
-      return this.itemsFormated.sort((a, b) => {
+      this.itemsFormated.sort((a, b) => {
         return a[filter] > b[filter]
           ? !order
             ? 1
@@ -136,6 +137,7 @@ export default {
             : 1
           : 0;
       });
+      setTimeout(()=>this.key++,600);
     },
   },
 };
