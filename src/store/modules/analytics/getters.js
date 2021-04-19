@@ -4,6 +4,7 @@ export default {
   getCliente: (state) => state.cliente,
   getConcepto: (state) => state.concepto,
   getTecnico: (state) => state.tecnico,
+  getCategoria: (state) => state.categoria,
   isLoading: (state) => state.loading,
   getParams: (state) => state.params
 };

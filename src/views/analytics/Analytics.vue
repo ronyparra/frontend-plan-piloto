@@ -73,6 +73,11 @@ export default {
         icon: "engineering",
         path: "/analytics/tecnico",
       },
+      {
+        title: 'Categoria',
+        icon: 'category',
+        path: '/analytics/categoria'
+      }
     ],
   }),
   computed: {

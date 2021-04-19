@@ -5,6 +5,7 @@ export default {
   cliente: [],
   concepto: [],
   tecnico:[],
+  categoria: [],
   params: {
     desde: first_date_month(),
     hasta: last_date_month(),

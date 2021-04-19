@@ -330,6 +330,14 @@ const routes = [
           ),
       },
       {
+        path: "categoria",
+        name: "Analytics Categorias",
+        component: () =>
+          import(
+            /* webpackChunkName: "A Categoria" */ "../views/analytics/Categoria.vue"
+          ),
+      },
+      {
         path: "filtros",
         name: "Filtros",
         component: () =>

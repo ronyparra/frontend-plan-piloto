@@ -3,6 +3,7 @@ export const FETCH_PENDIENTE = 'fetchPendientes';
 export const FETCH_CLIENTE = 'fetchCliente';
 export const FETCH_CONCEPTO = 'fetchConcepto';
 export const FETCH_TECNICO = 'fetchTecnico';
+export const FETCH_CATEGORIA = 'fetchCategoria';
 export const CHANGE_PARAMS = "ChangeParams";
 export const LOADING = "loadingAnalytics";
 
@@ -12,4 +13,5 @@ export const url = {
     cliente: '/analytics/cliente',
     concepto: '/analytics/concepto',
     tecnico: '/analytics/tecnico',
+    categoria: "/analytics/categoria"
 };

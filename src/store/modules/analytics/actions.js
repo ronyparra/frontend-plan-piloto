@@ -1,4 +1,4 @@
-import { FETCH, FETCH_PENDIENTE, FETCH_CLIENTE,  FETCH_CONCEPTO,CHANGE_PARAMS, LOADING, url, FETCH_TECNICO } from "./contants";
+import { FETCH, FETCH_PENDIENTE, FETCH_CLIENTE,  FETCH_CONCEPTO,FETCH_CATEGORIA, CHANGE_PARAMS, LOADING, url, FETCH_TECNICO } from "./contants";
 import { get } from "@/services/api/api.services.js";
 
 export default {
@@ -66,6 +66,20 @@ export default {
         `${url.tecnico}?desde=${desde}&hasta=${hasta}`
       );
       commit(FETCH_TECNICO, response.data);
+    } catch (e) {
+      commit(LOADING, false);
+      throw e;
+    }
+    commit(LOADING, false);
+  },
+  async fetchCategoria({ commit, getters }) {
+    commit(LOADING, true);
+    try {
+      const { desde, hasta } = getters.getParams;
+      const response = await get(
+        `${url.categoria}?desde=${desde}&hasta=${hasta}`
+      );
+      commit(FETCH_CATEGORIA, response.data);
     } catch (e) {
       commit(LOADING, false);
       throw e;
