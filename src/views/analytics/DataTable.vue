@@ -26,20 +26,28 @@
           </tr>
           <tr v-for="(item, i) in itemsFiltered" :key="i">
             <td :class="head.class" v-for="(head, j) in headers" :key="j">
+              <span class="caption font-weight-thin">
               {{
-                head.number ? formatNumber(item[head.value]) : item[head.value]
+                head.percent ? getPercent(item[head.value],head.value) : ''
               }}
+              </span>
+              {{
+                head.number
+                  ? formatNumber(item[head.value], head.percent, head.value)
+                  : item[head.value]
+              }}
+              
             </td>
           </tr>
         </table>
       </c-col>
     </c-row>
-    
+
     <c-row class="py-1" :key="key">
       <c-col cols="12">
         <table style="width:100%">
           <tr>
-            <td 
+            <td
               id="td-total"
               :style="getWidth(j)"
               :class="head.class"
@@ -47,7 +55,9 @@
               :key="j"
               class="white--text"
             >
-              {{ head.number ? formatNumber(getSubTotal(head.value)) : "Total" }}
+              {{
+                head.number ? formatNumber(getSubTotal(head.value)) : "Total"
+              }}
             </td>
           </tr>
         </table>
@@ -80,7 +90,7 @@ export default {
     itemsFormated: [],
     asc: true,
     search: "",
-    key: 1
+    key: 1,
   }),
   mounted() {
     this.headsFormated = this.headers.map((x) => {
@@ -107,7 +117,7 @@ export default {
     },
     getSubTotal: (vm) => (column) =>
       vm.itemsFiltered.reduce((acc, curr) => (acc = acc + curr[column]), 0),
-    getWidth:()=> (index) => {
+    getWidth: () => (index) => {
       if (!document.getElementById("my-table")) return "";
       if (!document.getElementById("my-table").rows[0].cells[index]) return "";
       return `width: ${
@@ -116,8 +126,11 @@ export default {
     },
   },
   methods: {
-    formatNumber: (value) => currencyFormatter(value),
-    
+    formatNumber:(value) => currencyFormatter(value),
+    getPercent(value,column){
+      const result = value * 100 / this.getSubTotal(column)
+      return '('+currencyFormatter(result)+'%)';
+    },
     filterItems(filter, desc) {
       if (!filter && desc === undefined) {
         filter = this.filter;
@@ -137,13 +150,13 @@ export default {
             : 1
           : 0;
       });
-      setTimeout(()=>this.key++,600);
+      setTimeout(() => this.key++, 600);
     },
   },
 };
 </script>
 <style scoped>
-#td-total{
+#td-total {
   background-color: rgb(178, 77, 209);
 }
 table {

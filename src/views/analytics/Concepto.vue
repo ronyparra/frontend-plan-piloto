@@ -32,6 +32,7 @@ export default {
         class: "caption font-weight-black text-end",
         headClass: "caption text-end",
         number: true,
+        percent: true,
         sortable: true,
       },
       {
@@ -40,6 +41,7 @@ export default {
         class: "caption font-weight-black text-end",
         headClass: "caption text-end",
         number: true,
+        percent: true,
         sortable: true,
       },
     ],
