@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form"><slot /></v-form>
+  <v-form ref="form" @submit.prevent="$emit('@submit.prevent')"><slot /></v-form>
 </template>
 <script>
 export default {

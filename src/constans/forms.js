@@ -5,6 +5,7 @@ export const form = {
   pendiente: "Pendiente",
   usuario: "Usuario",
   cobro: "Cobro",
+  categoria: "Categoria",
   analytics: "Analytics",
 };
 

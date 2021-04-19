@@ -38,6 +38,13 @@ export const items = [
     form: form.cliente,
   },
   {
+    icon: "category",
+    to: "/categoria",
+    title: "Categorias",
+    disableFooter: true,
+    form: form.categoria,
+  },
+  {
     icon: "analytics",
     to: "/analytics",
     title: "Analytics",

@@ -118,21 +118,21 @@ export default {
   methods: {
     formatNumber: (value) => currencyFormatter(value),
     
-    filterItems(filter, order) {
-      if (!filter && order === undefined) {
+    filterItems(filter, desc) {
+      if (!filter && desc === undefined) {
         filter = this.filter;
-        order = true;
+        desc = true;
       }
       this.headsFormated.map((x) => {
         x.activeClass = x.value === filter ? true : false;
       });
       this.itemsFormated.sort((a, b) => {
         return a[filter] > b[filter]
-          ? !order
+          ? !desc
             ? 1
             : -1
           : a[filter] < b[filter]
-          ? !order
+          ? !desc
             ? -1
             : 1
           : 0;

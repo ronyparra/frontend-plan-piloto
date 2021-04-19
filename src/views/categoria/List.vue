@@ -6,7 +6,7 @@
       </c-toolbar-title>
       <div style="position: absolute; right: 1rem;">
         <BtnSearch class="mr-1" @click="show = !show" />
-        <BtnAdd to="/concepto/add" />
+        <BtnAdd to="/categoria/add" />
       </div>
       <template v-slot:extension v-if="show">
         <SearchField class="mb-2" v-model="search" />
@@ -16,15 +16,12 @@
     <v-data-table
       :headers="headers"
       :search="search"
-      :items="getConcepto"
+      :items="getCategoria"
       :loading="isLoading"
       :mobile-breakpoint="0"
       :items-per-page="99999"
       hide-default-footer
     >
-    <template v-slot:[`item.precio`]="{ item }">
-      <div>{{toCurrency(item.precio)}}</div>
-    </template>
       <template v-slot:[`item.actions`]="{ item }">
         <c-btn
           fab
@@ -48,7 +45,6 @@ import BtnAdd from "@/components/BtnAdd";
 import BtnSearch from "@/components/BtnSearch";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
-import { currencyFormatter } from "@/util/number.util";
 export default {
   components: {
     BtnAdd,
@@ -56,29 +52,24 @@ export default {
     SearchField,
   },
   mounted() {
-    this.fetchConcepto();
+    this.fetchCategoria();
   },
   computed: {
-    ...mapGetters("concepto", ["getConcepto", "isLoading"]),
+    ...mapGetters("categoria", ["getCategoria", "isLoading"]),
   },
   methods: {
-    ...mapActions("concepto", ["fetchConcepto", "fetchConceptoId"]),
+    ...mapActions("categoria", ["fetchCategoria", "fetchCategoriaId"]),
     async setData(data) {
-      await this.fetchConceptoId({ data });
-      this.$router.push({ path: `/concepto/edit/` + data.idconcepto });
-    },
-    toCurrency(value){
-      return currencyFormatter(value)
+      await this.fetchCategoriaId({ data });
+      this.$router.push({ path: `/categoria/edit/` + data.idcategoria });
     }
   },
   data: () => ({
     show: false,
     search: "",
     headers: [
-      { text: "Concepto", value: "descripcion" },
-      { text: "Precio", value: "precio", align: 'end' },
-      { text: "Moneda", value: "idmoneda.abreviatura", align: 'end' },
-      { text: "Categoria", value: "idcategoria.descripcion", align: 'end' },
+      { text: "#", value: "idcategoria" },
+      { text: "Categoria", value: "descripcion", align: 'end' },
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

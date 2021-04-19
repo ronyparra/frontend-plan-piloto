@@ -173,6 +173,43 @@ const routes = [
     ],
   },
   {
+    path: "/categoria",
+    name: "",
+    component: () =>
+      import(
+        /* webpackChunkName: "Categoria" */ "../views/categoria/Categoria.vue"
+      ),
+    meta: {
+      requiresAuth: true,
+    },
+    children: [
+      {
+        path: "/",
+        name: "Categorias",
+        component: () =>
+          import(
+            /* webpackChunkName: "Categorias" */ "../views/categoria/List.vue"
+          ),
+      },
+      {
+        path: "add",
+        name: "Registrar Categoria",
+        component: () =>
+          import(
+            /* webpackChunkName: "Categoria ADD" */ "../views/categoria/Form.vue"
+          ),
+      },
+      {
+        path: "edit/:id",
+        name: "Modificar Categoria",
+        component: () =>
+          import(
+            /* webpackChunkName: "Categoria EDIT" */ "../views/categoria/Form.vue"
+          ),
+      },
+    ],
+  },
+  {
     path: "/usuario",
     name: "",
     component: () =>
