@@ -74,7 +74,7 @@ export default {
         path: "/analytics/tecnico",
       },
       {
-        title: 'Categoria',
+        title: 'Top Categorias',
         icon: 'category',
         path: '/analytics/categoria'
       }
