@@ -1,23 +1,22 @@
 <template>
   <div>
-    <c-app-bar app class="mt-12" dense flat color="secondary">
+    <Header>
       <SearchField class="font-weight-black" v-model="search" />
       <c-spacer></c-spacer>
       <div>
         <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
         <BtnAdd to="/actividad/add" />
       </div>
-    </c-app-bar>
-    <div   class="mt-10">
-    <FilterAdvanced
-    
-      :params="params"
-      v-if="filter"
-      :value="selected"
-      @sync="syncronizarFiltro($event)"
-      @fetch="fetch()"
-      @pdf="generarPDF()"
-    />
+    </Header>
+    <div class="mt-10">
+      <FilterAdvanced
+        :params="params"
+        v-if="filter"
+        :value="selected"
+        @sync="syncronizarFiltro($event)"
+        @fetch="fetch()"
+        @pdf="generarPDF()"
+      />
 
       <v-data-table
         :headers="headers"
@@ -70,7 +69,7 @@
           </c-btn>
         </template>
       </v-data-table>
-</div>
+    </div>
   </div>
 </template>
 <script>
@@ -83,11 +82,12 @@ import { subtract_days, current_date } from "@/util/date.util";
 import { formatTecnico, formatDetalle, formatColor } from "./formatter";
 import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
+import Header from "../../components/Header";
 
 export default {
   components: {
     FilterAdvanced,
-
+    Header,
     BtnIcon,
     BtnAdd,
     SearchField,

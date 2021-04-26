@@ -1,10 +1,10 @@
 <template>
   <div>
-     <c-app-bar app class="mt-12" dense flat color="secondary">
+     <Header>
       <SearchField class="font-weight-black" v-model="search" />
       <c-spacer></c-spacer>
       <BtnAdd to="/categoria/add" />
-     </c-app-bar>
+     </Header>
 
     <div class="mt-7">
       <v-data-table
@@ -37,10 +37,12 @@
 </template>
 <script>
 import BtnAdd from "@/components/BtnAdd";
+import Header from "../../components/Header";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
+    Header,
     BtnAdd,
     SearchField,
   },

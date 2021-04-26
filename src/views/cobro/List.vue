@@ -1,12 +1,12 @@
 <template>
   <div>
-    <c-app-bar app class="mt-12" dense flat color="secondary">
+    <Header>
       <SearchField class="font-weight-black" v-model="search" />
       <c-spacer></c-spacer>
       <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
-    </c-app-bar>
-        <div class="mt-9">
-    <Filters v-if="filter" :params="params" />
+    </Header>
+    <div class="mt-9">
+      <Filters v-if="filter" :params="params" />
 
       <v-data-table
         :headers="headers"
@@ -51,8 +51,10 @@ import { currencyFormatter } from "@/util/number.util";
 import { subtract_days, current_date } from "@/util/date.util";
 import { formatColor } from "../actividad/formatter";
 import Filters from "./Filter";
+import Header from "../../components/Header";
 export default {
   components: {
+    Header,
     Filters,
     BtnIcon,
     SearchField,
