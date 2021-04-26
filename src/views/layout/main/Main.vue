@@ -2,7 +2,7 @@
   <v-app>
     <AppBar @click:drawer="drawer = !drawer" />
     <NavBar v-model="drawer" />
-    <v-main>
+    <c-main>
       <c-col cols="12" class="fill-height" style="background-color: white;">
         <transition>
           <keep-alive>
@@ -10,9 +10,9 @@
           </keep-alive>
         </transition>
       </c-col>
-    </v-main>
+    </c-main>
     <RequestEvents />
-    <Footer />
+    <Footer class="d-sm-none" />
   </v-app>
 </template>
 <script>

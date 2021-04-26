@@ -45,19 +45,19 @@ export const items = [
     form: form.categoria,
   },
   {
-    icon: "analytics",
-    to: "/analytics",
-    title: "Analytics",
-    disableFooter: true,
-    form: form.analytics,
-  },
-  {
     icon: "group",
     to: "/usuario",
     title: "Usuarios",
     disableFooter: true,
     form: form.usuario,
   },
+  {
+    icon: "analytics",
+    to: "/analytics",
+    title: "Analytics",
+    disableFooter: true,
+    form: form.analytics,
+  }
 ];
 
 export const navs = () => items.filter((nav) => hasPermission(nav.form));

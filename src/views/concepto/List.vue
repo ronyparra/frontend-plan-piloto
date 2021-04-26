@@ -1,58 +1,50 @@
 <template>
   <div>
-    <c-app-bar app flat color="secondary">
-      <c-toolbar-title class="title font-weight-black">
-        {{ $route.name }}
-      </c-toolbar-title>
-      <div style="position: absolute; right: 1rem;">
-        <BtnSearch class="mr-1" @click="show = !show" />
-        <BtnAdd to="/concepto/add" />
-      </div>
-      <template v-slot:extension v-if="show">
-        <SearchField class="mb-2" v-model="search" />
-      </template>
+     <c-app-bar app class="mt-12" dense flat color="secondary">
+      <SearchField class="font-weight-black" v-model="search" />
+      <c-spacer></c-spacer>
+      <BtnAdd to="/concepto/add" />
     </c-app-bar>
-    <c-container>
-    <v-data-table
-      :headers="headers"
-      :search="search"
-      :items="getConcepto"
-      :loading="isLoading"
-      :mobile-breakpoint="0"
-      :items-per-page="99999"
-      hide-default-footer
-    >
-    <template v-slot:[`item.precio`]="{ item }">
-      <div>{{toCurrency(item.precio)}}</div>
-    </template>
-      <template v-slot:[`item.actions`]="{ item }">
-        <c-btn
-          fab
-          x-small
-          text
-          elevation="2"
-          color="primary"
-          @click="setData(item)"
-        >
-          <c-icon>
-            arrow_forward_ios
-          </c-icon>
-        </c-btn>
-      </template>
-    </v-data-table>
-    </c-container>
+
+    <div class="mt-7">
+      <v-data-table
+        :headers="headers"
+        :search="search"
+        :items="getConcepto"
+        :loading="isLoading"
+        :mobile-breakpoint="0"
+        :items-per-page="99999"
+        hide-default-footer
+      >
+        <template v-slot:[`item.precio`]="{ item }">
+          <div>{{ toCurrency(item.precio) }}</div>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <c-btn
+            fab
+            x-small
+            text
+            elevation="2"
+            color="primary"
+            @click="setData(item)"
+          >
+            <c-icon>
+              arrow_forward_ios
+            </c-icon>
+          </c-btn>
+        </template>
+      </v-data-table>
+    </div>
   </div>
 </template>
 <script>
 import BtnAdd from "@/components/BtnAdd";
-import BtnSearch from "@/components/BtnSearch";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
 import { currencyFormatter } from "@/util/number.util";
 export default {
   components: {
     BtnAdd,
-    BtnSearch,
     SearchField,
   },
   mounted() {
@@ -67,18 +59,17 @@ export default {
       await this.fetchConceptoId({ data });
       this.$router.push({ path: `/concepto/edit/` + data.idconcepto });
     },
-    toCurrency(value){
-      return currencyFormatter(value)
-    }
+    toCurrency(value) {
+      return currencyFormatter(value);
+    },
   },
   data: () => ({
-    show: false,
     search: "",
     headers: [
       { text: "Concepto", value: "descripcion" },
-      { text: "Precio", value: "precio", align: 'end' },
-      { text: "Moneda", value: "idmoneda.abreviatura", align: 'end' },
-      { text: "Categoria", value: "idcategoria.descripcion", align: 'end' },
+      { text: "Precio", value: "precio", align: "end" },
+      { text: "Moneda", value: "idmoneda.abreviatura", align: "end" },
+      { text: "Categoria", value: "idcategoria.descripcion", align: "end" },
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

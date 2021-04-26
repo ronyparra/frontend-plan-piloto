@@ -1,19 +1,16 @@
 <template>
   <div>
-    <c-app-bar app flat color="secondary">
-      <c-toolbar-title class="title font-weight-black">
-        {{ $route.name }}
-      </c-toolbar-title>
-      <div style="position: absolute; right: 1rem;">
-        <BtnIcon @click="filter = !filter">filter_alt</BtnIcon>
-        <BtnSearch class="mx-1" @click="show = !show" />
+    <c-app-bar app class="mt-12" dense flat color="secondary">
+      <SearchField class="font-weight-black" v-model="search" />
+      <c-spacer></c-spacer>
+      <div>
+        <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
         <BtnAdd to="/actividad/add" />
       </div>
-      <template v-slot:extension v-if="show">
-        <SearchField class="mb-2" v-model="search" />
-      </template>
     </c-app-bar>
+    <div   class="mt-10">
     <FilterAdvanced
+    
       :params="params"
       v-if="filter"
       :value="selected"
@@ -22,61 +19,62 @@
       @pdf="generarPDF()"
     />
 
-    <v-data-table
-      :headers="headers"
-      :search="search"
-      :items="desserts"
-      :loading="isLoading"
-      :header-props="headerProps"
-      :items-per-page="9999999"
-      :show-select="filter"
-      item-key="idactividad"
-      v-model="selected"
-      hide-default-footer
-      @toggle-select-all="selectAllToggle"
-    >
-      <template v-slot:[`item.idestadocobro.idestadocobro`]="{ item }">
-        <c-chip dark :color="color(item.idestadocobro.idestadocobro)">{{
-          item.idestadocobro.descripcion
-        }}</c-chip>
-      </template>
-      <template v-slot:[`item.detalle`]="{ item }">
-        <div>{{ formatDetalle(item.detalle) }}</div>
-      </template>
-      <template v-slot:[`item.tecnico`]="{ item }">
-        <div>{{ formatTecnico(item.tecnico) }}</div>
-      </template>
-      <template
-        v-slot:[`item.data-table-select`]="{ item, isSelected, select }"
+      <v-data-table
+        :headers="headers"
+        :search="search"
+        :items="desserts"
+        :custom-filter="customFilter"
+        :loading="isLoading"
+        :header-props="headerProps"
+        :items-per-page="9999999"
+        :show-select="filter"
+        item-key="idactividad"
+        v-model="selected"
+        hide-default-footer
+        @toggle-select-all="selectAllToggle"
       >
-        <v-simple-checkbox
-          :value="isSelected"
-          :readonly="item.idestadocobro.idestadocobro !== 1"
-          :disabled="item.idestadocobro.idestadocobro !== 1"
-          @input="select($event)"
-          :ripple="false"
-        ></v-simple-checkbox>
-      </template>
-      <template v-slot:[`item.actions`]="{ item }">
-        <c-btn
-          fab
-          x-small
-          text
-          elevation="2"
-          color="primary"
-          @click="setData(item)"
+        <template v-slot:[`item.idestadocobro.idestadocobro`]="{ item }">
+          <c-chip dark :color="color(item.idestadocobro.idestadocobro)">{{
+            item.idestadocobro.descripcion
+          }}</c-chip>
+        </template>
+        <template v-slot:[`item.detalle`]="{ item }">
+          <div>{{ formatDetalle(item.detalle) }}</div>
+        </template>
+        <template v-slot:[`item.tecnico`]="{ item }">
+          <div>{{ formatTecnico(item.tecnico) }}</div>
+        </template>
+        <template
+          v-slot:[`item.data-table-select`]="{ item, isSelected, select }"
         >
-          <c-icon>
-            arrow_forward_ios
-          </c-icon>
-        </c-btn>
-      </template>
-    </v-data-table>
+          <v-simple-checkbox
+            :value="isSelected"
+            :readonly="item.idestadocobro.idestadocobro !== 1"
+            :disabled="item.idestadocobro.idestadocobro !== 1"
+            @input="select($event)"
+            :ripple="false"
+          ></v-simple-checkbox>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <c-btn
+            fab
+            x-small
+            text
+            elevation="2"
+            color="primary"
+            @click="setData(item)"
+          >
+            <c-icon>
+              arrow_forward_ios
+            </c-icon>
+          </c-btn>
+        </template>
+      </v-data-table>
+</div>
   </div>
 </template>
 <script>
 import BtnAdd from "@/components/BtnAdd";
-import BtnSearch from "@/components/BtnSearch";
 import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
 
@@ -92,7 +90,6 @@ export default {
 
     BtnIcon,
     BtnAdd,
-    BtnSearch,
     SearchField,
   },
 
@@ -110,9 +107,9 @@ export default {
       });
       this.desserts = JSON.parse(JSON.stringify(items));
     },
-    $route(to){
-      if(to.path ==='/actividad') this.fetch();
-    }
+    $route(to) {
+      if (to.path === "/actividad") this.fetch();
+    },
   },
   methods: {
     ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
@@ -140,6 +137,21 @@ export default {
     syncronizarFiltro(filtro) {
       this.params = JSON.parse(JSON.stringify(filtro));
     },
+    customFilter(value, search, item) {
+      const textOne = this.formatDetalle(item.detalle);
+      const textTwo = this.formatTecnico(item.tecnico);
+      return (
+        (value != null &&
+          search != null &&
+          typeof value === "string" &&
+          value
+            .toString()
+            .toLocaleUpperCase()
+            .indexOf(search.toLocaleUpperCase()) > -1) ||
+        textOne.toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) > -1 ||
+        textTwo.toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) > -1
+      );
+    },
     generarPDF() {
       if (this.params.idcliente) {
         const cliente = this.getCliente.find(
@@ -159,7 +171,6 @@ export default {
   },
   data: () => ({
     filter: false,
-    show: false,
     search: "",
     disabledCount: 0,
     selected: [],
@@ -184,7 +195,7 @@ export default {
       { text: "Conceptos", value: "detalle" },
       { text: "Tecnicos", value: "tecnico" },
       { text: "Comentario", value: "comentario", sortable: false },
-      { text: "Estado", value: "idestadocobro.idestadocobro"},
+      { text: "Estado", value: "idestadocobro.idestadocobro" },
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

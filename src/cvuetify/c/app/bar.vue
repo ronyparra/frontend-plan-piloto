@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar :color="color" :elevation="elevation" extension-height="48"  :bottom="bottom" :absolute="absolute"  :flat="flat" :dense="dense" :app="app">
+  <v-app-bar :color="color"  :elevation="elevation" extension-height="48" :clipped-left="clippedLeft" :bottom="bottom" :absolute="absolute"  :flat="flat" :dense="dense" :app="app">
     <slot />
     <template v-slot:extension v-if="$slots.extension"><slot name="extension"/></template>
   </v-app-bar>
@@ -10,6 +10,7 @@ export default {
     color: String,
     bottom: Boolean,
     elevation: String,
+    'clipped-left': Boolean,
     dense: {
       type: Boolean,
       default: false,
