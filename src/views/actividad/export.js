@@ -1,7 +1,7 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { current_date } from "@/util/date.util";
-import { formatHeader, formatLista} from  './formatter'
+import { formatLista} from  './formatter'
 
 export const exportPDF = (header, lista, params) => {
   var doc = new jsPDF();
@@ -21,7 +21,7 @@ export const exportPDF = (header, lista, params) => {
   );
   doc.line(13, 37, doc.internal.pageSize.width - 12, 37);
   doc.autoTable({
-    head: formatHeader(header),
+    head: [['Fecha','Cliente','Sucursal','Solicitante','Conceptos','Comentario']],
     body: formatLista(lista),
     startY: 40,
     theme: "striped",
