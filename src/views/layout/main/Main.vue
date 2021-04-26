@@ -30,5 +30,8 @@ export default {
   data: () => ({
     drawer: false,
   }),
+  mounted(){
+    this.drawer = this.$vuetify.breakpoint.mobile ? false : true;
+  }
 };
 </script>
