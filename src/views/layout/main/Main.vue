@@ -12,7 +12,7 @@
       </c-col>
     </c-main>
     <RequestEvents />
-    <Footer class="d-sm-none" />
+    <Footer v-if="$vuetify.breakpoint.mobile" />
   </v-app>
 </template>
 <script>
