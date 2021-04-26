@@ -1,7 +1,7 @@
 <template>
   <div class="fill-height">
-    <c-app-bar app flat color="secondary">
-      <BtnClose to="/actividad" />
+    <c-app-bar class="ml-16" style="z-index: 8;" dense  app flat color="secondary">
+      
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
@@ -9,8 +9,10 @@
         :disabled="readonly"
         :text="false"
         v-if="isEdit"
+        class="mr-1"
         @click="deleteView = true"
       />
+      <BtnClose to="/actividad" />
     </c-app-bar>
     <Delete
       v-model="deleteView"

@@ -65,6 +65,7 @@ export default {
     },
   },
   mounted() {
+      this.filter =this.$vuetify.breakpoint.mobile ? false : true;
     this.fetchCobro(this.params);
   },
   computed: {

@@ -1,7 +1,13 @@
 <template>
   <div class="fill-height">
-    <c-app-bar app flat color="secondary">
-      <BtnClose to="/pendiente" />
+    <c-app-bar
+      class="ml-16"
+      dense
+      style="z-index: 8;"
+      app
+      flat
+      color="secondary"
+    >
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
@@ -9,7 +15,9 @@
         :text="false"
         v-if="isEdit && form.activo"
         @click="deleteView = true"
+        class="mr-1"
       />
+      <BtnClose to="/pendiente" />
     </c-app-bar>
     <Delete
       v-model="deleteView"
@@ -59,29 +67,27 @@
 
       <c-container v-if="form.activo">
         <c-row dense>
-        <c-col cols="12" sm="5">
-          <c-btn block dark color="primary" rounded @click="guardar()">
-            {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
-          >
-        </c-col>
-        <c-spacer></c-spacer>
-        <c-col cols="12"  sm="5" v-if="isEdit">
-          <c-btn
-            block
-            text
-            elevation="2"
-            color="primary"
-            rounded
-
-            @click="sheet = !sheet"
-          >
-            Finalizar</c-btn
-          >
-        </c-col>
+          <c-col cols="12" sm="5">
+            <c-btn block dark color="primary" rounded @click="guardar()">
+              {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
+            >
+          </c-col>
+          <c-spacer></c-spacer>
+          <c-col cols="12" sm="5" v-if="isEdit">
+            <c-btn
+              block
+              text
+              elevation="2"
+              color="primary"
+              rounded
+              @click="sheet = !sheet"
+            >
+              Finalizar</c-btn
+            >
+          </c-col>
         </c-row>
       </c-container>
       <Finalizar v-model="sheet" />
-
     </c-card>
   </div>
 </template>
@@ -122,7 +128,7 @@ export default {
       pendiente_tecnico: [],
     },
     default: {
-       activo: true,
+      activo: true,
       idtipo_pendiente: {
         idtipo_pendiente: null,
       },
