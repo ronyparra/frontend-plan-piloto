@@ -357,11 +357,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters["auth/isLogin"];
+  if (to.path === '/login' && isAuthenticated) return next('/')
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (isAuthenticated) {
       return next();
     }
-    next("/login");
+    return next("/login");
   }
   next();
 });
