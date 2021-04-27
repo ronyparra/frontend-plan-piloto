@@ -6,6 +6,7 @@ export default {
   concepto: [],
   tecnico:[],
   categoria: [],
+  estado:[],
   params: {
     desde: first_date_month(),
     hasta: last_date_month(),

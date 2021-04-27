@@ -49,7 +49,7 @@ export default {
   data: () => ({
     nav: [
       {
-        title: "Saldos de Actividades",
+        title: "Saldos",
         icon: "assignment",
         path: "/analytics/",
       },

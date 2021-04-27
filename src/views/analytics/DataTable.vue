@@ -1,12 +1,12 @@
 <template>
   <div>
-    <c-row dense>
+    <c-row dense v-if="!disabledSearch" class="mb-1">
       <v-spacer></v-spacer>
       <c-col cols="12" sm="6">
         <SearchField v-model="search" />
       </c-col>
     </c-row>
-    <c-row dense style="max-height: 61vh" class="mt-1 overflow-y-auto">
+    <c-row dense style="max-height: 61vh" class="overflow-y-auto">
       <c-col cols="12">
         <table id="my-table" style="width:100%">
           <tr>
@@ -26,17 +26,20 @@
           </tr>
           <tr v-for="(item, i) in itemsFiltered" :key="i">
             <td :class="head.class" v-for="(head, j) in headers" :key="j">
-              <span class="caption font-weight-thin">
-              {{
-                head.percent ? getPercent(item[head.value],head.value) : ''
-              }}
+              <span class="caption mx-1 font-weight-thin">
+                {{
+                  head.percent
+                    ? getPercent(item[head.value], head.value)
+                    : "" || head.message
+                    ? item[head.message]
+                    : ""
+                }}
               </span>
               {{
                 head.number
                   ? formatNumber(item[head.value], head.percent, head.value)
                   : item[head.value]
               }}
-              
             </td>
           </tr>
         </table>
@@ -84,6 +87,10 @@ export default {
       default: () => [],
     },
     filter: String,
+    disabledSearch: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     headsFormated: [],
@@ -126,10 +133,10 @@ export default {
     },
   },
   methods: {
-    formatNumber:(value) => currencyFormatter(value),
-    getPercent(value,column){
-      const result = value * 100 / this.getSubTotal(column)
-      return '('+currencyFormatter(result)+'%)';
+    formatNumber: (value) => currencyFormatter(value),
+    getPercent(value, column) {
+      const result = (value * 100) / this.getSubTotal(column);
+      return "(" + currencyFormatter(result) + "%)";
     },
     filterItems(filter, desc) {
       if (!filter && desc === undefined) {

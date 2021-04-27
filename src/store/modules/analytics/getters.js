@@ -3,6 +3,7 @@ export default {
   getPendiente: (state) => state.pendiente,
   getCliente: (state) => state.cliente,
   getConcepto: (state) => state.concepto,
+  getEstado: (state) => state.estado,
   getTecnico: (state) => state.tecnico,
   getCategoria: (state) => state.categoria,
   isLoading: (state) => state.loading,
