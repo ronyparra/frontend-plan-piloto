@@ -174,7 +174,8 @@ export default {
       this.form.sucursal.splice(index, 1);
     },
     editSucursal(sucursal) {
-      this.sucursal = JSON.parse(JSON.stringify(sucursal));
+      this.sucursal = null;
+      this.sucursal = sucursal;
       this.deletSucursal(sucursal);
     },
   },

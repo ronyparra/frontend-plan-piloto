@@ -62,12 +62,11 @@ import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
 import AutocompleteClienteSucursal from "../cliente/AutocompleteSucursal";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Opciones from "./Opciones";
 export default {
   props: {
-    value: Array,
-    params: [Object],
+    value: Array
   },
   components: {
     Opciones,
@@ -77,15 +76,18 @@ export default {
     AutocompleteClienteSucursal,
   },
   created() {
-    this.form = JSON.parse(JSON.stringify(this.params));
+    this.form = JSON.parse(JSON.stringify(this.getParams));
+  },
+  computed:{
+    ...mapGetters("actividad", ["getParams"])
   },
   methods: {
-    ...mapActions("actividad", ["fetchActividad"]),
+    ...mapActions("actividad", ["fetchActividad","setParams"]),
     
     filtrar() {
       if (!this.$refs.form.validate()) return null;
       this.fetchActividad(this.form);
-      this.$emit('sync', this.form);
+      this.setParams(this.form);
     },
   },
   data: () => ({

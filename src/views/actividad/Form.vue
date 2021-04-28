@@ -387,7 +387,8 @@ export default {
     showConfirmationDelete(detalle) {
       this.confirm.item = null;
       this.confirm.delete = true;
-      this.confirm.item = JSON.parse(JSON.stringify(detalle));
+      this.confirm.item = null;
+      this.confirm.item = detalle;
     },
     deletDetalle(detalle) {
       const index = this.form.detalle.indexOf(detalle);

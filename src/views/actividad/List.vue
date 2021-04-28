@@ -10,10 +10,9 @@
     </Header>
     <div class="mt-10">
       <FilterAdvanced
-        :params="params"
+        :params="getParams"
         v-if="filter"
         :value="selected"
-        @sync="syncronizarFiltro($event)"
         @fetch="fetch()"
         @pdf="generarPDF()"
       />
@@ -78,7 +77,6 @@ import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
 
 import { mapActions, mapGetters } from "vuex";
-import { subtract_days, current_date } from "@/util/date.util";
 import { formatTecnico, formatDetalle, formatColor } from "./formatter";
 import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
@@ -98,7 +96,7 @@ export default {
     this.fetch();
   },
   computed: {
-    ...mapGetters("actividad", ["getActividad", "isLoading"]),
+    ...mapGetters("actividad", ["getActividad", "isLoading", "getParams"]),
     ...mapGetters("cliente", ["getCliente"]),
   },
   watch: {
@@ -128,16 +126,13 @@ export default {
     },
     fetch() {
       this.selected = [];
-
-      this.fetchActividad(this.params);
+      this.fetchActividad(this.getParams);
     },
     async setData(data) {
       await this.fetchActividadId({ data });
       this.$router.push({ path: `/actividad/edit/` + data.idactividad });
     },
-    syncronizarFiltro(filtro) {
-      this.params = JSON.parse(JSON.stringify(filtro));
-    },
+
     customFilter(value, search, item) {
       const textOne = this.formatDetalle(item.detalle);
       const textTwo = this.formatTecnico(item.tecnico);
@@ -154,14 +149,14 @@ export default {
       );
     },
     generarPDF() {
-      if (this.params.idcliente) {
+      if (this.getParams.idcliente) {
         const cliente = this.getCliente.find(
-          ({ idcliente }) => idcliente === this.params.idcliente
+          ({ idcliente }) => idcliente === this.getParams.idcliente
         );
-        this.params.cliente = cliente.razonsocial;
-        return exportPDF(this.headers, this.getActividad, this.params);
+        this.getParams.cliente = cliente.razonsocial;
+        return exportPDF(this.headers, this.getActividad, this.getParams);
       }
-      exportPDF(this.headers, this.getActividad, this.params);
+      exportPDF(this.headers, this.getActividad, this.getParams);
     },
     formatDetalle(detalle) {
       return formatDetalle(detalle);
@@ -176,13 +171,6 @@ export default {
     disabledCount: 0,
     selected: [],
     desserts: [],
-    params: {
-      idcliente: null,
-      idsucursal: null,
-      fechadesde: subtract_days(90),
-      fechahasta: current_date(),
-      idestadocobro: 1,
-    },
     headerProps: {
       sortByText: "Filtrar por",
     },
