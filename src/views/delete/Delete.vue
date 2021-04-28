@@ -1,6 +1,6 @@
 <template>
   <div v-if="value">
-    <div class="d-flex flex-column align-center" style="z-index: 10">
+    <div class="d-flex flex-column align-center" style="position: fixed; z-index: 99;">
       <c-overlay :value="true" :opacity="0.9">
         <div class="d-flex justify-center flex-column align-center">
           <div class="mb-16 text-h4 font-weight-black">Hey!</div>

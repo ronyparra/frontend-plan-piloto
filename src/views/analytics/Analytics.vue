@@ -1,6 +1,6 @@
 <template>
   <div class="fill-height">
-    <c-app-bar app dense flat style="z-index: -3"></c-app-bar>
+    <c-app-bar app dense flat style="z-index: -1"></c-app-bar>
     <div class="title fill-height">
       <c-card outlined elevation="1" class="fill-height d-flex flex-row">
         <v-tabs vertical>

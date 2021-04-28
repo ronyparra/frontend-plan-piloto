@@ -1,17 +1,12 @@
 <template>
   <div class="fill-height">
-    <c-app-bar class="ml-16"
-      dense
-      style="z-index: 8;" app flat color="secondary">
-     
+    <HeaderForm>  
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
-      </c-toolbar-title>
-
-      
+      </c-toolbar-title> 
       <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" class="mr-1" />
        <BtnClose to="/cobro" />
-    </c-app-bar>
+    </HeaderForm>
     <Delete
       v-model="deleteView"
       vuex-action="cobro/deleteCobro"
@@ -98,8 +93,10 @@ import TextArea from "@/components/TextArea";
 import BtnDelete from "@/components/BtnDelete";
 import Delete from "../delete/Delete";
 import { mapActions, mapGetters } from "vuex";
+import HeaderForm from "../../components/HeaderForm";
 export default {
   components: {
+    HeaderForm,
     BtnDelete,
     BtnClose,
     Delete,

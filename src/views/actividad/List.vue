@@ -82,7 +82,7 @@ import { subtract_days, current_date } from "@/util/date.util";
 import { formatTecnico, formatDetalle, formatColor } from "./formatter";
 import { exportPDF } from "./export";
 import FilterAdvanced from "./Filter";
-import Header from "../../components/Header";
+import Header from "../../components/HeaderList";
 
 export default {
   components: {

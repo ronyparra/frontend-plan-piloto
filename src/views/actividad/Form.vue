@@ -1,6 +1,6 @@
 <template>
   <div class="fill-height">
-    <c-app-bar class="ml-16" style="z-index: 8;" dense  app flat color="secondary">
+    <HeaderForm>
       
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
@@ -13,7 +13,7 @@
         @click="deleteView = true"
       />
       <BtnClose to="/actividad" />
-    </c-app-bar>
+    </HeaderForm>
     <Delete
       v-model="deleteView"
       vuex-action="actividad/deleteActividad"
@@ -190,9 +190,10 @@ import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
 import AutocompleteConcepto from "../concepto/Autocomplete";
 import AutocompleteClienteSucursal from "../cliente/AutocompleteSucursal";
-
+import HeaderForm from "../../components/HeaderForm";
 export default {
   components: {
+    HeaderForm,
     BtnIcon,
     BtnAdd,
     BtnClose,

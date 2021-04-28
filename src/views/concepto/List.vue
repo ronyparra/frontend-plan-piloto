@@ -42,7 +42,7 @@ import BtnAdd from "@/components/BtnAdd";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
 import { currencyFormatter } from "@/util/number.util";
-import Header from "../../components/Header";
+import Header from "../../components/HeaderList";
 export default {
   components: {
     Header,

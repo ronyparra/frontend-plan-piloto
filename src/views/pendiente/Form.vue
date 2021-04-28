@@ -1,13 +1,6 @@
 <template>
   <div class="fill-height">
-    <c-app-bar
-      class="ml-16"
-      dense
-      style="z-index: 8;"
-      app
-      flat
-      color="secondary"
-    >
+    <HeaderForm>
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
@@ -18,7 +11,7 @@
         class="mr-1"
       />
       <BtnClose to="/pendiente" />
-    </c-app-bar>
+    </HeaderForm>
     <Delete
       v-model="deleteView"
       vuex-action="pendiente/deletePendiente"
@@ -103,6 +96,7 @@ import Delete from "../delete/Delete";
 import Finalizar from "./Finalizar";
 import AutocompleteTipo from "../tipo_pendiente/Autocomplete";
 import AutocompleteTecnico from "../usuario/Autocomplete";
+import HeaderForm from "../../components/HeaderForm";
 export default {
   components: {
     AutocompleteTecnico,
@@ -113,6 +107,7 @@ export default {
     Delete,
     TextArea,
     TextDate,
+    HeaderForm
   },
   data: () => ({
     sheet: false,

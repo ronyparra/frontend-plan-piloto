@@ -37,7 +37,7 @@
 </template>
 <script>
 import BtnAdd from "@/components/BtnAdd";
-import Header from "../../components/Header";
+import Header from "../../components/HeaderList";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
 export default {

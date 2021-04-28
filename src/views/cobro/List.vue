@@ -51,7 +51,7 @@ import { currencyFormatter } from "@/util/number.util";
 import { subtract_days, current_date } from "@/util/date.util";
 import { formatColor } from "../actividad/formatter";
 import Filters from "./Filter";
-import Header from "../../components/Header";
+import Header from "../../components/HeaderList";
 export default {
   components: {
     Header,

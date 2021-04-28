@@ -1,16 +1,12 @@
 <template>
   <div class="fill-height">
-    <c-app-bar class="ml-16"
-      dense
-      style="z-index: 8;" app flat color="secondary">
-    
+    <HeaderForm>
       <c-toolbar-title class="flex text-center title">
         {{ $route.name }}
       </c-toolbar-title>
-      
       <BtnDelete :text="false" v-if="isEdit" @click="deleteView = true" class="mr-1" />
-        <BtnClose to="/usuario" />
-    </c-app-bar>
+      <BtnClose to="/usuario" />
+    </HeaderForm>
     <Delete
       v-model="deleteView"
       vuex-action="usuario/deleteUsuario"
@@ -67,8 +63,10 @@ import BtnDelete from "@/components/BtnDelete";
 import Delete from "../delete/Delete";
 import AutocompleteRol from "../usuario_rol/Autocomplete";
 import { mapActions, mapGetters } from "vuex";
+import HeaderForm from "../../components/HeaderForm";
 export default {
   components: {
+    HeaderForm,
     AutocompleteRol,
     BtnDelete,
     BtnClose,
