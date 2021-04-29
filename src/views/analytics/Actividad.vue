@@ -40,9 +40,7 @@
           <span class="font-weight-thin">{{ item.mensaje }}</span>
           <c-icon color="primary" dense class="ml-1" @click="listarCobros(item.id)">arrow_forward</c-icon>
         </div>
-  
-        </template
-      >
+        </template>
     </DataTable>
   </div>
 </template>
@@ -103,6 +101,7 @@ export default {
       if (id != 1) {
         const desde = id === 3 ? this.getParams.desde : (this.oldData ? '2021-01-01' : this.getParams.desde)
         await this.setParamsCobro({
+          idusuario: null,
           idcliente: null,
           fechadesde: desde,
           fechahasta: this.getParams.hasta,

@@ -54,6 +54,11 @@ export default {
         path: "/analytics/",
       },
       {
+        title: "Cobros Terminados",
+        icon: "receipt",
+        path: "/analytics/cobro",
+      },
+      {
         title: "Rendimiento en pendientes",
         icon: "query_builder",
         path: "/analytics/pendiente",
@@ -78,11 +83,7 @@ export default {
         icon: 'category',
         path: '/analytics/categoria'
       },
-      {
-        title: "Cobros",
-        icon: "receipt",
-        path: "/analytics/cobro",
-      },
+      
     ],
   }),
   computed: {

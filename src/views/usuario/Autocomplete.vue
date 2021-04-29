@@ -7,8 +7,10 @@
       ref="input"
       :value="value"
       :items="getUsuario"
+      :clearable="clearable"
       :loading="isLoading"
       :rules="rules"
+      :placeholder="placeholder"
       :readonly="readonly"
       :return-object="returnObject"
       :multiple="multiple"
@@ -33,7 +35,9 @@ export default {
       type: String,
       default: 'Tecnico'
     },
+    clearable: Boolean,
     readonly: Boolean,
+    placeholder: String,
     multiple: Boolean,
   },
   mounted() {

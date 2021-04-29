@@ -14,6 +14,15 @@
             />
           </c-col>
           <c-col cols="12" sm="4" md="2" class="my-n2">
+            <AutocompleteUsuario
+              label=""
+              clearable
+              placeholder="Cobrado por"
+              :rules="[]"
+              v-model="form.idusuario"
+            />
+          </c-col>
+          <c-col cols="12" sm="4" md="2" class="my-n2">
             <AutocompleteEstadoCobro
               label=""
               clearable
@@ -49,6 +58,7 @@
 import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
+import AutocompleteUsuario from "../usuario/Autocomplete";
 import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
@@ -56,6 +66,7 @@ export default {
   },
   components: {
     TextDate,
+    AutocompleteUsuario,
     AutocompleteCliente,
     AutocompleteEstadoCobro
   },
@@ -82,6 +93,7 @@ export default {
   data: () => ({
     form: {
       idcliente: "",
+      idusuario: "",
       idsucursal: "",
       fechadesde: "",
       fechahasta: "",

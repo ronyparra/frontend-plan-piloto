@@ -1,6 +1,12 @@
 <template>
   <div>
     <DataTable :headers="headers" :items="getCobroTecnico" filter="guarani">
+       <template v-slot:descripcion="{ item }">
+        <div >
+          {{ item.descripcion }}
+          <c-icon color="primary" dense class="ml-1" @click="listarCobroPorUsuario(item.id)">arrow_forward</c-icon>
+        </div>
+        </template>
     </DataTable>
   </div>
 </template>
@@ -52,20 +58,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters("analytics", ["getCobroTecnico","getParams"]),
+    ...mapGetters("analytics", ["getCobroTecnico", "getParams"]),
   },
   methods: {
     ...mapActions("analytics", ["fetchCobroTecnico"]),
-    ...mapActions("actividad", ["setParams"]),
-    async listarActividad(id) {
+    ...mapActions("cobro", ["setParams"]),
+    async listarCobroPorUsuario(id) {
       await this.setParams({
-        idcliente: id,
-        idsucursal: null,
+        idusuario: id,
+        idcliente: null,
         fechadesde: this.getParams.desde,
         fechahasta: this.getParams.hasta,
-        idestadocobro: null,
+        idestadocobro: 3,
       });
-      this.$router.push("/actividad");
+      this.$router.push("/cobro");
     },
   },
 };

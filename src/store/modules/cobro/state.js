@@ -5,6 +5,7 @@ export default {
   dataId: null,
   loading: false,
   params:{
+    idusuario: null,
     idcliente: null,
     fechadesde: subtract_days(90),
     fechahasta: current_date(),

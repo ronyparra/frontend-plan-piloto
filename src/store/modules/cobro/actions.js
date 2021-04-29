@@ -2,8 +2,8 @@ import { FETCH, LOADING, SET_ID, SET_PARAMS, url } from "./contants";
 import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
-  async fetchCobro({ commit },{idcliente, fechadesde, fechahasta, idestadocobro}) {
-    const urlWithParams = `${url}/?cliente=${
+  async fetchCobro({ commit },{idcliente, idusuario, fechadesde, fechahasta, idestadocobro}) {
+    const urlWithParams = `${url}/?idusuario=${idusuario ? idusuario : "undefined"}&cliente=${
       idcliente ? idcliente : "undefined"
     }&desde=${fechadesde}&hasta=${fechahasta}&estado=${
       idestadocobro ? idestadocobro : "undefined"
