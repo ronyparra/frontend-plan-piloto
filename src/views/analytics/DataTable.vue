@@ -26,20 +26,25 @@
           </tr>
           <tr v-for="(item, i) in itemsFiltered" :key="i">
             <td :class="head.class" v-for="(head, j) in headers" :key="j">
-              <span class="caption mx-1 font-weight-thin">
-                {{
-                  head.percent
-                    ? getPercent(item[head.value], head.value)
-                    : "" || head.message
-                    ? item[head.message]
-                    : ""
-                }}
-              </span>
-              {{
-                head.number
-                  ? formatNumber(item[head.value], head.percent, head.value)
-                  : item[head.value]
-              }}
+              <slot :name="head.value" :item="item">
+                <span class="caption mx-1 font-weight-thin">
+                  {{
+                    head.percent
+                      ? getPercent(item[head.value], head.value)
+                      : "" || head.message
+                      ? item[head.message]
+                      : ""
+                  }}
+                </span>
+
+                <span>
+                  {{
+                    head.number
+                      ? formatNumber(item[head.value], head.percent, head.value)
+                      : item[head.value]
+                  }}
+                </span>
+              </slot>
             </td>
           </tr>
         </table>
@@ -135,6 +140,7 @@ export default {
   methods: {
     formatNumber: (value) => currencyFormatter(value),
     getPercent(value, column) {
+      if(!value) return '';
       const result = (value * 100) / this.getSubTotal(column);
       return "(" + currencyFormatter(result) + "%)";
     },

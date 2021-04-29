@@ -77,7 +77,12 @@ export default {
         title: 'Top Categorias',
         icon: 'category',
         path: '/analytics/categoria'
-      }
+      },
+      {
+        title: "Cobros",
+        icon: "receipt",
+        path: "/analytics/cobro",
+      },
     ],
   }),
   computed: {

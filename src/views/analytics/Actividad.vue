@@ -2,12 +2,8 @@
   <div>
     <c-row dense>
       <c-col cols="6" sm="3" v-for="(n, i) in getActividad" :key="i">
-        <c-card
-          :color="n.color || 'white'"
-          class="rounded-xl"
-          elevation="0"
-        >
-          <c-container >
+        <c-card :color="n.color || 'white'" class="rounded-xl" elevation="0">
+          <c-container>
             <div class="caption mt-n1  grey--text">{{ n.title }}</div>
 
             <div
@@ -23,7 +19,7 @@
       </c-col>
     </c-row>
     <c-divider class="mt-3"></c-divider>
-    <div cols="12"  class="d-flex justify-end mb-n3">
+    <div cols="12" class="d-flex justify-end mb-n3">
       <c-switch
         v-model="oldData"
         inset
@@ -36,7 +32,18 @@
       :headers="headers"
       :items="getEstado"
       filter="guarani"
-    />
+      ref="test"
+    >
+      <template v-slot:descripcion="{ item }">
+        <div >
+          {{ item.descripcion }}
+          <span class="font-weight-thin">{{ item.mensaje }}</span>
+          <c-icon color="primary" dense class="ml-1" @click="listarCobros(item.id)">arrow_forward</c-icon>
+        </div>
+  
+        </template
+      >
+    </DataTable>
   </div>
 </template>
 <script>
@@ -53,7 +60,7 @@ export default {
       {
         title: "Estado",
         value: "descripcion",
-        class: "caption text-start font-weight-medium d-flex justify-end align-center flex-row-reverse",
+        class: "caption text-start font-weight-medium",
         headClass: "caption text-start",
         message: "mensaje",
       },
@@ -82,13 +89,37 @@ export default {
     this.fetch();
   },
   computed: {
-    ...mapGetters("analytics", ["getActividad", "getEstado"]),
+    ...mapGetters("analytics", ["getActividad", "getEstado", "getParams"]),
   },
   methods: {
     ...mapActions("analytics", ["fetchActividad", "fetchEstado"]),
+    ...mapActions("cobro", { setParamsCobro: "setParams" }),
+    ...mapActions("actividad", { setParamsActividad: "setParams" }),
     formatNumber: (value) => currencyFormatter(value),
-    fetch(){
-      this.fetchEstado(this.oldData)
+    fetch() {
+      this.fetchEstado(this.oldData);
+    },
+    async listarCobros(id) {
+      if (id != 1) {
+        const desde = id === 3 ? this.getParams.desde : (this.oldData ? '2021-01-01' : this.getParams.desde)
+        await this.setParamsCobro({
+          idcliente: null,
+          fechadesde: desde,
+          fechahasta: this.getParams.hasta,
+          idestadocobro: id,
+        });
+        this.$router.push("/cobro");
+      }
+      if (id === 1) {
+        await this.setParamsActividad({
+          idcliente: null,
+          idsucursal: null,
+          fechadesde: this.oldData ? '01-01-2020' : this.getParams.desde,
+          fechahasta: this.getParams.hasta,
+          idestadocobro: id,
+        });
+        this.$router.push("/actividad");
+      }
     },
   },
 };

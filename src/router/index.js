@@ -338,6 +338,14 @@ const routes = [
           ),
       },
       {
+        path: "cobro",
+        name: "Analytics Cobros",
+        component: () =>
+          import(
+            /* webpackChunkName: "A Categoria" */ "../views/analytics/CobroTecnico.vue"
+          ),
+      },
+      {
         path: "filtros",
         name: "Filtros",
         component: () =>

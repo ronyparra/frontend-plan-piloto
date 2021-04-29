@@ -1,4 +1,4 @@
-import { FETCH, LOADING, SET_ID, url } from "./contants";
+import { FETCH, LOADING, SET_ID, SET_PARAMS, url } from "./contants";
 import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
@@ -47,4 +47,5 @@ export default {
     commit(LOADING, false);
     return response;
   },
+  setParams: async ({ commit }, params) => commit(SET_PARAMS, params),
 };

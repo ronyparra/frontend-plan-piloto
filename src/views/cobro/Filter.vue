@@ -49,11 +49,10 @@
 import TextDate from "@/components/TextDate";
 import AutocompleteCliente from "../cliente/Autocomplete";
 import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: {
     value: Array,
-    params: [Object],
   },
   components: {
     TextDate,
@@ -61,15 +60,23 @@ export default {
     AutocompleteEstadoCobro
   },
   created() {
-    this.form = JSON.parse(JSON.stringify(this.params));
+    this.form = JSON.parse(JSON.stringify(this.getParams));
+  },
+  watch:{
+    getParams(){
+      this.form = JSON.parse(JSON.stringify(this.getParams));
+    }
+  },
+  computed:{
+    ...mapGetters("cobro",['getParams'])
   },
   methods: {
-    ...mapActions("cobro", ["fetchCobro"]),
+    ...mapActions("cobro", ["fetchCobro","setParams"]),
     
     filtrar() {
       if (!this.$refs.form.validate()) return null;
       this.fetchCobro(this.form);
-      this.$emit('sync', this.form);
+      this.setParams(this.form);
     },
   },
   data: () => ({

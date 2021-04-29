@@ -8,6 +8,7 @@ import {
   FETCH_TECNICO,
   FETCH_CATEGORIA,
   FETCH_ESTADO,
+  FETCH_COBRO_TECNICO,
 } from "./contants";
 export default {
   [FETCH]: (state, request) => (state.data = request),
@@ -18,5 +19,6 @@ export default {
   [FETCH_PENDIENTE]: (state, request) => (state.pendiente = request),
   [FETCH_TECNICO]: (state, request) => (state.tecnico = request),
   [FETCH_CATEGORIA]: (state, request) => (state.categoria = request),
+  [FETCH_COBRO_TECNICO]: (state, request) => (state.cobrotecnico = request),
   [FETCH_ESTADO]: (state, request) => (state.estado = request),
 };

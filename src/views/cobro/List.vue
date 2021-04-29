@@ -6,7 +6,7 @@
       <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
     </Header>
     <div class="mt-9">
-      <Filters v-if="filter" :params="params" />
+      <Filters v-if="filter" :params="getParams" />
 
       <v-data-table
         :headers="headers"
@@ -48,7 +48,6 @@ import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
 import { mapActions, mapGetters } from "vuex";
 import { currencyFormatter } from "@/util/number.util";
-import { subtract_days, current_date } from "@/util/date.util";
 import { formatColor } from "../actividad/formatter";
 import Filters from "./Filter";
 import Header from "../../components/HeaderList";
@@ -61,15 +60,15 @@ export default {
   },
   watch: {
     $route(to) {
-      if (to.path === "/cobro") this.fetchCobro(this.params);
+      if (to.path === "/cobro") this.fetchCobro(this.getParams);
     },
   },
   mounted() {
       this.filter =this.$vuetify.breakpoint.mobile ? false : true;
-    this.fetchCobro(this.params);
+    this.fetchCobro(this.getParams);
   },
   computed: {
-    ...mapGetters("cobro", ["getCobro", "isLoading"]),
+    ...mapGetters("cobro", ["getCobro", "isLoading","getParams"]),
   },
   methods: {
     ...mapActions("cobro", ["fetchCobro", "fetchCobroId"]),
@@ -85,12 +84,6 @@ export default {
   data: () => ({
     search: "",
     filter: false,
-    params: {
-      idcliente: null,
-      fechadesde: subtract_days(90),
-      fechahasta: current_date(),
-      idestadocobro: 2,
-    },
     headers: [
       { text: "Cliente", value: "idcliente.razonsocial" },
       { text: "Moneda", value: "idmoneda.abreviatura", align: "end" },

@@ -7,6 +7,7 @@ export default {
   tecnico:[],
   categoria: [],
   estado:[],
+  cobrotecnico: [],
   params: {
     desde: first_date_month(),
     hasta: last_date_month(),

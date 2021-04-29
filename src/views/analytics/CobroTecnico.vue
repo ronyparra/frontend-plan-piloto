@@ -1,12 +1,6 @@
 <template>
   <div>
-    <DataTable :headers="headers" :items="getCliente" filter="guarani">
-      <template v-slot:cliente="{ item }">
-        <div>
-          {{ item.cliente }}
-          <c-icon color="primary" dense class="ml-1" @click="listarActividad(item.idcliente)">arrow_forward</c-icon>
-        </div>
-      </template>
+    <DataTable :headers="headers" :items="getCobroTecnico" filter="guarani">
     </DataTable>
   </div>
 </template>
@@ -17,8 +11,8 @@ export default {
   data: () => ({
     headers: [
       {
-        title: "Cliente",
-        value: "cliente",
+        title: "Colaborador",
+        value: "descripcion",
         class: "caption text-start font-weight-medium",
         headClass: "caption text-start",
       },
@@ -54,14 +48,14 @@ export default {
     DataTable,
   },
   mounted() {
-    this.fetchCliente();
+    this.fetchCobroTecnico();
   },
 
   computed: {
-    ...mapGetters("analytics", ["getCliente","getParams"]),
+    ...mapGetters("analytics", ["getCobroTecnico","getParams"]),
   },
   methods: {
-    ...mapActions("analytics", ["fetchCliente"]),
+    ...mapActions("analytics", ["fetchCobroTecnico"]),
     ...mapActions("actividad", ["setParams"]),
     async listarActividad(id) {
       await this.setParams({

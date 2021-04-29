@@ -9,6 +9,7 @@ import {
   url,
   FETCH_TECNICO,
   FETCH_ESTADO,
+  FETCH_COBRO_TECNICO,
 } from "./contants";
 import { get } from "@/services/api/api.services.js";
 
@@ -103,6 +104,20 @@ export default {
       const { desde, hasta } = getters.getParams;
       const response = await get(`${url.estado}?desde=${desde}&hasta=${hasta}&old=${old}`);
       commit(FETCH_ESTADO, response.data);
+    } catch (e) {
+      commit(LOADING, false);
+      throw e;
+    }
+    commit(LOADING, false);
+  },
+  async fetchCobroTecnico({ commit, getters }) {
+    commit(LOADING, true);
+    try {
+      const { desde, hasta } = getters.getParams;
+      const response = await get(
+        `${url.cobrotecnico}?desde=${desde}&hasta=${hasta}`
+      );
+      commit(FETCH_COBRO_TECNICO, response.data);
     } catch (e) {
       commit(LOADING, false);
       throw e;

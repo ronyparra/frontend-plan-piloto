@@ -78,6 +78,11 @@ export default {
   created() {
     this.form = JSON.parse(JSON.stringify(this.getParams));
   },
+  watch:{
+    getParams(){
+      this.form = JSON.parse(JSON.stringify(this.getParams));
+    }
+  },
   computed:{
     ...mapGetters("actividad", ["getParams"])
   },
