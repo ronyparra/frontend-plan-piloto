@@ -191,6 +191,7 @@ export default {
     },
 
     async guardar() {
+      if(!this.form.retencion)  this.form.saldocobrado = this.form.saldoacobrar;
       if (!this.$refs.form.validate()) return null;
       const response = this.isEdit
         ? await this.updateCobro({
