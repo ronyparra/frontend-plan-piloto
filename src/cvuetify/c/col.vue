@@ -4,10 +4,10 @@
 <script>
 export default {
   props: {
-    cols: String,
-    sm: String,
-    md: String,
-    lg: String,
+    cols: [String,Number],
+    sm: [String,Number],
+    md: [String,Number],
+    lg: [String,Number],
   },
 };
 </script>

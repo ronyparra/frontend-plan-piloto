@@ -58,9 +58,9 @@
         </c-form>
       </c-container>
 
-      <c-container v-if="form.activo">
-        <c-row dense>
-          <c-col cols="12" sm="5">
+      <c-container >
+        <c-row dense v-if="form.activo">
+          <c-col cols="12" :sm="isEdit ? 5 : 12">
             <c-btn block dark color="primary" rounded @click="guardar()">
               {{ isEdit ? "Modificar" : "Registrar" }}</c-btn
             >
