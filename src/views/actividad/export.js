@@ -30,6 +30,7 @@ export const exportPDF = (header, lista, params) => {
     },
     bodyStyles: {
         fontSize: 8,
+        fontStyle: "bold" 
     },
     headStyles: {
         textColor: [0, 0, 0],
