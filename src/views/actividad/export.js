@@ -24,7 +24,7 @@ export const exportPDF = (header, lista, params) => {
     head: [['Fecha','Cliente','Sucursal','Solicitante','Conceptos','Comentario']],
     body: formatLista(lista),
     startY: 40,
-    theme: "striped",
+    theme: "plain",
     columnStyles: {
       8: { halign: "right", fontStyle: "bold" },
     },
@@ -39,7 +39,7 @@ export const exportPDF = (header, lista, params) => {
     },
 
     styles: {
-      cellPadding: 0.7,
+      cellPadding: 0.9,
     },
     didParseCell: (data) => {
       if (data.row.index == lista.length - 1 && data.column.index == 0) {
