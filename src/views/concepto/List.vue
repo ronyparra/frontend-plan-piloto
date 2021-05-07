@@ -12,7 +12,6 @@
         :search="search"
         :items="getConcepto"
         :loading="isLoading"
-        :mobile-breakpoint="0"
         :items-per-page="99999"
         hide-default-footer
       >

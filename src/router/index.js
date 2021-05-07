@@ -61,6 +61,22 @@ const routes = [
             /* webpackChunkName: "Cliente EDIT" */ "../views/cliente/Form.vue"
           ),
       },
+      {
+        path: "folder/:id",
+        name: "Carpetas",
+        component: () =>
+          import(
+            /* webpackChunkName: "Carpetas Clientes" */ "../views/cliente/Folder.vue"
+          ),
+      },
+      {
+        path: "folder/:id/archivos",
+        name: "Archivos",
+        component: () =>
+          import(
+            /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/Archivos.vue"
+          ),
+      },
     ],
   },
   {

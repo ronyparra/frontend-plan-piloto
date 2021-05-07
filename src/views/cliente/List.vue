@@ -17,6 +17,19 @@
           hide-default-footer
         >
           <template v-slot:[`item.actions`]="{ item }">
+             <c-btn
+              fab
+              x-small
+              text
+              elevation="2"
+              class="mr-1"
+              color="primary"
+              @click="setFolder(item)"
+            >
+              <c-icon>
+                folder
+              </c-icon>
+            </c-btn>
             <c-btn
               fab
               x-small
@@ -29,6 +42,7 @@
                 arrow_forward_ios
               </c-icon>
             </c-btn>
+           
           </template>
         </v-data-table>
       </div>
@@ -57,6 +71,10 @@ export default {
     async setData(data) {
       await this.fetchClienteId({ data });
       this.$router.push({ path: `/cliente/edit/` + data.idcliente });
+    },
+     async setFolder(data) {
+      await this.fetchClienteId({ data });
+      this.$router.push({ path: `/cliente/folder/` + data.idcliente });
     },
   },
   data: () => ({
