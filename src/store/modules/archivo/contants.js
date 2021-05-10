@@ -4,4 +4,7 @@ export const UPDATE = "updateArchivo";
 export const LOADING = "loadingArchivo";
 export const SET_ID = "setArchivoId";
 
-export const url = "/archivo";
+export const url = {
+    root: "/archivo",
+    cliente: "/archivo/cliente"
+}

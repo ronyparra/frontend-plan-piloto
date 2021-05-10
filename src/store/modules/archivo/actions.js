@@ -5,7 +5,7 @@ export default {
   async fetchArchivo({ commit }) {
     commit(LOADING, true);
     try {
-      const response = await get(url);
+      const response = await get(url.root);
       commit(FETCH, response.data);
     } catch (e) {
       commit(LOADING, false);
@@ -13,11 +13,10 @@ export default {
     }
     commit(LOADING, false);
   },
-  fetchArchivoId: async ({ commit }, { id, data }) => {
-    if (data) return commit(SET_ID, data);
+  fetchArchivoIdCliente: async ({ commit }, {id, idcarpeta}) => {
     commit(LOADING, true);
     try {
-      const response = await get(`${url}/${id}`);
+      const response = await get(`${url.cliente}/${id}?idcarpeta=${idcarpeta}`);
       commit(SET_ID, response.data);
     } catch (e) {
       console.log(e);
@@ -26,19 +25,19 @@ export default {
   },
   async createArchivo({ commit }, form) {
     commit(LOADING, true);
-    const response = await post(url, form);
+    const response = await post(url.root, form);
     commit(LOADING, false);
     return response;
   },
   updateArchivo: async ({ commit }, { id, form }) => {
     commit(LOADING, true);
-    const response = await put(`${url}/${id}`, form);
+    const response = await put(`${url.root}/${id}`, form);
     commit(LOADING, false);
     return response;
   },
   deleteArchivo: async ({ commit }, id) => {
     commit(LOADING, true);
-    const response = await del(`${url}/${id}`);
+    const response = await del(`${url.root}/${id}`);
     commit(LOADING, false);
     return response;
   },

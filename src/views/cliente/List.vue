@@ -74,7 +74,7 @@ export default {
     },
      async setFolder(data) {
       await this.fetchClienteId({ data });
-      this.$router.push({ path: `/cliente/folder/` + data.idcliente });
+      this.$router.push({ path: `/cliente/` + data.idcliente+"/folder" });
     },
   },
   data: () => ({

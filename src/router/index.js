@@ -62,7 +62,7 @@ const routes = [
           ),
       },
       {
-        path: "folder/:id",
+        path: ":id/folder",
         name: "Carpetas",
         component: () =>
           import(
@@ -70,7 +70,7 @@ const routes = [
           ),
       },
       {
-        path: "folder/:id/archivos",
+        path: ":id/folder/:folder/archivos",
         name: "Archivos",
         component: () =>
           import(

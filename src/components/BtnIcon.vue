@@ -1,6 +1,6 @@
 <template>
   <c-btn
-    elevation="2"
+    :elevation="elevation"
     text
     color="primary"
     fab
@@ -13,6 +13,10 @@
 <script>
 export default {
   props:{
+    elevation: {
+      type: String,
+      default: '2'
+    },
     disabled: {
       type: Boolean
     }

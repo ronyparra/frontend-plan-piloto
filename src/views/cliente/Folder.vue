@@ -1,6 +1,14 @@
 <template>
   <div>
+    <HeaderForm>
+      <c-toolbar-title class="flex text-end title">
+        <span class="font-weight-thin">Carpetas de</span>
+        {{ getClienteId.razonsocial }}
+      </c-toolbar-title>
+    </HeaderForm>
     <Header>
+      <BtnIcon elevation="0" @click="routeBack()">arrow_back</BtnIcon>
+      <c-spacer></c-spacer>
       <SearchField class="font-weight-black" v-model="search" />
       <c-spacer></c-spacer>
       <BtnAdd to="/folder/add" />
@@ -22,7 +30,7 @@
           </c-icon>
           <span class="font-weight-medium">{{ item.razonsocial }}</span>
         </template>
-        <template v-slot:[`item.actions`]="{item}">
+        <template v-slot:[`item.actions`]="{ item }">
           <c-icon color="primary" small @click="setData(item)">
             arrow_forward_ios
           </c-icon>
@@ -33,27 +41,40 @@
 </template>
 <script>
 import BtnAdd from "@/components/BtnAdd";
+import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
 import Header from "../../components/HeaderList";
+import HeaderForm from "../../components/HeaderForm";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     Header,
+    HeaderForm,
+    BtnIcon,
     BtnAdd,
     SearchField,
   },
   mounted() {
+     if (!this.getClienteId) this.fetchClienteId({ id: this.$route.params.id });
     this.fetchFolder();
   },
   computed: {
+     ...mapGetters("cliente", ["getClienteId"]),
     ...mapGetters("folder", ["getFolder", "isLoading"]),
   },
   methods: {
-    ...mapActions("folder", ["fetchFolder", "fetchFolderId"]),
-    async setData(data) {
+    ...mapActions("folder", ["fetchFolder"]),
+    ...mapActions("cliente",["fetchClienteId"]),
+    async setData(item) {
       const idcliente = this.$route.params.id;
-      await this.fetchFolderId({ data });
-      this.$router.push({ path: `/cliente/folder/` + idcliente + "/archivos" });
+      const idfolder = item.idcarpeta;
+      console.log(this.$route);
+      this.$router.push({
+        path: `/cliente/` + idcliente + "/folder/" + idfolder + "/archivos",
+      });
+    },
+    routeBack() {
+      this.$router.push({ path: `/cliente` });
     },
   },
   data: () => ({
