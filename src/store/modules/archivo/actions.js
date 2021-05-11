@@ -1,4 +1,4 @@
-import { FETCH, LOADING, SET_ID, url } from "./contants";
+import { FETCH, LOADING, SET_ID, SET_ID_CLIENTE, url } from "./contants";
 import { get, post, del, put  } from "@/services/api/api.services.js";
 
 export default {
@@ -17,6 +17,17 @@ export default {
     commit(LOADING, true);
     try {
       const response = await get(`${url.cliente}/${id}?idcarpeta=${idcarpeta}`);
+      commit(SET_ID_CLIENTE, response.data);
+    } catch (e) {
+      console.log(e);
+    }
+    commit(LOADING, false);
+  },
+  fetchArchivoId: async ({ commit }, { id, data }) => {
+    if (data) return commit(SET_ID, data);
+    commit(LOADING, true);
+    try {
+      const response = await get(`${url.root}/${id}`);
       commit(SET_ID, response.data);
     } catch (e) {
       console.log(e);

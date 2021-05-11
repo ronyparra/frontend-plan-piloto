@@ -1,6 +1,7 @@
 
 export default {
   data: [],
-  dataId: [],
+  dataId: null,
+  dataIdCliente: [],
   loading: false
 }

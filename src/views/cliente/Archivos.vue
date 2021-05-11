@@ -2,8 +2,8 @@
   <div>
     <HeaderForm>
       <c-toolbar-title class="flex text-end title">
-        <span class="font-weight-thin">Archivos de</span>
-        {{ getClienteId.razonsocial }}
+        <span class="font-weight-thin">Datos de</span>
+        {{ getClienteId.razonsocial || "" }}
       </c-toolbar-title>
     </HeaderForm>
     <Header>
@@ -11,7 +11,7 @@
       <c-spacer></c-spacer>
       <SearchField class="font-weight-black" v-model="search" />
       <c-spacer></c-spacer>
-      <BtnAdd to="/archivo/add" />
+      <BtnAdd :to="`${$route.path}/add`" />
     </Header>
 
     <div class="mt-7">
@@ -24,14 +24,8 @@
         :items-per-page="99999"
         hide-default-footer
       >
-        <template v-slot:[`item.razonsocial`]="{ item }">
-          <c-icon class="mr-2" color="primary">
-            drive_file_move
-          </c-icon>
-          <span class="font-weight-medium">{{ item.razonsocial }}</span>
-        </template>
-        <template v-slot:[`item.actions`]="">
-          <c-icon color="primary" small>
+        <template v-slot:[`item.actions`]="{ item }">
+          <c-icon color="primary" small @click="setData(item)">
             arrow_forward_ios
           </c-icon>
         </template>
@@ -68,10 +62,10 @@ export default {
   },
   methods: {
     ...mapActions("cliente", ["fetchClienteId"]),
-    ...mapActions("archivo", ["fetchArchivoIdCliente", "fetchFolderId"]),
+    ...mapActions("archivo", ["fetchArchivoIdCliente", "fetchArchivoId"]),
     async setData(data) {
-      await this.fetchFolderId({ data });
-      this.$router.push({ path: `/archivo/edit/` + data.idcliente });
+      await this.fetchArchivoId({ data });
+      this.$router.push({ path: this.$route.path + "/" + data.idarchivo });
     },
     routeBack() {
       this.$router.push({
@@ -84,6 +78,7 @@ export default {
     headers: [
       { text: "Archivo", value: "descripcion" },
       { text: "Informacion", value: "comentario" },
+      { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),
 };

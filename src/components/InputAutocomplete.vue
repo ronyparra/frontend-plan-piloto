@@ -17,6 +17,8 @@
     :clearable="clearable"
     :filled="filled"
     :dense="dense"
+    :suffix="suffix"
+    :prefix="prefix"
     flat
     rounded
     background-color="grey lighten-4"
@@ -40,6 +42,8 @@ export default {
     value: [String, Number, Object, Array],
     items: Array,
     loading: Boolean,
+    suffix: String,
+    prefix: String,
     itemValue: String,
     label: String,
     itemText: String,

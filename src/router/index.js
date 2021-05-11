@@ -71,10 +71,26 @@ const routes = [
       },
       {
         path: ":id/folder/:folder/archivos",
-        name: "Archivos",
+        name: "Documentos",
         component: () =>
           import(
             /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/Archivos.vue"
+          ),
+      },
+      {
+        path: ":id/folder/:folder/archivos/add",
+        name: "Registrar Datos",
+        component: () =>
+          import(
+            /* webpackChunkName: "Archivos Clientes ADD" */ "../views/cliente/archivo/Form.vue"
+          ),
+      },
+      {
+        path: ":id/folder/:folder/archivos/:idarchivo",
+        name: "Datos",
+        component: () =>
+          import(
+            /* webpackChunkName: "Archivos Clientes ADD" */ "../views/cliente/archivo/Form.vue"
           ),
       },
     ],
