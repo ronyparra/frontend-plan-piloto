@@ -1,5 +1,12 @@
 <template>
-  <c-btn color="primary" elevation="2" fab  :text="text" x-small @click="$emit('click')">
+  <c-btn
+    color="primary"
+    elevation="2"
+    fab
+    :text="text"
+    x-small
+    @click="$emit('click')"
+  >
     <c-icon>
       edit
     </c-icon>
@@ -7,11 +14,11 @@
 </template>
 <script>
 export default {
-  props:{
+  props: {
     text: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>

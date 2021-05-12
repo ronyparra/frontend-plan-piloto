@@ -3,15 +3,14 @@
     <HeaderForm>
       <c-toolbar-title class="flex text-end title">
         <span class="font-weight-thin">Carpetas de</span>
-        {{ getClienteId.razonsocial  || ""}}
+        {{ getClienteName}}
       </c-toolbar-title>
     </HeaderForm>
     <Header>
       <BtnIcon elevation="0" @click="routeBack()">arrow_back</BtnIcon>
       <c-spacer></c-spacer>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
-      <BtnAdd to="/folder/add" />
+
     </Header>
 
     <div class="mt-7">
@@ -35,7 +34,6 @@
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
 import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
 import Header from "../../components/HeaderList";
@@ -46,7 +44,6 @@ export default {
     Header,
     HeaderForm,
     BtnIcon,
-    BtnAdd,
     SearchField,
   },
   mounted() {
@@ -54,8 +51,9 @@ export default {
     this.fetchFolder();
   },
   computed: {
-     ...mapGetters("cliente", ["getClienteId"]),
+     ...mapGetters("cliente", ["getClienteId","getClienteName"]),
     ...mapGetters("folder", ["getFolder", "isLoading"]),
+
   },
   methods: {
     ...mapActions("folder", ["fetchFolder"]),

@@ -7,6 +7,7 @@
     :filled="filled"
     :dense="dense"
     :rounded="rounded"
+    :placeholder="placeholder"
     :readonly="readonly"
     @input="$emit('input', $event)"
   ></v-textarea>
@@ -15,6 +16,7 @@
 export default {
   props: {
     value: String,
+    placeholder: String,
     label: String,
     hint: String,
     filled: Boolean,

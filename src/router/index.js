@@ -71,7 +71,7 @@ const routes = [
       },
       {
         path: ":id/folder/:folder/archivos",
-        name: "Documentos",
+        name: "Datos",
         component: () =>
           import(
             /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/Archivos.vue"

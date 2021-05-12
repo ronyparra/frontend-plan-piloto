@@ -3,7 +3,7 @@
     <HeaderForm>
       <c-toolbar-title class="flex text-end title">
         <span class="font-weight-thin">Datos de</span>
-        {{ getClienteId.razonsocial || "" }}
+        {{ getClienteName  }}
       </c-toolbar-title>
     </HeaderForm>
     <Header>
@@ -57,8 +57,9 @@ export default {
     this.fetchArchivoIdCliente(params);
   },
   computed: {
-    ...mapGetters("cliente", ["getClienteId"]),
+    ...mapGetters("cliente", ["getClienteId","getClienteName"]),
     ...mapGetters("archivo", ["getArchivoIdCliente", "isLoading"]),
+
   },
   methods: {
     ...mapActions("cliente", ["fetchClienteId"]),
