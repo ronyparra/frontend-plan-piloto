@@ -15,6 +15,7 @@ export default {
   },
   fetchArchivoIdCliente: async ({ commit }, {id, idcarpeta}) => {
     commit(LOADING, true);
+    commit(SET_ID_CLIENTE,[]);
     try {
       const response = await get(`${url.cliente}/${id}?idcarpeta=${idcarpeta}`);
       commit(SET_ID_CLIENTE, response.data);

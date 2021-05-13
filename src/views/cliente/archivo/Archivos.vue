@@ -37,8 +37,8 @@
 import BtnAdd from "@/components/BtnAdd";
 import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
-import Header from "../../components/HeaderList";
-import HeaderForm from "../../components/HeaderForm";
+import Header from "../../../components/HeaderList";
+import HeaderForm from "../../../components/HeaderForm";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
@@ -77,8 +77,8 @@ export default {
   data: () => ({
     search: "",
     headers: [
-      { text: "Archivo", value: "descripcion" },
-      { text: "Informacion", value: "comentario" },
+      { text: "Titulo", value: "descripcion" },
+      { text: "Comentario", value: "comentario" },
       { text: "", value: "actions", align: "end", sortable: false },
     ],
   }),

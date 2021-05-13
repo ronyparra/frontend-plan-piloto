@@ -36,8 +36,8 @@
 <script>
 import BtnIcon from "@/components/BtnIcon";
 import SearchField from "@/components/SearchField";
-import Header from "../../components/HeaderList";
-import HeaderForm from "../../components/HeaderForm";
+import Header from "../../../components/HeaderList";
+import HeaderForm from "../../../components/HeaderForm";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {

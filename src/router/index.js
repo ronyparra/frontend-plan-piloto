@@ -66,7 +66,7 @@ const routes = [
         name: "Carpetas",
         component: () =>
           import(
-            /* webpackChunkName: "Carpetas Clientes" */ "../views/cliente/Folder.vue"
+            /* webpackChunkName: "Carpetas Clientes" */ "../views/cliente/folder/Folder.vue"
           ),
       },
       {
@@ -74,7 +74,7 @@ const routes = [
         name: "Datos",
         component: () =>
           import(
-            /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/Archivos.vue"
+            /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/archivo/Archivos.vue"
           ),
       },
       {
