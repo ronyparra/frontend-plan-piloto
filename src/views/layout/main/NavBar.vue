@@ -1,5 +1,5 @@
 <template>
-  <c-navigation-drawer class="mt-lg-1"  :value="value"  app :clipped="$vuetify.breakpoint.lgAndUp">
+  <c-navigation-drawer style="z-index: 8;" class="mt-lg-1"  :value="value"  app :clipped="$vuetify.breakpoint.lgAndUp">
     <template v-slot:prepend>
       <c-list-item two-line>
         <c-list-item-avatar>
