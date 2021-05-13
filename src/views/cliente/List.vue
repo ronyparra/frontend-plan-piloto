@@ -16,10 +16,14 @@
         :items-per-page="99999"
         hide-default-footer
       >
-        <template v-slot:[`item.actions`]="{ item }">
-          <c-icon color="primary" small class="mr-3" @click="setFolder(item)">
+       <template v-slot:[`item.folder`]="{ item }">
+          <c-icon color="primary" small  @click="setFolder(item)">
             folder
           </c-icon>
+
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+
           <c-icon color="primary" small @click="setData(item)">
             arrow_forward_ios
           </c-icon>
@@ -61,7 +65,8 @@ export default {
     headers: [
       { text: "Cliente", value: "razonsocial" },
       { text: "Ruc", value: "ruc" },
-      { text: "", value: "actions", align: "end", sortable: false },
+      { text: "", value: "folder", width: "1%", align: "end", sortable: false },
+      { text: "", value: "actions", width: "1%", align: "end", sortable: false },
     ],
   }),
 };
