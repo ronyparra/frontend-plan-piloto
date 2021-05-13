@@ -180,7 +180,7 @@ export default {
     ...mapGetters("archivo", ["getArchivoId"]),
     back() {
       const idarchivo = this.$route.params.idarchivo;
-      if (idarchivo) return this.$route.path.replace("/" + idarchivo, "");
+      if (idarchivo) return this.$route.path.replace("archivos/" + idarchivo, "archivos");
       return this.$route.path.replace("/add", "");
     },
     tableHeaders() {
