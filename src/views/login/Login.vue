@@ -26,6 +26,7 @@
             prepend-inner-icon="person_outline"
             rounded
             label="Usuario"
+             :messages="isDemo? 'demo' : ''"
             v-model="data.username"
           ></c-text-field>
           <c-text-field
@@ -34,6 +35,7 @@
             rounded
             :type="visibility ? 'text' : 'password'"
             autocomplete="off"
+            :messages="isDemo? 'demo' : ''"
             prepend-inner-icon="lock_open"
             :append-icon="visibility ? 'visibility_off' : 'visibility'"
             @click:append="visibility = !visibility"
@@ -63,6 +65,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
+import {baseURL} from "../../constans/appSettings"
 export default {
   data: () => ({
     color: "#3FA9FB",
@@ -74,8 +77,15 @@ export default {
     },
     response: null
   }),
+  computed:{
+        isDemo(){
+      if(baseURL === 'https://backendservicio.ronyparra.com/') return true;
+      return false;
+    },
+  },
   methods: {
     ...mapActions("auth", ["loginAction"]),
+
     async login() {
       if (!this.$refs.form.validate()) return null;
       this.response = await this.loginAction(this.data);

@@ -12,6 +12,7 @@
     :prepend-inner-icon="prependInnerIcon"
     :append-icon="appendIcon"
     :label="label"
+    :messages="messages"
     :flat="flat"
     :readonly="readonly"
     :filled="filled"
@@ -26,6 +27,7 @@
 export default {
   props: {
     value: [String, Number],
+    messages: String,
     color: {
       type: String,
       default: "primary",
