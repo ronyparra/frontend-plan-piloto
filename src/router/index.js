@@ -315,7 +315,7 @@ const routes = [
     path: "/analytics",
     component: () =>
       import(
-        /* webpackChunkName: "Analytics" */ "../views/analytics/Analytics.vue"
+        /* webpackChunkName: "Informes" */ "../views/analytics/Analytics.vue"
       ),
     meta: {
       requiresAuth: true,
