@@ -3,4 +3,4 @@ export default {
   getPendienteId: (state) => state.dataId,
   isLoading: (state) => state.loading,
   getDashboard: (state) => state.dashboard
-};
+}

@@ -4,56 +4,56 @@
   </div>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
-import DataTable from "./DataTable";
+import { mapActions, mapGetters } from 'vuex'
+import DataTable from './DataTable'
 export default {
   components: {
-    DataTable,
+    DataTable
   },
   data: () => ({
     headers: [
       {
-        title: "Categoria",
-        value: "descripcion",
-        class: "caption text-start font-weight-medium",
-        headClass: "caption text-start",
+        title: 'Categoria',
+        value: 'descripcion',
+        class: 'caption text-start font-weight-medium',
+        headClass: 'caption text-start'
       },
       {
-        title: "Cantidad",
-        value: "cantidad",
-        class: "caption  text-end font-weight-black",
-        headClass: "caption text-end",
+        title: 'Cantidad',
+        value: 'cantidad',
+        class: 'caption  text-end font-weight-black',
+        headClass: 'caption text-end',
         number: true,
-        sortable: true,
+        sortable: true
       },
       {
-        title: "USD",
-        value: "dolar",
-        class: "caption font-weight-black text-end",
-        headClass: "caption text-end",
-        number: true,
-        percent: true,
-        sortable: true,
-      },
-      {
-        title: "GS",
-        value: "guarani",
-        class: "caption font-weight-black text-end",
-        headClass: "caption text-end",
+        title: 'USD',
+        value: 'dolar',
+        class: 'caption font-weight-black text-end',
+        headClass: 'caption text-end',
         number: true,
         percent: true,
-        sortable: true,
+        sortable: true
       },
-    ],
+      {
+        title: 'GS',
+        value: 'guarani',
+        class: 'caption font-weight-black text-end',
+        headClass: 'caption text-end',
+        number: true,
+        percent: true,
+        sortable: true
+      }
+    ]
   }),
-  mounted() {
-    this.fetchCategoria();
+  mounted () {
+    this.fetchCategoria()
   },
   computed: {
-    ...mapGetters("analytics", ["getCategoria"]),
+    ...mapGetters('analytics', ['getCategoria'])
   },
   methods: {
-    ...mapActions("analytics", ["fetchCategoria"]),
-  },
-};
+    ...mapActions('analytics', ['fetchCategoria'])
+  }
+}
 </script>

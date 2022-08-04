@@ -1,6 +1,6 @@
 <template>
   <div class="fill-height">
-    <c-app-bar app dense flat style="z-index: -1"></c-app-bar>
+
     <div class="title fill-height">
       <c-card outlined elevation="1" class="fill-height d-flex flex-row">
         <v-tabs vertical>
@@ -18,7 +18,7 @@
           </v-tab>
           <v-tabs-items vertical class="fill-height">
             <c-card elevation="0" color="blue-grey lighten-5" class="fill-height">
-              <c-container filled>
+              <v-container filled>
                 <div class="ml-2 mb-4 d-flex justify-space-between">
                   <div class="subtitle-1 font-weight-medium">
                     {{ getTitle($route.path) }}
@@ -35,7 +35,7 @@
                 <transition>
                   <router-view></router-view>
                 </transition>
-              </c-container>
+              </v-container>
             </c-card>
           </v-tabs-items>
         </v-tabs>
@@ -44,58 +44,58 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     nav: [
       {
-        title: "Saldos",
-        icon: "assignment",
-        path: "/analytics/",
+        title: 'Saldos',
+        icon: 'assignment',
+        path: '/analytics/'
       },
       {
-        title: "Cobros Terminados",
-        icon: "receipt",
-        path: "/analytics/cobro",
+        title: 'Cobros Terminados',
+        icon: 'receipt',
+        path: '/analytics/cobro'
       },
       {
-        title: "Rendimiento en pendientes",
-        icon: "query_builder",
-        path: "/analytics/pendiente",
+        title: 'Rendimiento en pendientes',
+        icon: 'query_builder',
+        path: '/analytics/pendiente'
       },
       {
-        title: "Top Clientes",
-        icon: "account_box",
-        path: "/analytics/cliente",
+        title: 'Top Clientes',
+        icon: 'account_box',
+        path: '/analytics/cliente'
       },
       {
-        title: "Top Conceptos",
-        icon: "add_shopping_cart",
-        path: "/analytics/concepto",
+        title: 'Top Conceptos',
+        icon: 'add_shopping_cart',
+        path: '/analytics/concepto'
       },
       {
-        title: "Top Tecnicos",
-        icon: "engineering",
-        path: "/analytics/tecnico",
+        title: 'Top Tecnicos',
+        icon: 'engineering',
+        path: '/analytics/tecnico'
       },
       {
         title: 'Top Categorias',
         icon: 'category',
         path: '/analytics/categoria'
-      },
-      
-    ],
+      }
+
+    ]
   }),
   computed: {
-    ...mapGetters("analytics", ["getParams", "isLoading"]),
+    ...mapGetters('analytics', ['getParams', 'isLoading'])
   },
   methods: {
-    getTitle(current_path) {
-      const path = this.nav.find(({ path }) => path === current_path);
-      return path?.title || "";
-    },
-  },
-};
+    getTitle (currentPath) {
+      const path = this.nav.find(({ path }) => path === currentPath)
+      return path?.title || ''
+    }
+  }
+}
 </script>
 <style lang="css" scoped>
 .v-tab {

@@ -6,12 +6,12 @@ export default {
   props: {
     nav: {
       type: Boolean,
-      default: false,
+      default: false
     },
     dense: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

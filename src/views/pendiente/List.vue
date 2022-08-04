@@ -2,11 +2,9 @@
   <div>
     <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnAdd to="/pendiente/add" />
     </Header>
-
-      <div class="mt-7">
         <v-data-table
           :headers="headers"
           :search="search"
@@ -29,7 +27,7 @@
             <div class="caption">{{ item.idtipo_pendiente.descripcion }}</div>
           </template>
           <template v-slot:[`item.actions`]="{ item }">
-            <c-btn
+            <v-btn
               fab
               x-small
               text
@@ -40,46 +38,44 @@
               <c-icon>
                 arrow_forward_ios
               </c-icon>
-            </c-btn>
+            </v-btn>
           </template>
         </v-data-table>
-      </div>
-
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import SearchField from "@/components/SearchField";
-import Header from "../../components/HeaderList";
-import { mapActions, mapGetters } from "vuex";
+import BtnAdd from '@/components/BtnAdd'
+import SearchField from '@/components/SearchField'
+import Header from '../../components/HeaderList'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     Header,
     BtnAdd,
-    SearchField,
+    SearchField
   },
-  mounted() {
-    this.fetchPendiente();
+  mounted () {
+    this.fetchPendiente()
   },
   computed: {
-    ...mapGetters("pendiente", ["getPendiente", "isLoading"]),
+    ...mapGetters('pendiente', ['getPendiente', 'isLoading'])
   },
   methods: {
-    ...mapActions("pendiente", ["fetchPendiente", "fetchPendienteId"]),
-    async setData(data) {
-      await this.fetchPendienteId({ data });
-      this.$router.push({ path: `/pendiente/edit/` + data.idpendiente });
-    },
+    ...mapActions('pendiente', ['fetchPendiente', 'fetchPendienteId']),
+    async setData (data) {
+      await this.fetchPendienteId({ data })
+      this.$router.push({ path: '/pendiente/edit/' + data.idpendiente })
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     headers: [
-      { value: "activo", align: "start" },
-      { text: "Pendiente", value: "descripcion" },
-      { text: "Tipo", value: "idtipo_pendiente.descripcion", align: "end" },
+      { value: 'activo', align: 'start' },
+      { text: 'Pendiente', value: 'descripcion' },
+      { text: 'Tipo', value: 'idtipo_pendiente.descripcion', align: 'end' },
 
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

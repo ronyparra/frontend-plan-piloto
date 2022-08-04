@@ -1,14 +1,14 @@
 <template>
-  <c-textarea
+  <v-textarea
     :value="value"
     :label="label"
     :readonly="readonly"
     :placeholder="placeholder"
-    filled
     dense
+    outlined
     rounded
     @input="$emit('input', $event)"
-  ></c-textarea>
+  ></v-textarea>
 </template>
 <script>
 export default {
@@ -16,7 +16,7 @@ export default {
     value: String,
     placeholder: String,
     label: String,
-    readonly: Boolean,
-  },
-};
+    readonly: Boolean
+  }
+}
 </script>

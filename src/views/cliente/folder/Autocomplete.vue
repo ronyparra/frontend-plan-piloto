@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, String],
@@ -42,33 +42,33 @@ export default {
     prefix: String,
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
+      default: true
     },
     redirect: String,
     placeholder: String,
     label: {
       type: String,
-      default: "Carpeta",
+      default: 'Carpeta'
     },
     to: {
       type: String,
-      default: "/folder/add",
-    },
+      default: '/folder/add'
+    }
   },
-  mounted() {
-    this.fetchFolder();
+  mounted () {
+    this.fetchFolder()
   },
   computed: {
-    ...mapGetters("folder", ["getFolder", "isLoading"]),
+    ...mapGetters('folder', ['getFolder', 'isLoading'])
   },
   methods: {
-    ...mapActions("folder", ["fetchFolder"]),
+    ...mapActions('folder', ['fetchFolder']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

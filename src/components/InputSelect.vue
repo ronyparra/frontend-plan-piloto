@@ -41,36 +41,36 @@ export default {
     placeholder: String,
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
+      default: true
     },
     rules: {
       type: Array,
-      default: function() {
-        return this.validator;
-      },
+      default: function () {
+        return this.validator
+      }
     },
     returnObject: {
       type: Boolean,
-      default: false,
+      default: false
     },
     to: String,
-    redirect: String,
+    redirect: String
   },
   computed: {
     validator: (vm) => {
-      if (vm.multiple) return [(v) => v.length > 0 || "Obligatorio"];
+      if (vm.multiple) return [(v) => v.length > 0 || 'Obligatorio']
       return vm.returnObject
-        ? [(v) => !!v[vm.itemValue] || "Obligatorio"]
-        : [(v) => !!v || "Obligatorio"];
-    },
+        ? [(v) => !!v[vm.itemValue] || 'Obligatorio']
+        : [(v) => !!v || 'Obligatorio']
+    }
   },
   methods: {
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

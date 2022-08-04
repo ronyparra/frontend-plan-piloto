@@ -1,5 +1,5 @@
 <template>
-  <c-btn
+  <v-btn
     :elevation="elevation"
     text
     color="primary"
@@ -7,12 +7,12 @@
     x-small
     :disabled="disabled"
     @click="$emit('click')"
-    ><c-icon><slot/></c-icon></c-btn
+    ><c-icon><slot/></c-icon></v-btn
   >
 </template>
 <script>
 export default {
-  props:{
+  props: {
     elevation: {
       type: String,
       default: '2'
@@ -23,4 +23,3 @@ export default {
   }
 }
 </script>
-

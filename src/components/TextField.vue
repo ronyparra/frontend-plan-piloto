@@ -5,11 +5,9 @@
     :rules="rules"
     :readonly="readonly"
     :placeholder="placeholder"
-    filled
     dense
     flat
     rounded
-    background-color="grey lighten-4"
     @input="$emit('input', $event)"
   ></c-text-field>
 </template>
@@ -21,6 +19,6 @@ export default {
     readonly: Boolean,
     placeholder: String,
     rules: Array
-  },
-};
+  }
+}
 </script>

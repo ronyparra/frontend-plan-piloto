@@ -10,15 +10,14 @@ export default {
     activeClass: {
       type: Boolean,
       default: false
-    },
+    }
   },
 
-  computed:{
-    activeFilter(){
-      if(this.activeClass) return 'red'
+  computed: {
+    activeFilter () {
+      if (this.activeClass) return 'red'
       return undefined
     }
   }
-};
+}
 </script>
-

@@ -1,29 +1,28 @@
-import axios from "axios";
-import { baseURL } from "@/constans/appSettings";
-import { getToken } from "@/storage/token.storage";
+import axios from 'axios'
+import { baseURL } from '@/constans/appSettings'
+import { getToken } from '@/storage/token.storage'
 
 const instance = axios.create({
   baseURL: `${baseURL}`,
   headers: {
-    "Content-Type": "application/json",
-  },
-});
+    'Content-Type': 'application/json'
+  }
+})
 
 instance.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    const token = getToken()
     if (token) {
-       config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`
     } else {
-       delete config.headers.common.Authorization;
+      delete config.headers.common.Authorization
     }
-    return config;
+    return config
   },
 
   (error) => Promise.reject(error)
-);
+)
 
-export default instance;
+export default instance
 
-export const request = async (data) => await instance(data);
-
+export const request = async (data) => await instance(data)

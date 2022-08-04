@@ -21,37 +21,37 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, Array],
     rules: Array,
     returnObject: Boolean,
-    label:{
+    label: {
       type: String,
       default: 'Tecnico'
     },
     clearable: Boolean,
     readonly: Boolean,
     placeholder: String,
-    multiple: Boolean,
+    multiple: Boolean
   },
-  mounted() {
-    this.fetchUsuario();
+  mounted () {
+    this.fetchUsuario()
   },
   computed: {
-    ...mapGetters("usuario", ["getUsuario", "isLoading"]),
+    ...mapGetters('usuario', ['getUsuario', 'isLoading'])
   },
   methods: {
-    ...mapActions("usuario", ["fetchUsuario"]),
+    ...mapActions('usuario', ['fetchUsuario']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>
 
 <style></style>

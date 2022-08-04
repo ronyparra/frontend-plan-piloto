@@ -1,5 +1,5 @@
 export default {
   getConcepto: (state) => state.data,
   getConceptoId: (state) => state.dataId,
-  isLoading: (state) => state.loading,
-};
+  isLoading: (state) => state.loading
+}

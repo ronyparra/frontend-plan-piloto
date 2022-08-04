@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, String],
@@ -38,33 +38,33 @@ export default {
     readonly: Boolean,
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
+      default: true
     },
     redirect: String,
     placeholder: String,
     label: {
       type: String,
-      default: "Cliente",
+      default: 'Cliente'
     },
     to: {
       type: String,
-      default: "/cliente/add",
-    },
+      default: '/cliente/add'
+    }
   },
-  mounted() {
-    this.fetchCliente();
+  mounted () {
+    this.fetchCliente()
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    ...mapGetters('cliente', ['getCliente', 'isLoading'])
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions('cliente', ['fetchCliente']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

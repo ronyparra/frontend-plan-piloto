@@ -1,16 +1,16 @@
 <template>
   <div>
     <HeaderForm>
-      <c-toolbar-title class="flex text-end title">
+      <v-toolbar-title class="flex text-end title">
         <span class="font-weight-thin">Datos de</span>
         {{ getClienteName  }}
-      </c-toolbar-title>
+      </v-toolbar-title>
     </HeaderForm>
     <Header>
       <BtnIcon elevation="0" @click="routeBack()">arrow_back</BtnIcon>
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnAdd :to="`${$route.path}/add`" />
     </Header>
 
@@ -34,53 +34,53 @@
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import BtnIcon from "@/components/BtnIcon";
-import SearchField from "@/components/SearchField";
-import Header from "../../../components/HeaderList";
-import HeaderForm from "../../../components/HeaderForm";
-import { mapActions, mapGetters } from "vuex";
+import BtnAdd from '@/components/BtnAdd'
+import BtnIcon from '@/components/BtnIcon'
+import SearchField from '@/components/SearchField'
+import Header from '../../../components/HeaderList'
+import HeaderForm from '../../../components/HeaderForm'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     HeaderForm,
     Header,
     BtnIcon,
     BtnAdd,
-    SearchField,
+    SearchField
   },
-  mounted() {
-    if (!this.getClienteId) this.fetchClienteId({ id: this.$route.params.id });
+  mounted () {
+    if (!this.getClienteId) this.fetchClienteId({ id: this.$route.params.id })
     const params = {
       id: this.$route.params.id,
-      idcarpeta: this.$route.params.folder,
-    };
-    this.fetchArchivoIdCliente(params);
+      idcarpeta: this.$route.params.folder
+    }
+    this.fetchArchivoIdCliente(params)
   },
   computed: {
-    ...mapGetters("cliente", ["getClienteId","getClienteName"]),
-    ...mapGetters("archivo", ["getArchivoIdCliente", "isLoading"]),
+    ...mapGetters('cliente', ['getClienteId', 'getClienteName']),
+    ...mapGetters('archivo', ['getArchivoIdCliente', 'isLoading'])
 
   },
   methods: {
-    ...mapActions("cliente", ["fetchClienteId"]),
-    ...mapActions("archivo", ["fetchArchivoIdCliente", "fetchArchivoId"]),
-    async setData(data) {
-      await this.fetchArchivoId({ data });
-      this.$router.push({ path: this.$route.path + "/" + data.idarchivo });
+    ...mapActions('cliente', ['fetchClienteId']),
+    ...mapActions('archivo', ['fetchArchivoIdCliente', 'fetchArchivoId']),
+    async setData (data) {
+      await this.fetchArchivoId({ data })
+      this.$router.push({ path: this.$route.path + '/' + data.idarchivo })
     },
-    routeBack() {
+    routeBack () {
       this.$router.push({
-        path: `/cliente/` + this.$route.params.id + "/folder",
-      });
-    },
+        path: '/cliente/' + this.$route.params.id + '/folder'
+      })
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     headers: [
-      { text: "Titulo", value: "descripcion" },
-      { text: "Comentario", value: "comentario" },
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: 'Titulo', value: 'descripcion' },
+      { text: 'Comentario', value: 'comentario' },
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

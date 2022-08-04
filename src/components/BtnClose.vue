@@ -1,5 +1,5 @@
 <template>
-  <c-btn
+  <v-btn
     elevation="2"
     fab
     x-small
@@ -7,13 +7,13 @@
     text
     plain
     color="primary"
-    ><c-icon>clear</c-icon></c-btn
+    ><c-icon>clear</c-icon></v-btn
   >
 </template>
 <script>
 export default {
-    props:{
-        to: String
-    }
-};
+  props: {
+    to: String
+  }
+}
 </script>

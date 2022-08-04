@@ -22,44 +22,44 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, Array, String],
     rules: Array,
     returnObject: Boolean,
     multiple: Boolean,
-    clearable:Boolean,
+    clearable: Boolean,
     placeholder: String,
-    label:{
+    label: {
       type: String,
       default: 'Moneda'
     },
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  mounted() {
-    this.fetchMoneda();
+  mounted () {
+    this.fetchMoneda()
   },
   computed: {
-    ...mapGetters("moneda", ["getMoneda", "isLoading"]),
+    ...mapGetters('moneda', ['getMoneda', 'isLoading'])
   },
   methods: {
-    ...mapActions("moneda", ["fetchMoneda"]),
+    ...mapActions('moneda', ['fetchMoneda']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>
 
 <style></style>

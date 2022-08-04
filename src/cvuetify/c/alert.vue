@@ -6,7 +6,7 @@ export default {
   props: {
     dense: Boolean,
     type: String,
-    text: Boolean,
-  },
-};
+    text: Boolean
+  }
+}
 </script>

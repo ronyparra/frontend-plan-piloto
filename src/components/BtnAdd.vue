@@ -1,5 +1,5 @@
 <template>
-  <c-btn
+  <v-btn
     elevation="2"
     fab
     :x-small="xSmall"
@@ -8,17 +8,17 @@
     color="primary"
     :to="to"
     @click="$emit('click')"
-    ><c-icon>add</c-icon></c-btn
+    ><c-icon>add</c-icon></v-btn
   >
 </template>
 <script>
 export default {
   props: {
     to: String,
-    "x-small": {
+    'x-small': {
       type: Boolean,
-      default: true,
-    },
-  },
-};
+      default: true
+    }
+  }
+}
 </script>

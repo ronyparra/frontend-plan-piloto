@@ -10,21 +10,21 @@ export default {
       required: true
     },
     label: String,
-    inset:{
-        type: Boolean,
-        default: false
+    inset: {
+      type: Boolean,
+      default: false
     }
   },
-  data:()=>({
+  data: () => ({
     swt: false
   }),
-  mounted(){
+  mounted () {
     this.swt = this.value
   },
-  watch:{
-    value(){
-       this.swt = this.value
+  watch: {
+    value () {
+      this.swt = this.value
     }
   }
-};
+}
 </script>

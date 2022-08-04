@@ -1,4 +1,4 @@
-export const FETCH = "fetchMoneda";
-export const LOADING = "loadingMoneda";
+export const FETCH = 'fetchMoneda'
+export const LOADING = 'loadingMoneda'
 
-export const url = "/moneda";
+export const url = '/moneda'

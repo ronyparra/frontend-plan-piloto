@@ -2,10 +2,10 @@
   <div>
     <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
     </Header>
-    <div class="mt-9">
+    <div>
       <Filters v-if="filter" :params="getParams" />
 
       <v-data-table
@@ -26,7 +26,7 @@
           }}</c-chip>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <c-btn
+          <v-btn
             fab
             x-small
             text
@@ -37,60 +37,60 @@
             <c-icon>
               arrow_forward_ios
             </c-icon>
-          </c-btn>
+          </v-btn>
         </template>
       </v-data-table>
     </div>
   </div>
 </template>
 <script>
-import BtnIcon from "@/components/BtnIcon";
-import SearchField from "@/components/SearchField";
-import { mapActions, mapGetters } from "vuex";
-import { currencyFormatter } from "@/util/number.util";
-import { formatColor } from "../actividad/formatter";
-import Filters from "./Filter";
-import Header from "../../components/HeaderList";
+import BtnIcon from '@/components/BtnIcon'
+import SearchField from '@/components/SearchField'
+import { mapActions, mapGetters } from 'vuex'
+import { currencyFormatter } from '@/util/number.util'
+import { formatColor } from '../actividad/formatter'
+import Filters from './Filter'
+import Header from '../../components/HeaderList'
 export default {
   components: {
     Header,
     Filters,
     BtnIcon,
-    SearchField,
+    SearchField
   },
   watch: {
-    $route(to) {
-      if (to.path === "/cobro") this.fetchCobro(this.getParams);
-    },
+    $route (to) {
+      if (to.path === '/cobro') this.fetchCobro(this.getParams)
+    }
   },
-  mounted() {
-      this.filter =this.$vuetify.breakpoint.mobile ? false : true;
-    this.fetchCobro(this.getParams);
+  mounted () {
+    this.filter = !this.$vuetify.breakpoint.mobile
+    this.fetchCobro(this.getParams)
   },
   computed: {
-    ...mapGetters("cobro", ["getCobro", "isLoading","getParams"]),
+    ...mapGetters('cobro', ['getCobro', 'isLoading', 'getParams'])
   },
   methods: {
-    ...mapActions("cobro", ["fetchCobro", "fetchCobroId"]),
+    ...mapActions('cobro', ['fetchCobro', 'fetchCobroId']),
     color: (idestadocobro) => formatColor(idestadocobro),
-    async setData(data) {
-      await this.fetchCobroId({ data });
-      this.$router.push({ path: `/cobro/edit/` + data.idcliente_cobro });
+    async setData (data) {
+      await this.fetchCobroId({ data })
+      this.$router.push({ path: '/cobro/edit/' + data.idcliente_cobro })
     },
-    toCurrency(value) {
-      return currencyFormatter(value);
-    },
+    toCurrency (value) {
+      return currencyFormatter(value)
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     filter: false,
     headers: [
-      { text: "Cliente", value: "idcliente.razonsocial" },
-      { text: "Moneda", value: "idmoneda.abreviatura", align: "end" },
-      { text: "Monto a Cobrar", value: "saldoacobrar", align: "end" },
-      { text: "Estado", value: "idestadocobro", align: "end" },
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: 'Cliente', value: 'idcliente.razonsocial' },
+      { text: 'Moneda', value: 'idmoneda.abreviatura', align: 'end' },
+      { text: 'Monto a Cobrar', value: 'saldoacobrar', align: 'end' },
+      { text: 'Estado', value: 'idestadocobro', align: 'end' },
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

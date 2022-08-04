@@ -8,16 +8,16 @@ export default {
   props: {
     value: {
       type: Boolean,
-      default: false,
+      default: false
     },
     absolute: {
       type: Boolean,
-      default: false,
+      default: false
     },
     opacity: {
       type: Number,
-      default: 0.46,
-    },
-  },
-};
+      default: 0.46
+    }
+  }
+}
 </script>

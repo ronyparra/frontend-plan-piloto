@@ -1,95 +1,136 @@
 <template>
-  <c-container fluid fill-height class="justify-center">
-    <c-col
-      cols="12"
-      sm="6"
-      md="4"
-      class="fill-height d-flex flex-column justify-space-between "
-    >
-      <div class="d-flex flex-column align-center">
-        <c-img
-          class="d-sm-none d-md-flex"
-          max-width="60%"
-          :src="require('@/assets/login.jpg')"
-        ></c-img>
-        <div class="title text-h4 ">Bienvenido!</div>
-        <div class="caption d-sm-none d-md-flex">
-          Inicie sesión para continuar
-        </div>
-      </div>
-      <c-container>
-        <c-form ref="form">
-          <c-text-field
-            color="primary"
-            outlined
-            autocomplete="off"
-            prepend-inner-icon="person_outline"
-            rounded
-            label="Usuario"
-             :messages="isDemo? 'demo' : ''"
-            v-model="data.username"
-          ></c-text-field>
-          <c-text-field
-            color="pr"
-            outlined
-            rounded
-            :type="visibility ? 'text' : 'password'"
-            autocomplete="off"
-            :messages="isDemo? 'demo' : ''"
-            prepend-inner-icon="lock_open"
-            :append-icon="visibility ? 'visibility_off' : 'visibility'"
-            @click:append="visibility = !visibility"
-            label="Contrasena"
-            v-model="data.password"
-          ></c-text-field>
-         
-        </c-form>
-        <div class="mt-n8 d-flex justify-end">
-          <c-switch
-            label="Recuerdame"
-            v-model="data.remember"
-            inset
-            class="mr-2"
-          ></c-switch>
-        </div>
-         <c-alert dense text type="error" v-if="response" class="caption">{{response}}</c-alert>
-      </c-container>
+  <v-container class="r-login fill-height pa-0 pa-md-1">
+    <v-row dense class="r-login__content">
+      <v-col cols="12" lg="8" class="d-none d-md-flex"></v-col>
+      <v-col cols="12" lg="4" class="d-flex align-center justify-center pa-0">
+        <v-sheet elevation="2" class="rounded-lg r-login__card">
+          <v-container
+            class="d-flex flex-column align-center justify-center fill-height px-10"
+          >
+            <div class="d-flex flex-column align-center">
+              <div class="title text-h5">Bienvenido!</div>
+              <img class="r-login__img my-4" :src="require('@/assets/login.jpg')" />
+              <div class=" d-sm-none d-md-flex">
+                Inicie sesión para continuar
+              </div>
+            </div>
+            <v-form ref="form" @submit.prevent="login" class="my-6">
+              <v-row>
+                <v-col cols="12">
+                  <c-text-field
+                    dense
+                    color="primary"
+                    prepend-inner-icon="person_outline"
+                    label="Usuario"
+                    :messages="isDemo ? 'demo' : ''"
+                    v-model="data.username"
+                  ></c-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <c-text-field
+                    dense
+                    color="primary"
+                    :type="visibility ? 'text' : 'password'"
+                    :messages="isDemo ? 'demo' : ''"
+                    prepend-inner-icon="lock_open"
+                    :append-icon="visibility ? 'visibility_off' : 'visibility'"
+                    @click:append="visibility = !visibility"
+                    label="Contrasena"
+                    v-model="data.password"
+                  ></c-text-field>
+                </v-col>
 
-      <c-container>
-        <c-btn block dark x-large rounded color="primary" @click="login()"
-          >Iniciar Sesion</c-btn
-        >
-      </c-container>
-    </c-col>
-  </c-container>
+                <v-col cols="12">
+                  <c-switch
+                    class="mt-0 pt-0"
+                    label="Recuerdame"
+                    v-model="data.remember"
+                    inset
+                  ></c-switch>
+                </v-col>
+                <v-col cols="12" class="d-flex justify-center">
+                  <c-alert
+                    dense
+                    text
+                    type="error"
+                    v-if="response"
+                    class="caption"
+                    >{{ response }}</c-alert
+                  >
+
+                  <v-btn type="submit" dark rounded color="primary" @click="login()"
+                    >Iniciar Sesion</v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-container>
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 <script>
-import { mapActions } from "vuex";
-import {baseURL} from "../../constans/appSettings"
+import { mapActions } from 'vuex'
+import { baseURL } from '@/constans/appSettings'
 export default {
   data: () => ({
-    color: "#3FA9FB",
+    color: '#3FA9FB',
     visibility: false,
     data: {
-      username: "",
-      password: "",
-      remember: false,
+      username: '',
+      password: '',
+      remember: false
     },
     response: null
   }),
-  computed:{
-        isDemo(){
-      if(baseURL === 'https://backendservicio.ronyparra.com/') return true;
-      return false;
-    },
+  computed: {
+    isDemo () {
+      if (baseURL === 'https://backendservicio.ronyparra.com/') return true
+      return false
+    }
   },
   methods: {
-    ...mapActions("auth", ["loginAction"]),
+    ...mapActions('auth', ['loginAction']),
 
-    async login() {
-      if (!this.$refs.form.validate()) return null;
-      this.response = await this.loginAction(this.data);
-    },
-  },
-};
+    async login () {
+      if (!this.$refs.form.validate()) return null
+      this.response = await this.loginAction(this.data)
+    }
+  }
+}
 </script>
+<style lang="scss" scoped>
+.h100 {
+  height: 100%;
+}
+.r-login {
+  &__img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
+  }
+  &__card {
+    height: auto;
+    max-width: 350px;
+  }
+  &__content {
+    height: auto;
+  }
+}
+@media (max-width: 500px) {
+  .r-login {
+    .elevation-2 {
+      box-shadow: none !important;
+    }
+    &__content {
+      height: 100%;
+    }
+    &__card {
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+}
+</style>

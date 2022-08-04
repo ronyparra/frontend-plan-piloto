@@ -17,12 +17,12 @@ export default {
     clipped: Boolean,
     absolute: {
       type: Boolean,
-      default: false,
+      default: false
     },
     temporary: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

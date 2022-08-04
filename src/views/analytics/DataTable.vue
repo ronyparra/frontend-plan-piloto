@@ -1,13 +1,13 @@
 <template>
   <div>
-    <c-row dense v-if="!disabledSearch" class="mb-1">
+    <v-row dense v-if="!disabledSearch" class="mb-1">
       <v-spacer></v-spacer>
-      <c-col cols="12" sm="6">
+      <v-col cols="12" sm="6">
         <SearchField v-model="search" />
-      </c-col>
-    </c-row>
-    <c-row dense style="max-height: 61vh" class="overflow-y-auto">
-      <c-col cols="12">
+      </v-col>
+    </v-row>
+    <v-row dense style="max-height: 61vh" class="overflow-y-auto">
+      <v-col cols="12">
         <table id="my-table" style="width:100%">
           <tr>
             <th
@@ -48,11 +48,11 @@
             </td>
           </tr>
         </table>
-      </c-col>
-    </c-row>
+      </v-col>
+    </v-row>
 
-    <c-row class="py-1" :key="key">
-      <c-col cols="12">
+    <v-row class="py-1" :key="key">
+      <v-col cols="12">
         <table style="width:100%">
           <tr>
             <td
@@ -69,104 +69,104 @@
             </td>
           </tr>
         </table>
-      </c-col>
-    </c-row>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
-import { currencyFormatter } from "../../util/number.util";
-import SearchField from "../../components/SearchField";
-import Sortable from "./Sortable";
+import { currencyFormatter } from '../../util/number.util'
+import SearchField from '../../components/SearchField'
+import Sortable from './Sortable'
 export default {
   components: {
     Sortable,
-    SearchField,
+    SearchField
   },
   props: {
     headers: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     items: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     filter: String,
     disabledSearch: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data: () => ({
     headsFormated: [],
     itemsFormated: [],
     asc: true,
-    search: "",
-    key: 1,
+    search: '',
+    key: 1
   }),
-  mounted() {
+  mounted () {
     this.headsFormated = this.headers.map((x) => {
-      return { ...x, activeClass: false };
-    });
-    this.itemsFormated = JSON.parse(JSON.stringify(this.items));
-    this.filterItems();
+      return { ...x, activeClass: false }
+    })
+    this.itemsFormated = JSON.parse(JSON.stringify(this.items))
+    this.filterItems()
   },
   watch: {
-    items(val) {
-      this.itemsFormated = JSON.parse(JSON.stringify(val));
-      this.filterItems();
-    },
+    items (val) {
+      this.itemsFormated = JSON.parse(JSON.stringify(val))
+      this.filterItems()
+    }
   },
   computed: {
-    itemsFiltered() {
+    itemsFiltered () {
       return this.itemsFormated.filter((item) =>
         Object.keys(item).some((key) =>
           String(item[key])
             .toLowerCase()
             .includes(this.search.toLowerCase())
         )
-      );
+      )
     },
     getSubTotal: (vm) => (column) =>
       vm.itemsFiltered.reduce((acc, curr) => (acc = acc + curr[column]), 0),
     getWidth: () => (index) => {
-      if (!document.getElementById("my-table")) return "";
-      if (!document.getElementById("my-table").rows[0].cells[index]) return "";
+      if (!document.getElementById('my-table')) return ''
+      if (!document.getElementById('my-table').rows[0].cells[index]) return ''
       return `width: ${
-        document.getElementById("my-table").rows[0].cells[index].offsetWidth
-      }px;`;
-    },
+        document.getElementById('my-table').rows[0].cells[index].offsetWidth
+      }px;`
+    }
   },
   methods: {
     formatNumber: (value) => currencyFormatter(value),
-    getPercent(value, column) {
-      if(!value) return '';
-      const result = (value * 100) / this.getSubTotal(column);
-      return "(" + currencyFormatter(result) + "%)";
+    getPercent (value, column) {
+      if (!value) return ''
+      const result = (value * 100) / this.getSubTotal(column)
+      return '(' + currencyFormatter(result) + '%)'
     },
-    filterItems(filter, desc) {
+    filterItems (filter, desc) {
       if (!filter && desc === undefined) {
-        filter = this.filter;
-        desc = true;
+        filter = this.filter
+        desc = true
       }
       this.headsFormated.map((x) => {
-        x.activeClass = x.value === filter ? true : false;
-      });
+        x.activeClass = x.value === filter
+      })
       this.itemsFormated.sort((a, b) => {
         return a[filter] > b[filter]
           ? !desc
             ? 1
             : -1
           : a[filter] < b[filter]
-          ? !desc
-            ? -1
-            : 1
-          : 0;
-      });
-      setTimeout(() => this.key++, 600);
-    },
-  },
-};
+            ? !desc
+              ? -1
+              : 1
+            : 0
+      })
+      setTimeout(() => this.key++, 600)
+    }
+  }
+}
 </script>
 <style scoped>
 #td-total {

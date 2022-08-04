@@ -13,15 +13,15 @@
       <v-text-field
         :value="value"
         :label="label"
-        prepend-icon="calendar_today"
+        append-icon="calendar_today"
         readonly
         :rules="rules"
-        :filled="filled"
+        outlined
         :dense="dense"
         :placeholder="placeholder"
         flat
         rounded
-        background-color="grey lighten-4"
+        hide-details
         v-bind="attrs"
         v-on="on"
         @blur="date = parseDate(value)"
@@ -33,7 +33,7 @@
   </v-menu>
 </template>
 <script>
-import { format_date, parse_date } from "@/util/date.util";
+import { formatDate, parseDate } from '@/util/date.util'
 export default {
   props: {
     value: String,
@@ -42,7 +42,7 @@ export default {
     readonly: Boolean,
     rules: {
       type: [Array],
-      default: () => [(v) => !!v || "Obligatorio"],
+      default: () => [(v) => !!v || 'Obligatorio']
     },
     dense: {
       type: Boolean,
@@ -53,22 +53,22 @@ export default {
       default: true
     }
   },
-  mounted(){
+  mounted () {
     this.date = this.parseDate(this.value)
   },
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
-    menu1: false,
+    menu1: false
   }),
   watch: {
-    date() {
-      this.$emit("input", format_date(this.date));
-    },
+    date () {
+      this.$emit('input', formatDate(this.date))
+    }
   },
   methods: {
-    parseDate(date) {
-      return parse_date(date);
-    },
-  },
-};
+    parseDate (date) {
+      return parseDate(date)
+    }
+  }
+}
 </script>

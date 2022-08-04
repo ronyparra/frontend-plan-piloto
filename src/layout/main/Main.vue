@@ -2,36 +2,34 @@
   <v-app>
     <AppBar @click:drawer="drawer = !drawer" />
     <NavBar v-model="drawer" />
-    <c-main>
-      <c-col cols="12" class="fill-height" style="background-color: white;">
+    <v-main class="fill-height">
         <transition>
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
         </transition>
-      </c-col>
-    </c-main>
+    </v-main>
     <RequestEvents />
     <Footer v-if="$vuetify.breakpoint.mobile" />
   </v-app>
 </template>
 <script>
-import AppBar from "./AppBar";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
-import RequestEvents from "@/views/request/RequestEvents";
+import AppBar from './AppBar'
+import NavBar from './NavBar'
+import Footer from './Footer'
+import RequestEvents from '@/views/request/RequestEvents'
 export default {
   components: {
     RequestEvents,
     AppBar,
     NavBar,
-    Footer,
+    Footer
   },
   data: () => ({
-    drawer: false,
+    drawer: false
   }),
-  mounted(){
-    this.drawer = this.$vuetify.breakpoint.mobile ? false : true;
+  mounted () {
+    this.drawer = !this.$vuetify.breakpoint.mobile
   }
-};
+}
 </script>

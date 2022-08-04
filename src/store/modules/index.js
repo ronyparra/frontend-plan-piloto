@@ -1,6 +1,5 @@
 // https://vuex.vuejs.org/en/modules.html
 
-
 const requireModule = require.context('.', true, /\.js$/)
 const modules = {}
 

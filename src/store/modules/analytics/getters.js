@@ -9,4 +9,4 @@ export default {
   getCobroTecnico: (state) => state.cobrotecnico,
   isLoading: (state) => state.loading,
   getParams: (state) => state.params
-};
+}

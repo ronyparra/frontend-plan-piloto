@@ -18,30 +18,30 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, Array],
     rules: Array,
     returnObject: Boolean,
-    multiple: Boolean,
+    multiple: Boolean
   },
-  mounted() {
-    this.fetchUsuarioRol();
+  mounted () {
+    this.fetchUsuarioRol()
   },
   computed: {
-    ...mapGetters("usuario_rol", ["getUsuarioRol", "isLoading"]),
+    ...mapGetters('usuario_rol', ['getUsuarioRol', 'isLoading'])
   },
   methods: {
-    ...mapActions("usuario_rol", ["fetchUsuarioRol"]),
+    ...mapActions('usuario_rol', ['fetchUsuarioRol']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>
 
 <style></style>

@@ -2,13 +2,13 @@
   <div>
     <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <div>
         <BtnIcon @click="filter = !filter" class="mr-1">filter_alt</BtnIcon>
         <BtnAdd to="/actividad/add" />
       </div>
     </Header>
-    <div class="mt-10">
+    <div>
       <FilterAdvanced
         :params="getParams"
         v-if="filter"
@@ -54,7 +54,7 @@
           ></v-simple-checkbox>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <c-btn
+          <v-btn
             fab
             x-small
             text
@@ -65,22 +65,22 @@
             <c-icon>
               arrow_forward_ios
             </c-icon>
-          </c-btn>
+          </v-btn>
         </template>
       </v-data-table>
     </div>
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import BtnIcon from "@/components/BtnIcon";
-import SearchField from "@/components/SearchField";
+import BtnAdd from '@/components/BtnAdd'
+import BtnIcon from '@/components/BtnIcon'
+import SearchField from '@/components/SearchField'
 
-import { mapActions, mapGetters } from "vuex";
-import { formatTecnico, formatDetalle, formatColor } from "./formatter";
-import { exportPDF } from "./export";
-import FilterAdvanced from "./Filter";
-import Header from "../../components/HeaderList";
+import { mapActions, mapGetters } from 'vuex'
+import { formatTecnico, formatDetalle, formatColor } from './formatter'
+import { exportPDF } from './export'
+import FilterAdvanced from './Filter'
+import Header from '../../components/HeaderList'
 
 export default {
   components: {
@@ -88,105 +88,105 @@ export default {
     Header,
     BtnIcon,
     BtnAdd,
-    SearchField,
+    SearchField
   },
 
-  mounted() {
-    this.filter =this.$vuetify.breakpoint.mobile ? false : true;
-    this.fetch();
+  mounted () {
+    this.filter = !this.$vuetify.breakpoint.mobile
+    this.fetch()
   },
   computed: {
-    ...mapGetters("actividad", ["getActividad", "isLoading", "getParams"]),
-    ...mapGetters("cliente", ["getCliente"]),
+    ...mapGetters('actividad', ['getActividad', 'isLoading', 'getParams']),
+    ...mapGetters('cliente', ['getCliente'])
   },
   watch: {
-    getActividad(items) {
+    getActividad (items) {
       items.map((item) => {
-        if (item.idestadocobro.idestadocobro !== 1) this.disabledCount += 1;
-      });
-      this.desserts = JSON.parse(JSON.stringify(items));
+        if (item.idestadocobro.idestadocobro !== 1) this.disabledCount += 1
+      })
+      this.desserts = JSON.parse(JSON.stringify(items))
     },
-    $route(to) {
-      if (to.path === "/actividad") this.fetch();
-    },
+    $route (to) {
+      if (to.path === '/actividad') this.fetch()
+    }
   },
   methods: {
-    ...mapActions("actividad", ["fetchActividad", "fetchActividadId"]),
+    ...mapActions('actividad', ['fetchActividad', 'fetchActividadId']),
     color: (estadocobro) => formatColor(estadocobro),
-    selectAllToggle(props) {
-      if (this.selected.length != this.desserts.length - this.disabledCount) {
-        this.selected = [];
-        const self = this;
+    selectAllToggle (props) {
+      if (this.selected.length !== this.desserts.length - this.disabledCount) {
+        this.selected = []
+        const self = this
         props.items.forEach((item) => {
           if (item.idestadocobro.idestadocobro === 1) {
-            self.selected.push(item);
+            self.selected.push(item)
           }
-        });
-      } else this.selected = [];
+        })
+      } else this.selected = []
     },
-    fetch() {
-      this.selected = [];
-      this.fetchActividad(this.getParams);
+    fetch () {
+      this.selected = []
+      this.fetchActividad(this.getParams)
     },
-    async setData(data) {
-      await this.fetchActividadId({ data });
-      this.$router.push({ path: `/actividad/edit/` + data.idactividad });
+    async setData (data) {
+      await this.fetchActividadId({ data })
+      this.$router.push({ path: '/actividad/edit/' + data.idactividad })
     },
 
-    customFilter(value, search, item) {
-      const textOne = this.formatDetalle(item.detalle);
-      const textTwo = this.formatTecnico(item.tecnico);
+    customFilter (value, search, item) {
+      const textOne = this.formatDetalle(item.detalle)
+      const textTwo = this.formatTecnico(item.tecnico)
       return (
         (value != null &&
           search != null &&
-          typeof value === "string" &&
+          typeof value === 'string' &&
           value
             .toString()
             .toLocaleUpperCase()
             .indexOf(search.toLocaleUpperCase()) > -1) ||
         textOne.toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) > -1 ||
         textTwo.toLocaleUpperCase().indexOf(search.toLocaleUpperCase()) > -1
-      );
+      )
     },
-    generarPDF() {
+    generarPDF () {
       if (this.getParams.idcliente) {
         const cliente = this.getCliente.find(
           ({ idcliente }) => idcliente === this.getParams.idcliente
-        );
-        this.getParams.cliente = cliente.razonsocial;
-        return exportPDF(this.headers, this.getActividad, this.getParams);
+        )
+        this.getParams.cliente = cliente.razonsocial
+        return exportPDF(this.headers, this.getActividad, this.getParams)
       }
-      exportPDF(this.headers, this.getActividad, this.getParams);
+      exportPDF(this.headers, this.getActividad, this.getParams)
     },
-    formatDetalle(detalle) {
-      return formatDetalle(detalle);
+    formatDetalle (detalle) {
+      return formatDetalle(detalle)
     },
-    formatTecnico(tecnico) {
-      return formatTecnico(tecnico);
-    },
+    formatTecnico (tecnico) {
+      return formatTecnico(tecnico)
+    }
   },
   data: () => ({
     filter: false,
-    search: "",
+    search: '',
     disabledCount: 0,
     selected: [],
     desserts: [],
     headerProps: {
-      sortByText: "Filtrar por",
+      sortByText: 'Filtrar por'
     },
     headers: [
-      { text: "#", value: "idactividad" },
-      { text: "Fecha", value: "fecha" },
-      { text: "Cliente", value: "idcliente.razonsocial" },
-      { text: "Sucursal", value: "idcliente_sucursal.descripcion" },
-      { text: "Solicitado por", value: "solicitante" },
-      { text: "Anotado por", value: "idusuario.nombre" },
-      { text: "Conceptos", value: "detalle" },
-      { text: "Tecnicos", value: "tecnico" },
-      { text: "Comentario", value: "comentario", sortable: false },
-      { text: "Estado", value: "idestadocobro.idestadocobro" },
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: '#', value: 'idactividad' },
+      { text: 'Fecha', value: 'fecha' },
+      { text: 'Cliente', value: 'idcliente.razonsocial' },
+      { text: 'Sucursal', value: 'idcliente_sucursal.descripcion' },
+      { text: 'Solicitado por', value: 'solicitante' },
+      { text: 'Anotado por', value: 'idusuario.nombre' },
+      { text: 'Conceptos', value: 'detalle' },
+      { text: 'Tecnicos', value: 'tecnico' },
+      { text: 'Comentario', value: 'comentario', sortable: false },
+      { text: 'Estado', value: 'idestadocobro.idestadocobro' },
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

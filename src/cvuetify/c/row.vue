@@ -7,8 +7,8 @@ export default {
     width: String,
     dense: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

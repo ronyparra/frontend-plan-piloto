@@ -19,31 +19,31 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, Array],
-    readonly:Boolean,
+    readonly: Boolean,
     rules: Array,
     returnObject: Boolean,
-    multiple: Boolean,
+    multiple: Boolean
   },
-  mounted() {
-    this.fetchTipoPendiente();
+  mounted () {
+    this.fetchTipoPendiente()
   },
   computed: {
-    ...mapGetters("tipo_pendiente", ["getTipoPendiente", "isLoading"]),
+    ...mapGetters('tipo_pendiente', ['getTipoPendiente', 'isLoading'])
   },
   methods: {
-    ...mapActions("tipo_pendiente", ["fetchTipoPendiente"]),
+    ...mapActions('tipo_pendiente', ['fetchTipoPendiente']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>
 
 <style></style>

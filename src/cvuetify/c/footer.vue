@@ -8,17 +8,17 @@ export default {
   props: {
     padless: {
       type: Boolean,
-      default: false,
+      default: false
     },
     absolute: {
       type: Boolean,
-      default: false,
+      default: false
     },
     app: {
       type: Boolean,
-      default: false,
+      default: false
     },
-    color: String,
-  },
-};
+    color: String
+  }
+}
 </script>

@@ -2,7 +2,7 @@
   <div>
      <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnAdd to="/categoria/add" />
      </Header>
 
@@ -17,7 +17,7 @@
         hide-default-footer
       >
         <template v-slot:[`item.actions`]="{ item }">
-          <c-btn
+          <v-btn
             fab
             x-small
             text
@@ -28,44 +28,44 @@
             <c-icon>
               arrow_forward_ios
             </c-icon>
-          </c-btn>
+          </v-btn>
         </template>
       </v-data-table>
     </div>
- 
+
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import Header from "../../components/HeaderList";
-import SearchField from "@/components/SearchField";
-import { mapActions, mapGetters } from "vuex";
+import BtnAdd from '@/components/BtnAdd'
+import Header from '../../components/HeaderList'
+import SearchField from '@/components/SearchField'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     Header,
     BtnAdd,
-    SearchField,
+    SearchField
   },
-  mounted() {
-    this.fetchCategoria();
+  mounted () {
+    this.fetchCategoria()
   },
   computed: {
-    ...mapGetters("categoria", ["getCategoria", "isLoading"]),
+    ...mapGetters('categoria', ['getCategoria', 'isLoading'])
   },
   methods: {
-    ...mapActions("categoria", ["fetchCategoria", "fetchCategoriaId"]),
-    async setData(data) {
-      await this.fetchCategoriaId({ data });
-      this.$router.push({ path: `/categoria/edit/` + data.idcategoria });
-    },
+    ...mapActions('categoria', ['fetchCategoria', 'fetchCategoriaId']),
+    async setData (data) {
+      await this.fetchCategoriaId({ data })
+      this.$router.push({ path: '/categoria/edit/' + data.idcategoria })
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     headers: [
-      { text: "#", value: "idcategoria" },
-      { text: "Categoria", value: "descripcion", align: "end" },
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: '#', value: 'idcategoria' },
+      { text: 'Categoria', value: 'descripcion', align: 'end' },
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

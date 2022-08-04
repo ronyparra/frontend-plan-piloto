@@ -15,24 +15,24 @@
     :small-chips="chips"
     :readonly="readonly"
     :clearable="clearable"
-    :filled="filled"
     :dense="dense"
     :suffix="suffix"
     :prefix="prefix"
+    hide-details
     flat
     rounded
-    background-color="grey lighten-4"
+    outlined
     @input="$emit('input', $event)"
     @change="$emit('change')"
   >
     <template v-slot:no-data v-if="to">
-      <c-list-item @click="toRoute()">
-        <c-list-item-content>
-          <c-list-item-title
-            >No existe concidencia. Click para agregar</c-list-item-title
+      <v-list-item @click="toRoute()">
+        <v-list-item-content>
+          <v-list-item-title
+            >No existe concidencia. Click para agregar</v-list-item-title
           >
-        </c-list-item-content>
-      </c-list-item>
+        </v-list-item-content>
+      </v-list-item>
     </template>
   </v-autocomplete>
 </template>
@@ -54,44 +54,44 @@ export default {
     placeholder: String,
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
+      default: true
     },
     rules: {
       type: Array,
-      default: function() {
-        return this.validator;
-      },
+      default: function () {
+        return this.validator
+      }
     },
     returnObject: {
       type: Boolean,
-      default: false,
+      default: false
     },
     to: String,
-    redirect: String,
+    redirect: String
   },
   computed: {
     validator: (vm) => {
-      if (vm.multiple) return [(v) => v.length > 0 || "Obligatorio"];
+      if (vm.multiple) return [(v) => v.length > 0 || 'Obligatorio']
       return vm.returnObject
-        ? [(v) => !!v[vm.itemValue] || "Obligatorio"]
-        : [(v) => !!v || "Obligatorio"];
-    },
+        ? [(v) => !!v[vm.itemValue] || 'Obligatorio']
+        : [(v) => !!v || 'Obligatorio']
+    }
   },
   methods: {
-    toRoute() {
+    toRoute () {
       this.$router.push({
         path: this.to,
         query: {
-          redirect: this.redirect,
-        },
-      });
+          redirect: this.redirect
+        }
+      })
     },
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

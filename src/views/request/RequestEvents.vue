@@ -8,24 +8,30 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import Failed from "./Failed";
-import Loading from "./Loading";
-import Success from "./Success";
+import { mapGetters } from 'vuex'
+import Failed from './Failed'
+import Loading from './Loading'
+import Success from './Success'
 export default {
   components: {
     Failed,
     Loading,
-    Success,
+    Success
   },
   computed: {
-    ...mapGetters("request", [
-      "isActive",
-      "isLoading",
-      "isSuccess",
-      "isFailed",
-      "getMessage",
-    ]),
-  },
-};
+    ...mapGetters('request', [
+      'isActive',
+      'isLoading',
+      'isSuccess',
+      'isFailed',
+      'getMessage'
+    ])
+  }
+}
 </script>
+<style lang="scss" scoped>
+::v-deep .v-overlay__content {
+  height: 100%;
+  max-height: 700px;
+}
+</style>

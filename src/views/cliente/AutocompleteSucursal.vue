@@ -22,56 +22,56 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
-    
+
     value: [Number, Object],
     placeholder: String,
     readonly: Boolean,
-    label:{
+    label: {
       type: String,
       default: 'Sucursal'
     },
-    clearable:Boolean,
+    clearable: Boolean,
     idcliente: {
       type: Number,
-      default: null,
+      default: null
     },
     filled: {
       type: Boolean,
-      default: true,
+      default: true
     },
     dense: {
       type: Boolean,
-      default: true,
+      default: true
     },
     rules: Array,
-    returnObject: Boolean,
+    returnObject: Boolean
   },
-  mounted() {
-    this.fetchCliente();
+  mounted () {
+    this.fetchCliente()
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    ...mapGetters('cliente', ['getCliente', 'isLoading']),
     sucursal: (vm) => {
-      if (!vm.idcliente) return [];
-      let suc = vm.getCliente
+      if (!vm.idcliente) return []
+      const suc = vm.getCliente
         .filter((cliente) => cliente.idcliente === vm.idcliente)
         .reduce((acc, curr) => {
-          return (acc = curr.sucursal);
-        }, []);
-      return suc;
-    },
+          return (acc = curr.sucursal)
+        }, [])
+      return suc
+    }
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente"]),
+    ...mapActions('cliente', ['fetchCliente']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

@@ -21,27 +21,27 @@
   </div>
 </template>
 <script>
-import TextDate from "@/components/TextDate";
-import { first_date_month, last_date_month } from "@/util/date.util";
-import { mapActions, mapGetters } from "vuex";
+import TextDate from '@/components/TextDate'
+import { firstDateMonth, lastDateMonth } from '@/util/date.util'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    TextDate,
+    TextDate
   },
   data: () => ({
     params: {
-      desde: first_date_month(),
-      hasta: last_date_month(),
+      desde: firstDateMonth(),
+      hasta: lastDateMonth()
     }
   }),
-  created(){
-    this.params = JSON.parse(JSON.stringify(this.getParams)) 
+  created () {
+    this.params = JSON.parse(JSON.stringify(this.getParams))
   },
   computed: {
-    ...mapGetters("analytics", ["getParams"]),
+    ...mapGetters('analytics', ['getParams'])
   },
   methods: {
-    ...mapActions("analytics", ["changeParams"]),
-  },
-};
+    ...mapActions('analytics', ['changeParams'])
+  }
+}
 </script>

@@ -1,16 +1,16 @@
-import { first_date_month, last_date_month } from "@/util/date.util";
+import { firstDateMonth, lastDateMonth } from '@/util/date.util'
 export default {
   data: [],
   pendiente: [],
   cliente: [],
   concepto: [],
-  tecnico:[],
+  tecnico: [],
   categoria: [],
-  estado:[],
+  estado: [],
   cobrotecnico: [],
   params: {
-    desde: first_date_month(),
-    hasta: last_date_month(),
+    desde: firstDateMonth(),
+    hasta: lastDateMonth()
   },
-  loading: false,
-};
+  loading: false
+}

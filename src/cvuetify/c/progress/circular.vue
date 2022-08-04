@@ -14,8 +14,8 @@ export default {
     size: Number,
     indeterminate: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

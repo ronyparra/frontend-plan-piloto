@@ -1,5 +1,5 @@
 <template>
-    <c-app-bar app class="mt-12"  dense flat color="secondary">
-        <slot />
-    </c-app-bar>
+  <v-app-bar dense flat color="secondary">
+    <slot />
+  </v-app-bar>
 </template>

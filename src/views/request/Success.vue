@@ -1,44 +1,50 @@
 <template>
-  <div class="d-flex justify-center flex-column align-center">
-    <div class="mb-16 text-h4 font-weight-black">Correcto!</div>
-    <svg
-      class="checkmark"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-    >
-      <path
-        class="checkmark__check"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-    <div class="mt-16 body-1">Su orden fue completada con exito</div>
-    <c-container style="z-index: 999; position: fixed; bottom: 3%;">
-      <c-btn
-        block
-        large
-        color="primary"
-        class="text-capitalize"
-        rounded
-        @click="close()"
-        >Continuar</c-btn
+  <div class="fill-height d-flex justify-space-around flex-column ">
+    <div class="d-flex flex-column align-center">
+      <div class="mb-16 text-h4 font-weight-black">Correcto!</div>
+      <svg
+        class="checkmark"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
       >
-    </c-container>
+        <path
+          class="checkmark__check"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <div class="mt-16 body-1">Su orden fue completada con exito</div>
+    </div>
+    <v-container class="d-flex justify-center">
+      <v-row>
+        <v-col cols="12">
+          <v-btn
+            block
+            large
+            color="primary"
+            class="text-capitalize"
+            rounded
+            @click="close()"
+            >Continuar</v-btn
+          >
+        </v-col></v-row
+      >
+    </v-container>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
   methods: {
-    ...mapActions("request", ["endRequest"]),
-    close() {
-      this.endRequest();
-    },
-  },
-};
+    ...mapActions('request', ['endRequest']),
+    close () {
+      this.endRequest()
+    }
+  }
+}
 </script>
 <style scoped>
 .checkmark {

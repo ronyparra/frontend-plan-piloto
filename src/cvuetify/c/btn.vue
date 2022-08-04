@@ -22,47 +22,47 @@
 export default {
   props: {
     elevation: String,
-    fab:{
+    fab: {
       type: Boolean,
       default: false
     },
     block: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
     color: String,
     dark: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
     rounded: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
     text: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
     plain: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
-    small:{
+    small: {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
     height: String,
     to: String,
-    "active-class": String,
-    "x-small":{
+    'active-class': String,
+    'x-small': {
       type: Boolean,
-      defaut: false,
+      defaut: false
     },
-    "x-large": {
+    'x-large': {
       type: Boolean,
-      defaut: false,
-    },
-    
-  },
-};
+      defaut: false
+    }
+
+  }
+}
 </script>

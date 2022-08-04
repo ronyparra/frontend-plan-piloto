@@ -1,71 +1,77 @@
 <template>
-  <div class="d-flex justify-center flex-column align-center">
-    <div class="mb-16 text-h4 font-weight-black">Oh no!</div>
-    <svg
-      class="checkmark"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-    >
-      <path
-        class="checkmark__check"
-        fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
+  <div class="fill-height d-flex justify-space-around flex-column ">
+    <div class="d-flex flex-column align-center">
+      <div class="mb-16 text-h4 font-weight-black">Oh no!</div>
+      <svg
+        class="checkmark"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path
+          class="checkmark__check"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
 
-    <div class="mt-8 title font-weight-black">Ha ocurrido un error</div>
-    <div class="body-1">No hemos pudido finalizar esta operacion.</div>
-    <c-btn
-      v-if="message"
-      text
-      class="text-capitalize"
-      small
-      color="orange"
-      @click="showError = !showError"
-      >{{ showError ? "Ver menos" : "Ver Mas" }}</c-btn
-    >
-    <div class="caption font-weight-black" v-if="showError">
-      {{ message.title }}
-    </div>
-    <div v-if="showError">
-      <div class="caption text-center">{{ message.message }}</div>
-      <div class="caption " v-for="(item, i) of message.list" :key="i">
-        {{ item }}
+      <div class="mt-8 title font-weight-black">Ha ocurrido un error</div>
+      <div class="body-1">No hemos pudido finalizar esta operacion.</div>
+      <v-btn
+        v-if="message"
+        text
+        class="text-capitalize"
+        small
+        color="orange"
+        @click="showError = !showError"
+        >{{ showError ? "Ver menos" : "Ver Mas" }}</v-btn
+      >
+      <div class="caption font-weight-black" v-if="showError">
+        {{ message.title }}
+      </div>
+      <div v-if="showError">
+        <div class="caption text-center">{{ message.message }}</div>
+        <div class="caption " v-for="(item, i) of message.list" :key="i">
+          {{ item }}
+        </div>
       </div>
     </div>
 
-    <c-container style="z-index: 999; position: fixed; bottom: 3%;">
-      <c-btn
-        block
-        large
-        color="primary"
-        class="text-capitalize"
-        rounded
-        @click="close()"
-        >Ok, entiendo</c-btn
-      >
-    </c-container>
+    <v-container class="d-flex justify-center">
+      <v-row>
+        <v-col cols="12">
+          <v-btn
+            block
+            large
+            color="primary"
+            class="text-capitalize"
+            rounded
+            @click="close()"
+            >Ok, entiendo</v-btn
+          >
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
   props: {
-    message: [String, Object],
+    message: [String, Object]
   },
   data: () => ({
-    showError: false,
+    showError: false
   }),
   methods: {
-    ...mapActions("request", ["endRequest"]),
-    close() {
-      this.endRequest();
-    },
-  },
-};
+    ...mapActions('request', ['endRequest']),
+    close () {
+      this.endRequest()
+    }
+  }
+}
 </script>
 
 <style scoped>

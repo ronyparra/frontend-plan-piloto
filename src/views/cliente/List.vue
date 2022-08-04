@@ -2,11 +2,11 @@
   <div>
     <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnAdd to="/cliente/add" />
     </Header>
 
-    <div class="mt-7">
+    <div>
       <v-data-table
         :headers="headers"
         :search="search"
@@ -33,41 +33,41 @@
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import SearchField from "@/components/SearchField";
-import Header from "../../components/HeaderList";
-import { mapActions, mapGetters } from "vuex";
+import BtnAdd from '@/components/BtnAdd'
+import SearchField from '@/components/SearchField'
+import Header from '../../components/HeaderList'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
     Header,
     BtnAdd,
-    SearchField,
+    SearchField
   },
-  mounted() {
-    this.fetchCliente();
+  mounted () {
+    this.fetchCliente()
   },
   computed: {
-    ...mapGetters("cliente", ["getCliente", "isLoading"]),
+    ...mapGetters('cliente', ['getCliente', 'isLoading'])
   },
   methods: {
-    ...mapActions("cliente", ["fetchCliente", "fetchClienteId"]),
-    async setData(data) {
-      await this.fetchClienteId({ data });
-      this.$router.push({ path: `/cliente/edit/` + data.idcliente });
+    ...mapActions('cliente', ['fetchCliente', 'fetchClienteId']),
+    async setData (data) {
+      await this.fetchClienteId({ data })
+      this.$router.push({ path: '/cliente/edit/' + data.idcliente })
     },
-    async setFolder(data) {
-      await this.fetchClienteId({ data });
-      this.$router.push({ path: `/cliente/` + data.idcliente + "/folder" });
-    },
+    async setFolder (data) {
+      await this.fetchClienteId({ data })
+      this.$router.push({ path: '/cliente/' + data.idcliente + '/folder' })
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     headers: [
-      { text: "Cliente", value: "razonsocial" },
-      { text: "Ruc", value: "ruc" },
-      { text: "", value: "folder", width: "1%", align: "end", sortable: false },
-      { text: "", value: "actions", width: "1%", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: 'Cliente', value: 'razonsocial' },
+      { text: 'Ruc', value: 'ruc' },
+      { text: '', value: 'folder', width: '1%', align: 'end', sortable: false },
+      { text: '', value: 'actions', width: '1%', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

@@ -10,8 +10,8 @@ export default {
     'active-class': String,
     flat: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

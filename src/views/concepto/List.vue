@@ -2,11 +2,11 @@
   <div>
      <Header>
       <SearchField class="font-weight-black" v-model="search" />
-      <c-spacer></c-spacer>
+      <v-spacer></v-spacer>
       <BtnAdd to="/concepto/add" />
     </Header>
 
-    <div class="mt-7">
+    <div >
       <v-data-table
         :headers="headers"
         :search="search"
@@ -19,7 +19,7 @@
           <div>{{ toCurrency(item.precio) }}</div>
         </template>
         <template v-slot:[`item.actions`]="{ item }">
-          <c-btn
+          <v-btn
             fab
             x-small
             text
@@ -30,49 +30,49 @@
             <c-icon>
               arrow_forward_ios
             </c-icon>
-          </c-btn>
+          </v-btn>
         </template>
       </v-data-table>
     </div>
   </div>
 </template>
 <script>
-import BtnAdd from "@/components/BtnAdd";
-import SearchField from "@/components/SearchField";
-import { mapActions, mapGetters } from "vuex";
-import { currencyFormatter } from "@/util/number.util";
-import Header from "../../components/HeaderList";
+import BtnAdd from '@/components/BtnAdd'
+import SearchField from '@/components/SearchField'
+import { mapActions, mapGetters } from 'vuex'
+import { currencyFormatter } from '@/util/number.util'
+import Header from '../../components/HeaderList'
 export default {
   components: {
     Header,
     BtnAdd,
-    SearchField,
+    SearchField
   },
-  mounted() {
-    this.fetchConcepto();
+  mounted () {
+    this.fetchConcepto()
   },
   computed: {
-    ...mapGetters("concepto", ["getConcepto", "isLoading"]),
+    ...mapGetters('concepto', ['getConcepto', 'isLoading'])
   },
   methods: {
-    ...mapActions("concepto", ["fetchConcepto", "fetchConceptoId"]),
-    async setData(data) {
-      await this.fetchConceptoId({ data });
-      this.$router.push({ path: `/concepto/edit/` + data.idconcepto });
+    ...mapActions('concepto', ['fetchConcepto', 'fetchConceptoId']),
+    async setData (data) {
+      await this.fetchConceptoId({ data })
+      this.$router.push({ path: '/concepto/edit/' + data.idconcepto })
     },
-    toCurrency(value) {
-      return currencyFormatter(value);
-    },
+    toCurrency (value) {
+      return currencyFormatter(value)
+    }
   },
   data: () => ({
-    search: "",
+    search: '',
     headers: [
-      { text: "Concepto", value: "descripcion" },
-      { text: "Precio", value: "precio", align: "end" },
-      { text: "Moneda", value: "idmoneda.abreviatura", align: "end" },
-      { text: "Categoria", value: "idcategoria.descripcion", align: "end" },
-      { text: "", value: "actions", align: "end", sortable: false },
-    ],
-  }),
-};
+      { text: 'Concepto', value: 'descripcion' },
+      { text: 'Precio', value: 'precio', align: 'end' },
+      { text: 'Moneda', value: 'idmoneda.abreviatura', align: 'end' },
+      { text: 'Categoria', value: 'idcategoria.descripcion', align: 'end' },
+      { text: '', value: 'actions', align: 'end', sortable: false }
+    ]
+  })
+}
 </script>

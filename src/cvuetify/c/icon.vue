@@ -6,7 +6,7 @@ export default {
   props: {
     large: {
       type: Boolean,
-      default: false,
+      default: false
     },
     dark: Boolean,
     medium: Boolean,
@@ -14,7 +14,7 @@ export default {
     'x-large': Boolean,
     small: Boolean,
     'x-small': Boolean,
-    color: String,
-  },
-};
+    color: String
+  }
+}
 </script>

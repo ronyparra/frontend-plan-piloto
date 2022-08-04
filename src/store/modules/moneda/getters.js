@@ -1,4 +1,4 @@
 export default {
   getMoneda: (state) => state.data,
-  isLoading: (state) => state.loading,
-};
+  isLoading: (state) => state.loading
+}

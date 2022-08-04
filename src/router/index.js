@@ -1,410 +1,410 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import store from "@/store";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import store from '@/store'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/login",
-    name: "Login",
+    path: '/login',
+    name: 'Login',
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/login/Login.vue"),
+      import(/* webpackChunkName: "login" */ '../views/login/Login.vue'),
     meta: {
-      requiresAuth: false,
-    },
+      requiresAuth: false
+    }
   },
   {
-    path: "/",
+    path: '/',
     component: () =>
-      import(/* webpackChunkName: "home" */ "../views/dashboard/Dashboard.vue"),
+      import(/* webpackChunkName: "home" */ '../views/dashboard/Dashboard.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Dashboard",
+        path: '/',
+        name: 'Dashboard',
         component: () =>
-          import(/* webpackChunkName: "home" */ "../views/dashboard/Home.vue"),
-      },
-    ],
+          import(/* webpackChunkName: "home" */ '../views/dashboard/Home.vue')
+      }
+    ]
   },
   {
-    path: "/cliente",
+    path: '/cliente',
 
     component: () =>
-      import(/* webpackChunkName: "Cliente" */ "../views/cliente/Cliente.vue"),
+      import(/* webpackChunkName: "Cliente" */ '../views/cliente/Cliente.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Clientes",
+        path: '/',
+        name: 'Clientes',
         component: () =>
-          import(/* webpackChunkName: "Cliente" */ "../views/cliente/List.vue"),
+          import(/* webpackChunkName: "Cliente" */ '../views/cliente/List.vue')
       },
       {
-        path: "add",
-        name: "Registrar Cliente",
+        path: 'add',
+        name: 'Registrar Cliente',
         component: () =>
           import(
-            /* webpackChunkName: "Cliente ADD" */ "../views/cliente/Form.vue"
-          ),
+            /* webpackChunkName: "Cliente ADD" */ '../views/cliente/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Cliente",
+        path: 'edit/:id',
+        name: 'Modificar Cliente',
         component: () =>
           import(
-            /* webpackChunkName: "Cliente EDIT" */ "../views/cliente/Form.vue"
-          ),
+            /* webpackChunkName: "Cliente EDIT" */ '../views/cliente/Form.vue'
+          )
       },
       {
-        path: ":id/folder",
-        name: "Carpetas",
+        path: ':id/folder',
+        name: 'Carpetas',
         component: () =>
           import(
-            /* webpackChunkName: "Carpetas Clientes" */ "../views/cliente/folder/Folder.vue"
-          ),
+            /* webpackChunkName: "Carpetas Clientes" */ '../views/cliente/folder/Folder.vue'
+          )
       },
       {
-        path: ":id/folder/:folder/archivos",
-        name: "Datos",
+        path: ':id/folder/:folder/archivos',
+        name: 'Datos',
         component: () =>
           import(
-            /* webpackChunkName: "Archivos Clientes" */ "../views/cliente/archivo/Archivos.vue"
-          ),
+            /* webpackChunkName: "Archivos Clientes" */ '../views/cliente/archivo/Archivos.vue'
+          )
       },
       {
-        path: ":id/folder/:folder/archivos/add",
-        name: "Registrar Datos",
+        path: ':id/folder/:folder/archivos/add',
+        name: 'Registrar Datos',
         component: () =>
           import(
-            /* webpackChunkName: "Archivos Clientes ADD" */ "../views/cliente/archivo/Form.vue"
-          ),
+            /* webpackChunkName: "Archivos Clientes ADD" */ '../views/cliente/archivo/Form.vue'
+          )
       },
       {
-        path: ":id/folder/:folder/archivos/:idarchivo",
-        name: "Datos",
+        path: ':id/folder/:folder/archivos/:idarchivo',
+        name: 'Datos',
         component: () =>
           import(
-            /* webpackChunkName: "Archivos Clientes ADD" */ "../views/cliente/archivo/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Archivos Clientes ADD" */ '../views/cliente/archivo/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/pendiente",
+    path: '/pendiente',
 
     component: () =>
       import(
-        /* webpackChunkName: "Pendiente" */ "../views/pendiente/Pendiente.vue"
+        /* webpackChunkName: "Pendiente" */ '../views/pendiente/Pendiente.vue'
       ),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Pendientes",
+        path: '/',
+        name: 'Pendientes',
         component: () =>
           import(
-            /* webpackChunkName: "Pendiente" */ "../views/pendiente/List.vue"
-          ),
+            /* webpackChunkName: "Pendiente" */ '../views/pendiente/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Pendiente",
+        path: 'add',
+        name: 'Registrar Pendiente',
         component: () =>
           import(
-            /* webpackChunkName: "Pendiente ADD" */ "../views/pendiente/Form.vue"
-          ),
+            /* webpackChunkName: "Pendiente ADD" */ '../views/pendiente/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Pendiente",
+        path: 'edit/:id',
+        name: 'Modificar Pendiente',
         component: () =>
           import(
-            /* webpackChunkName: "Pendiente EDIT" */ "../views/pendiente/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Pendiente EDIT" */ '../views/pendiente/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/actividad",
-    name: "",
+    path: '/actividad',
+    name: '',
     component: () =>
-      import(/* webpackChunkName: "home" */ "../views/actividad/Actividad.vue"),
+      import(/* webpackChunkName: "home" */ '../views/actividad/Actividad.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Actividades",
+        path: '/',
+        name: 'Actividades',
         component: () =>
           import(
-            /* webpackChunkName: "Actividades" */ "../views/actividad/List.vue"
-          ),
+            /* webpackChunkName: "Actividades" */ '../views/actividad/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Actividad",
+        path: 'add',
+        name: 'Registrar Actividad',
         component: () =>
           import(
-            /* webpackChunkName: "Actividad ADD" */ "../views/actividad/Form.vue"
-          ),
+            /* webpackChunkName: "Actividad ADD" */ '../views/actividad/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Actividad",
+        path: 'edit/:id',
+        name: 'Modificar Actividad',
         component: () =>
           import(
-            /* webpackChunkName: "Actividad EDIT" */ "../views/actividad/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Actividad EDIT" */ '../views/actividad/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/concepto",
-    name: "",
+    path: '/concepto',
+    name: '',
     component: () =>
       import(
-        /* webpackChunkName: "Concepto" */ "../views/concepto/Concepto.vue"
+        /* webpackChunkName: "Concepto" */ '../views/concepto/Concepto.vue'
       ),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Conceptos",
+        path: '/',
+        name: 'Conceptos',
         component: () =>
           import(
-            /* webpackChunkName: "Conceptos" */ "../views/concepto/List.vue"
-          ),
+            /* webpackChunkName: "Conceptos" */ '../views/concepto/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Concepto",
+        path: 'add',
+        name: 'Registrar Concepto',
         component: () =>
           import(
-            /* webpackChunkName: "Concepto ADD" */ "../views/concepto/Form.vue"
-          ),
+            /* webpackChunkName: "Concepto ADD" */ '../views/concepto/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Concepto",
+        path: 'edit/:id',
+        name: 'Modificar Concepto',
         component: () =>
           import(
-            /* webpackChunkName: "Concepto EDIT" */ "../views/concepto/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Concepto EDIT" */ '../views/concepto/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/categoria",
-    name: "",
+    path: '/categoria',
+    name: '',
     component: () =>
       import(
-        /* webpackChunkName: "Categoria" */ "../views/categoria/Categoria.vue"
+        /* webpackChunkName: "Categoria" */ '../views/categoria/Categoria.vue'
       ),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Categorias",
+        path: '/',
+        name: 'Categorias',
         component: () =>
           import(
-            /* webpackChunkName: "Categorias" */ "../views/categoria/List.vue"
-          ),
+            /* webpackChunkName: "Categorias" */ '../views/categoria/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Categoria",
+        path: 'add',
+        name: 'Registrar Categoria',
         component: () =>
           import(
-            /* webpackChunkName: "Categoria ADD" */ "../views/categoria/Form.vue"
-          ),
+            /* webpackChunkName: "Categoria ADD" */ '../views/categoria/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Categoria",
+        path: 'edit/:id',
+        name: 'Modificar Categoria',
         component: () =>
           import(
-            /* webpackChunkName: "Categoria EDIT" */ "../views/categoria/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Categoria EDIT" */ '../views/categoria/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/usuario",
-    name: "",
+    path: '/usuario',
+    name: '',
     component: () =>
-      import(/* webpackChunkName: "Usuario" */ "../views/usuario/Usuario.vue"),
+      import(/* webpackChunkName: "Usuario" */ '../views/usuario/Usuario.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Usuarios",
+        path: '/',
+        name: 'Usuarios',
         component: () =>
           import(
-            /* webpackChunkName: "Usuarios" */ "../views/usuario/List.vue"
-          ),
+            /* webpackChunkName: "Usuarios" */ '../views/usuario/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Usuario",
+        path: 'add',
+        name: 'Registrar Usuario',
         component: () =>
           import(
-            /* webpackChunkName: "Usuario ADD" */ "../views/usuario/Form.vue"
-          ),
+            /* webpackChunkName: "Usuario ADD" */ '../views/usuario/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Usuario",
+        path: 'edit/:id',
+        name: 'Modificar Usuario',
         component: () =>
           import(
-            /* webpackChunkName: "Usuario EDIT" */ "../views/usuario/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Usuario EDIT" */ '../views/usuario/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/cobro",
-    name: "",
+    path: '/cobro',
+    name: '',
     component: () =>
-      import(/* webpackChunkName: "Cobro" */ "../views/cobro/Cobro.vue"),
+      import(/* webpackChunkName: "Cobro" */ '../views/cobro/Cobro.vue'),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Cobros",
+        path: '/',
+        name: 'Cobros',
         component: () =>
           import(
-            /* webpackChunkName: "Cobros" */ "../views/cobro/List.vue"
-          ),
+            /* webpackChunkName: "Cobros" */ '../views/cobro/List.vue'
+          )
       },
       {
-        path: "add",
-        name: "Registrar Cobro",
+        path: 'add',
+        name: 'Registrar Cobro',
         component: () =>
           import(
-            /* webpackChunkName: "Cobro ADD" */ "../views/cobro/Form.vue"
-          ),
+            /* webpackChunkName: "Cobro ADD" */ '../views/cobro/Form.vue'
+          )
       },
       {
-        path: "edit/:id",
-        name: "Modificar Cobro",
+        path: 'edit/:id',
+        name: 'Modificar Cobro',
         component: () =>
           import(
-            /* webpackChunkName: "Cobro EDIT" */ "../views/cobro/Form.vue"
-          ),
-      },
-    ],
+            /* webpackChunkName: "Cobro EDIT" */ '../views/cobro/Form.vue'
+          )
+      }
+    ]
   },
   {
-    path: "/analytics",
+    path: '/analytics',
     component: () =>
       import(
-        /* webpackChunkName: "Informes" */ "../views/analytics/Analytics.vue"
+        /* webpackChunkName: "Informes" */ '../views/analytics/Analytics.vue'
       ),
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     children: [
       {
-        path: "/",
-        name: "Analytics Actividad",
+        path: '/',
+        name: 'Analytics Actividad',
         component: () =>
           import(
-            /* webpackChunkName: "A Actividades" */ "../views/analytics/Actividad.vue"
-          ),
+            /* webpackChunkName: "A Actividades" */ '../views/analytics/Actividad.vue'
+          )
       },
       {
-        path: "pendiente",
-        name: "Analytics Pendientes",
+        path: 'pendiente',
+        name: 'Analytics Pendientes',
         component: () =>
           import(
-            /* webpackChunkName: "A Pendientes" */ "../views/analytics/Pendiente.vue"
-          ),
+            /* webpackChunkName: "A Pendientes" */ '../views/analytics/Pendiente.vue'
+          )
       },
       {
-        path: "cliente",
-        name: "Analytics Clientes",
+        path: 'cliente',
+        name: 'Analytics Clientes',
         component: () =>
           import(
-            /* webpackChunkName: "A Cliente" */ "../views/analytics/Clientes.vue"
-          ),
+            /* webpackChunkName: "A Cliente" */ '../views/analytics/Clientes.vue'
+          )
       },
       {
-        path: "concepto",
-        name: "Analytics Conceptos",
+        path: 'concepto',
+        name: 'Analytics Conceptos',
         component: () =>
           import(
-            /* webpackChunkName: "A Conceptos" */ "../views/analytics/Concepto.vue"
-          ),
+            /* webpackChunkName: "A Conceptos" */ '../views/analytics/Concepto.vue'
+          )
       },
       {
-        path: "tecnico",
-        name: "Analytics Tecnicos",
+        path: 'tecnico',
+        name: 'Analytics Tecnicos',
         component: () =>
           import(
-            /* webpackChunkName: "A Tecnico" */ "../views/analytics/Tecnico.vue"
-          ),
+            /* webpackChunkName: "A Tecnico" */ '../views/analytics/Tecnico.vue'
+          )
       },
       {
-        path: "categoria",
-        name: "Analytics Categorias",
+        path: 'categoria',
+        name: 'Analytics Categorias',
         component: () =>
           import(
-            /* webpackChunkName: "A Categoria" */ "../views/analytics/Categoria.vue"
-          ),
+            /* webpackChunkName: "A Categoria" */ '../views/analytics/Categoria.vue'
+          )
       },
       {
-        path: "cobro",
-        name: "Analytics Cobros",
+        path: 'cobro',
+        name: 'Analytics Cobros',
         component: () =>
           import(
-            /* webpackChunkName: "A Categoria" */ "../views/analytics/CobroTecnico.vue"
-          ),
+            /* webpackChunkName: "A Categoria" */ '../views/analytics/CobroTecnico.vue'
+          )
       },
       {
-        path: "filtros",
-        name: "Filtros",
+        path: 'filtros',
+        name: 'Filtros',
         component: () =>
           import(
-            /* webpackChunkName: "A Parametros" */ "../views/analytics/Parametros.vue"
-          ),
-      },
-    ],
-  },
-];
+            /* webpackChunkName: "A Parametros" */ '../views/analytics/Parametros.vue'
+          )
+      }
+    ]
+  }
+]
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes,
-});
+  routes
+})
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.getters["auth/isLogin"];
+  const isAuthenticated = store.getters['auth/isLogin']
   if (to.path === '/login' && isAuthenticated) return next('/')
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (isAuthenticated) {
-      return next();
+      return next()
     }
-    return next("/login");
+    return next('/login')
   }
-  next();
-});
+  next()
+})
 
-export default router;
+export default router

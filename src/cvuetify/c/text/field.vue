@@ -1,13 +1,13 @@
 <template>
   <v-text-field
     :color="color"
-    :outlined="outlined"
-    :rounded="rounded"
+    outlined
+    rounded
+    autocomplete="off"
     :type="type"
     :solo="solo"
     :value="value"
     :dense="dense"
-    autocomplete="off"
     :rules="rules"
     :prepend-inner-icon="prependInnerIcon"
     :append-icon="appendIcon"
@@ -30,50 +30,42 @@ export default {
     messages: String,
     color: {
       type: String,
-      default: "primary",
+      default: 'primary'
     },
     flat: {
       type: Boolean,
-      default: false,
+      default: false
     },
     type: {
       type: String,
-      default: "text",
-    },
-    outlined: {
-      type: Boolean,
-      default: false,
-    },
-    rounded: {
-      type: Boolean,
-      default: false,
+      default: 'text'
     },
     solo: {
       type: Boolean,
-      default: false,
+      default: false
     },
     dense: {
       type: Boolean,
-      default: false,
+      default: false
     },
     filled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     rules: {
       type: [Array],
-      default: () => [(v) => !!v || "Obligatorio"],
+      default: () => [(v) => !!v || 'Obligatorio']
     },
     readonly: Boolean,
     label: String,
     placeholder: String,
-    "prepend-inner-icon": String,
-    "append-icon": String,
-    "background-color": String,
-    "hide-details": {
+    'prepend-inner-icon': String,
+    'append-icon': String,
+    'background-color': String,
+    'hide-details': {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: true
+    }
+  }
+}
 </script>

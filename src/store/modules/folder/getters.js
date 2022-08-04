@@ -1,5 +1,5 @@
 export default {
   getFolder: (state) => state.data,
   getFolderId: (state) => state.dataId,
-  isLoading: (state) => state.loading,
-};
+  isLoading: (state) => state.loading
+}

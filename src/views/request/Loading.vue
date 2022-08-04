@@ -7,5 +7,5 @@
   ></c-progress-circular>
 </template>
 <script>
-export default {};
+export default {}
 </script>

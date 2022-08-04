@@ -1,5 +1,5 @@
 <template>
-  <c-row dense>
+  <v-row dense>
     <c-overlay :value="isLoading">
       <c-progress-circular
         indeterminate
@@ -7,7 +7,7 @@
       ></c-progress-circular>
     </c-overlay>
 
-    <c-col cols="12" sm="4" v-for="(item, i) of cards" :key="i">
+    <v-col cols="12" sm="4" v-for="(item, i) of cards" :key="i">
       <v-expansion-panels accordion>
         <v-expansion-panel>
           <v-expansion-panel-header hide-actions class="d-flex flex-column" >
@@ -60,29 +60,29 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
-    </c-col>
-  </c-row>
+    </v-col>
+  </v-row>
 </template>
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  mounted() {
-    this.fetchDashboard();
+  mounted () {
+    this.fetchDashboard()
   },
   computed: {
-    ...mapGetters("pendiente", ["getDashboard", "isLoading"]),
-    cards(){
-      return this.getDashboard.filter(x=> x.detalle)
+    ...mapGetters('pendiente', ['getDashboard', 'isLoading']),
+    cards () {
+      return this.getDashboard.filter(x => x.detalle)
     }
   },
   methods: {
-    ...mapActions("pendiente", ["fetchDashboard"]),
+    ...mapActions('pendiente', ['fetchDashboard']),
 
-    pendiente(detalle) {
-      return detalle.length;
-    },
-  },
-};
+    pendiente (detalle) {
+      return detalle.length
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 ::v-deep .v-expansion-panel-header {

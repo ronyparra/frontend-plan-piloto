@@ -3,5 +3,5 @@ export default {
   isLoading: (state) => state.loading,
   isSuccess: (state) => state.success,
   isFailed: (state) => state.failed,
-  getMessage: (state) => state.message,
-};
+  getMessage: (state) => state.message
+}

@@ -1,5 +1,5 @@
 <template>
-  <c-btn
+  <v-btn
     color="primary"
     elevation="2"
     fab
@@ -10,15 +10,15 @@
     <c-icon>
       edit
     </c-icon>
-  </c-btn>
+  </v-btn>
 </template>
 <script>
 export default {
   props: {
     text: {
       type: Boolean,
-      default: false,
-    },
-  },
-};
+      default: false
+    }
+  }
+}
 </script>

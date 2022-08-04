@@ -1,51 +1,51 @@
 <template>
-  <c-bottom-sheet :value="value" @input="$emit('input', $event)">
+  <v-bottom-sheet :value="value" @input="$emit('input', $event)">
     <c-sheet class="text-center rounded-t-xl" height="170px">
       <c-card-title class="d-flex justify-center mt-2"
         >Finalizar el Pendiente</c-card-title
       >
       <div class="mt-n2">Que desear hacer?</div>
-      <c-container class="d-flex flex-row">
-        <c-col cols="6"
-          ><c-btn text elevation="2" color="primary" block rounded @click="terminar()"
-            >Terminar</c-btn
-          ></c-col
+      <v-container class="d-flex flex-row justify-center">
+        <v-col cols="6" md="4" lg="3"
+          ><v-btn text elevation="2" color="primary" block rounded @click="terminar()"
+            >Terminar</v-btn
+          ></v-col
         >
-        <c-col cols="6"
-          ><c-btn block rounded color="primary" @click="asentar()"
-            >Asentar</c-btn
-          ></c-col
+        <v-col cols="6" md="4" lg="3"
+          ><v-btn block rounded color="primary" @click="asentar()"
+            >Asentar</v-btn
+          ></v-col
         >
-      </c-container>
+      </v-container>
     </c-sheet>
-  </c-bottom-sheet>
+  </v-bottom-sheet>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 export default {
   props: {
-    value: Boolean,
+    value: Boolean
   },
   methods: {
-    ...mapActions("pendiente", ["setChangeStatus", "fetchDashboard"]),
-    async terminar() {
+    ...mapActions('pendiente', ['setChangeStatus', 'fetchDashboard']),
+    async terminar () {
       const form = {
         idpendiente: this.$route.params.id,
-        activo: false,
-      };
-     const response = await  this.setChangeStatus(form);
-     if(response.success) {
-        this.$emit('input', false);
-        this.fetchDashboard();
-        this.$router.replace({ path: "/pendiente" });
-     }
+        activo: false
+      }
+      const response = await this.setChangeStatus(form)
+      if (response.success) {
+        this.$emit('input', false)
+        this.fetchDashboard()
+        this.$router.replace({ path: '/pendiente' })
+      }
     },
-    asentar() {
+    asentar () {
       this.$router.push({
-        path: "/actividad/add",
-        query: { idpendiente: this.$route.params.id },
-      });
-    },
-  },
-};
+        path: '/actividad/add',
+        query: { idpendiente: this.$route.params.id }
+      })
+    }
+  }
+}
 </script>

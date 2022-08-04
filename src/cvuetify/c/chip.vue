@@ -3,9 +3,9 @@
 </template>
 <script>
 export default {
-    props:{
-        color: String,
+  props: {
+    color: String,
     dark: Boolean
-    }
+  }
 }
 </script>

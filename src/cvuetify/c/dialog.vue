@@ -8,7 +8,7 @@ export default {
   props: {
     value: Boolean,
     maxWidth: [String, Number],
-    persistent: Boolean,
-  },
-};
+    persistent: Boolean
+  }
+}
 </script>

@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import InputAutocomplete from "@/components/InputAutocomplete";
-import { mapActions, mapGetters } from "vuex";
+import InputAutocomplete from '@/components/InputAutocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    InputAutocomplete,
+    InputAutocomplete
   },
   props: {
     value: [Number, Object, Array],
@@ -35,18 +35,18 @@ export default {
     to: {
       type: String,
       default: '/categoria/add'
-    },
+    }
   },
-  mounted() {
-    this.fetchCategoria();
+  mounted () {
+    this.fetchCategoria()
   },
   computed: {
-    ...mapGetters("categoria", ["getCategoria", "isLoading"]),
+    ...mapGetters('categoria', ['getCategoria', 'isLoading'])
   },
   methods: {
-    ...mapActions("categoria", ["fetchCategoria"]),
+    ...mapActions('categoria', ['fetchCategoria']),
     focus: (vm) => vm.$refs.input.focus(),
-    isMenuActive: (vm) => vm.$refs.input.isMenuActive(),
-  },
-};
+    isMenuActive: (vm) => vm.$refs.input.isMenuActive()
+  }
+}
 </script>

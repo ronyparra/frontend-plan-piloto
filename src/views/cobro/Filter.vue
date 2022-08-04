@@ -1,9 +1,8 @@
 <template>
-  <c-card flat class="mb-n2">
-    <c-card-text>
-      <c-form ref="form">
-        <c-row dense>
-          <c-col cols="12" sm="4" md="2" class="my-n2">
+  <c-card flat >
+      <v-form ref="form" class="my-2 d-flex align-center">
+        <v-row dense>
+          <v-col cols="12" sm="4" md="2" >
             <AutocompleteCliente
               label=""
               clearable
@@ -12,8 +11,8 @@
               @change="form.idsucursal = undefined"
               v-model="form.idcliente"
             />
-          </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n2">
+          </v-col>
+          <v-col cols="12" sm="4" md="2" >
             <AutocompleteUsuario
               label=""
               clearable
@@ -21,8 +20,8 @@
               :rules="[]"
               v-model="form.idusuario"
             />
-          </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n2">
+          </v-col>
+          <v-col cols="12" sm="4" md="2" >
             <AutocompleteEstadoCobro
               label=""
               clearable
@@ -30,39 +29,38 @@
               :rules="[]"
               v-model="form.idestadocobro"
             />
-          </c-col>
-          <c-col cols="12" sm="4" md="2" class="my-n2">
+          </v-col>
+          <v-col cols="12" sm="4" md="2" >
             <TextDate
               placeholder="Filtrar Desde"
               v-model="form.fechadesde"
             />
-          </c-col>
-          <c-col cols="9" sm="4" md="2" class="my-n2">
+          </v-col>
+          <v-col cols="9" sm="4" md="2" >
             <TextDate
               placeholder="Filtrar Hasta"
               v-model="form.fechahasta"
             />
-          </c-col>
+          </v-col>
 
           <v-spacer></v-spacer>
-          <c-btn text color="blue" class="mt-n1 text-capitalize" @click="filtrar()"
-            >Filtrar</c-btn
+          <v-btn text color="blue" class=" text-capitalize" @click="filtrar()"
+            >Filtrar</v-btn
           >
-        </c-row>
-      </c-form>
-      <c-divider></c-divider>
-    </c-card-text>
+        </v-row>
+      </v-form>
+      <v-divider></v-divider>
   </c-card>
 </template>
 <script>
-import TextDate from "@/components/TextDate";
-import AutocompleteCliente from "../cliente/Autocomplete";
-import AutocompleteEstadoCobro from "../estadocobro/Autocomplete";
-import AutocompleteUsuario from "../usuario/Autocomplete";
-import { mapActions, mapGetters } from "vuex";
+import TextDate from '@/components/TextDate'
+import AutocompleteCliente from '../cliente/Autocomplete'
+import AutocompleteEstadoCobro from '../estadocobro/Autocomplete'
+import AutocompleteUsuario from '../usuario/Autocomplete'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: {
-    value: Array,
+    value: Array
   },
   components: {
     TextDate,
@@ -70,35 +68,35 @@ export default {
     AutocompleteCliente,
     AutocompleteEstadoCobro
   },
-  created() {
-    this.form = JSON.parse(JSON.stringify(this.getParams));
+  created () {
+    this.form = JSON.parse(JSON.stringify(this.getParams))
   },
-  watch:{
-    getParams(){
-      this.form = JSON.parse(JSON.stringify(this.getParams));
+  watch: {
+    getParams () {
+      this.form = JSON.parse(JSON.stringify(this.getParams))
     }
   },
-  computed:{
-    ...mapGetters("cobro",['getParams'])
+  computed: {
+    ...mapGetters('cobro', ['getParams'])
   },
   methods: {
-    ...mapActions("cobro", ["fetchCobro","setParams"]),
-    
-    filtrar() {
-      if (!this.$refs.form.validate()) return null;
-      this.fetchCobro(this.form);
-      this.setParams(this.form);
-    },
+    ...mapActions('cobro', ['fetchCobro', 'setParams']),
+
+    filtrar () {
+      if (!this.$refs.form.validate()) return null
+      this.fetchCobro(this.form)
+      this.setParams(this.form)
+    }
   },
   data: () => ({
     form: {
-      idcliente: "",
-      idusuario: "",
-      idsucursal: "",
-      fechadesde: "",
-      fechahasta: "",
-      idestadocobro: "",
-    },
-  }),
-};
+      idcliente: '',
+      idusuario: '',
+      idsucursal: '',
+      fechadesde: '',
+      fechahasta: '',
+      idestadocobro: ''
+    }
+  })
+}
 </script>
